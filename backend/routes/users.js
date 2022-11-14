@@ -6,8 +6,7 @@ const {
     getUserInfo,
     updateUserInfo,
     deleteUserInfo,
-    signInUserInfo,
-    logoutUser
+    signInUserInfo
 } = require('../controllers/users')
 
-router.route('/')
+router.route('/users')

@@ -26,4 +26,16 @@ CREATE TABLE Comments (
     content varchar(1000) not null
     #reference key (user_id) references User(id)
 );
+
+CREATE TABLE Test(
+	id int primary key unique
+);
+
+CREATE TABLE TestResults (
+	id int primary key unique,
+    result int not null
+    #reference key (test_id) references Test(id)
+);
 #sequelize
+
+# CREATE TABLE AdditionalFiles();
