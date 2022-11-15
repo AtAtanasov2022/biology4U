@@ -67,10 +67,10 @@ CREATE TABLE AdditionalFiles(
     path_name varchar(300) not null unique,
     filename varchar(200) not null,
     
-    topic_id int not null,
+    sub_topic_id int not null,
     user_id int not null,
     
-    foreign key (topic_id) references Topic(id),
+    foreign key (sub_topic_id) references SubTopic(id),
     foreign key (user_id) references User(id)
 );
 
