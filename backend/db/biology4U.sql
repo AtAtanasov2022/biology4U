@@ -5,7 +5,10 @@ CREATE TABLE User (
 	id int primary key unique,
     username varchar(200) not null,
     user_password varchar(200) not null,
-    email varchar(200) not null
+    email varchar(200) not null,
+    firstname varchar(200) not null,
+    lastname varchar(200) not null,
+    user_type enum("admin", "teacher", "student")
 );
 
 CREATE TABLE Topics (
@@ -14,28 +17,61 @@ CREATE TABLE Topics (
     content text not null
 );
 
+CREATE TABLE SubTopics (
+	id int primary key unique,
+    sub_topic_name varchar(200) not null,
+    content text not null,
+    
+    topic_id int not null,
+    
+    foreign key (topic_id) references Topic(id)
+);
+
 CREATE TABLE Questions (
 	id int primary key unique,
     question_name varchar(100) not null,
-    answer varchar(100) not null
-    #reference key (topic_id) references Topics(id)
+    correct_answer varchar(100) not null,
+    incorrect_answer1 varchar(100) not null,
+    incorrect_answer2 varchar(100) not null,
+    incorrect_answer3 varchar(100) not null,
+    
+    sub_topic_id int not null,
+    
+    foreign key(sub_topic_id) references SubTopics(id)
 );
 
 CREATE TABLE Comments (
 	id int primary key unique,
-    content varchar(1000) not null
-    #reference key (user_id) references User(id)
-);
-
-CREATE TABLE Test(
-	id int primary key unique
+    content varchar(1000) not null,
+    
+    user_id int not null,
+    sub_topic_id int not null,
+    
+    foreign key (user_id) references User(id),
+    foreign key (sub_topic_id) references SubTopics(id)
 );
 
 CREATE TABLE TestResults (
 	id int primary key unique,
-    result int not null
-    #reference key (test_id) references Test(id)
+    test_score int not null,
+    
+    topic_id int not null,
+    user_id int not null,
+    
+    foreign key (topic_id) references Topic(id),
+    foreign key (user_id) references User(id)
 );
-#sequelize
 
-# CREATE TABLE AdditionalFiles();
+CREATE TABLE AdditionalFiles(
+	id int primary key unique,
+    path_name varchar(300) not null unique,
+    filename varchar(200) not null,
+    
+    topic_id int not null,
+    user_id int not null,
+    
+    foreign key (topic_id) references Topic(id),
+    foreign key (user_id) references User(id)
+);
+
+#sequelize
