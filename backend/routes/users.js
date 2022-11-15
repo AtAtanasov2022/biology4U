@@ -6,7 +6,10 @@ const {
     getUserInfo,
     updateUserInfo,
     deleteUserInfo,
-    signInUserInfo
+    signInUserInfo,
+    getAllUsersInfo
 } = require('../controllers/users')
 
-router.route('/users')
+router.route('/').get(getAllUsersInfo).post(createUser)
+router.route(`/${id}`).get(getUserInfo).delete(deleteUserInfo).put(updateUserInfo)
+
