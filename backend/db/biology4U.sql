@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS Biology4U;
 CREATE DATABASE Biology4U;
 
 CREATE TABLE User (
-	id int primary key unique,
+	id int primary key auto_increment,
     username varchar(200) not null,
     user_password varchar(200) not null,
     email varchar(200) not null,
@@ -12,13 +12,13 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Topics (
-	id int primary key unique,
+	id int primary key auto_increment,
     topic_name varchar(200) not null,
     content text not null
 );
 
 CREATE TABLE SubTopics (
-	id int primary key unique,
+	id int primary key auto_increment,
     sub_topic_name varchar(200) not null,
     content text not null,
     
@@ -28,7 +28,7 @@ CREATE TABLE SubTopics (
 );
 
 CREATE TABLE Questions (
-	id int primary key unique,
+	id int primary key auto_increment,
     question_name varchar(100) not null,
     correct_answer varchar(100) not null,
     incorrect_answer1 varchar(100) not null,
@@ -41,7 +41,7 @@ CREATE TABLE Questions (
 );
 
 CREATE TABLE Comments (
-	id int primary key unique,
+	id int primary key auto_increment,
     content varchar(1000) not null,
     
     user_id int not null,
@@ -52,7 +52,7 @@ CREATE TABLE Comments (
 );
 
 CREATE TABLE TestResults (
-	id int primary key unique,
+	id int primary key auto_increment,
     test_score int not null,
     
     topic_id int not null,
@@ -63,7 +63,7 @@ CREATE TABLE TestResults (
 );
 
 CREATE TABLE AdditionalFiles(
-	id int primary key unique,
+	id int primary key auto_increment,
     path_name varchar(300) not null unique,
     filename varchar(200) not null,
     
@@ -73,5 +73,11 @@ CREATE TABLE AdditionalFiles(
     foreign key (sub_topic_id) references SubTopic(id),
     foreign key (user_id) references User(id)
 );
+
+INSERT INTO User(username, user_password, email, firstname, lastname, user_type) VALUES ("john1", "password1", "john@gmail.com", "John", "Dou", "student");
+
+SELECT * FROM User;
+
+SELECT * FROM User
 
 #sequelize
