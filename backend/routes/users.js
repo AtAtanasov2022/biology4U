@@ -11,7 +11,7 @@ const {
 } = require('../controllers/users');
 
 router.route('/').get(getAllUsersInfo).post(createUser);
-router.route(`/${id}`).get(getUserInfo).delete(deleteUserInfo).put(updateUserInfo);
 router.route('/signIn').get(signInUserInfo);
+router.route('/:id').get(getUserInfo).delete(deleteUserInfo).put(updateUserInfo);
 
 module.exports = router;
