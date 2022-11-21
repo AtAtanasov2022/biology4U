@@ -8,8 +8,10 @@ const {
     deleteUserInfo,
     signInUserInfo,
     getAllUsersInfo
-} = require('../controllers/users')
+} = require('../controllers/users');
 
-router.route('/').get(getAllUsersInfo).post(createUser)
-router.route(`/${id}`).get(getUserInfo).delete(deleteUserInfo).put(updateUserInfo)
+router.route('/').get(getAllUsersInfo).post(createUser);
+router.route(`/${id}`).get(getUserInfo).delete(deleteUserInfo).put(updateUserInfo);
+router.route('/signIn').get(signInUserInfo);
 
+module.exports = router;
