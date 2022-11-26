@@ -1,12 +1,14 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
+const SubTopic = require("./SubTopic");
+const TestResult = require("./TestResult");
 
 const Topic = sequelize.define("Topic", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   topic_name: {
     type: DataTypes.STRING,
@@ -15,7 +17,10 @@ const Topic = sequelize.define("Topic", {
   content: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
+
+Topic.hasMany(SubTopic);
+Topic.hasMany(TestResult);
 
 module.exports = Topic;

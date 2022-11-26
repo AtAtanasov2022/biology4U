@@ -1,12 +1,15 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
+const AdditionalFile = require("./AdditionalFile");
+const Comment = require("./Comment");
+const TestResult = require("./TestResult");
 
 const User = sequelize.define("User", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   username: {
     type: DataTypes.STRING,
@@ -29,9 +32,13 @@ const User = sequelize.define("User", {
     allowNull: false,
   },
   userType: {
-    type: DataTypes.ENUM('student', 'teacher', 'admin'),
+    type: DataTypes.ENUM("student", "teacher", "admin"),
     allowNull: false,
   },
 });
+
+User.hasMany(Comment);
+User.hasMany(TestResult);
+User.hasMany(AdditionalFile)
 
 module.exports = User;
