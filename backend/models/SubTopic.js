@@ -2,13 +2,13 @@ const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
 
-const Topic = sequelize.define("Topic", {
+const SubTopic = sequelize.define("SubTopic", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  topic_name: {
+  sub_topic_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
