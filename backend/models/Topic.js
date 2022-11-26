@@ -17,3 +17,5 @@ const Topic = sequelize.define("Topic", {
     allowNull: false,
   }
 });
+
+module.exports = Topic;

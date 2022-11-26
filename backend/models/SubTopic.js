@@ -17,3 +17,5 @@ const SubTopic = sequelize.define("SubTopic", {
     allowNull: false,
   }
 });
+
+module.exports = SubTopic;
