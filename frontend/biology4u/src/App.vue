@@ -1,10 +1,12 @@
 <template>
   <nav class="navBar">
-    <div>
+    <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/"
         >Biology4U</router-link
       >
-      <button id="menuButton">M</button>
+      <button id="menuButton">
+        <va-icon class="material-icons-outlined">menu</va-icon>
+      </button>
     </div>
     <div>
       <p id="paragraph1">Теми и тестове по биология</p>
@@ -22,15 +24,11 @@
 </template>
 
 <script>
-
 export default {
   data() {
-    return {
-
-    };
-  }
-}
-
+    return {};
+  },
+};
 </script>
 
 <style>
@@ -69,6 +67,13 @@ body {
   align-items: center;
   width: 16rem;
   justify-content: space-between;
+}
+
+.menuAndLogo {
+  width: 14rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #router1 {
