@@ -5,10 +5,14 @@
         >Biology4U</router-link
       >
       <button id="menuButton">
-        <va-icon class="material-icons-outlined">menu</va-icon>
+        <va-icon
+          class="material-icons"
+          style="font-size: 2.188rem; height: 2.188rem; line-height: 2.188rem; cursor:pointer;"
+          >menu</va-icon
+        >
       </button>
     </div>
-    <div>
+    <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
     </div>
     <div class="navButtons">
@@ -31,19 +35,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @font-face {
   font-family: "Roboto";
   src: local("Roboto"), url(./fonts/Roboto-Bold.ttf) format("truetype");
 }
+
 @font-face {
   font-family: "RobotoRegular";
   src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
 }
+
 @font-face {
   font-family: "RobotoMedium";
   src: local("Roboto"), url(./fonts/Roboto-Medium.ttf) format("truetype");
 }
+
 body {
   margin: 0rem;
   padding: 0rem;
@@ -70,10 +77,14 @@ body {
 }
 
 .menuAndLogo {
-  width: 14rem;
+  width: 15rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.paragraph {
+  margin-right: 4rem;
 }
 
 #router1 {
@@ -103,5 +114,13 @@ body {
   font-family: "RobotoMedium";
   font-size: 1.5rem;
   color: #d8f3dc;
+}
+
+#menuButton {
+  width: 3.125;
+  height: 3.125;
+  border-radius: 0.313rem;
+  color: #d8f3dc;
+  background-color: #40916c;
 }
 </style>
