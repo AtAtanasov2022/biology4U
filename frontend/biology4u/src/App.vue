@@ -1,30 +1,37 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <nav class="navBar">
+    <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
+    <router-link class="routerLink" to="/home">Home</router-link> |
+    <router-link class="routerLink" to="/about">About</router-link>
   </nav>
   <router-view/>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"),
+  url(./fonts/Roboto-Bold.ttf) format("truetype");
+}
+body {
+  margin: 0rem;
+  padding: 0rem;
 }
 
-nav {
-  padding: 30px;
+.routerLink {
+  text-decoration: none;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#router1 {
+  font-family: "Roboto";
+  font-size: 2.5rem;
+  color: #D8F3DC;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.navBar {
+  height: 5.313rem;
+  background-color: #2D6A4F;
+  display: flex;
+  align-items: center;
 }
 </style>
