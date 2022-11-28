@@ -17,14 +17,11 @@ const SubTopic = sequelize.define("SubTopic", {
     allowNull: false,
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT('long'),
     allowNull: false,
   }
 });
 
-SubTopic.belongsTo(Topic);
-SubTopic.hasMany(Question);
-SubTopic.hasMany(Comment);
-SubTopic.hasMany(AdditionalFile);
+
 
 module.exports = SubTopic;

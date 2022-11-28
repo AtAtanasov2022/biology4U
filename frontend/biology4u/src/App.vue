@@ -4,7 +4,7 @@
       <router-link class="routerLink" id="router1" to="/"
         >Biology4U</router-link
       >
-      <button id="menuButton">
+      <button  id="menuButton">
         <va-icon
           class="material-icons"
           style="font-size: 2.188rem; height: 2.188rem; line-height: 2.188rem; cursor:pointer;"
@@ -86,6 +86,13 @@ body {
 .paragraph {
   margin-right: 4rem;
 }
+
+/* .material-icons {
+  --va-icon-font-size: 2.188rem; 
+  --va-icon-height: 2.188rem; 
+  --va-icon-line-height: 2.188rem; 
+  --va-icon-cursor:pointer;
+} */
 
 #router1 {
   font-family: "Roboto";

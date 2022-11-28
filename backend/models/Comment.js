@@ -11,12 +11,10 @@ const Comment = sequelize.define("Comment", {
     primaryKey: true,
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT('tiny'),
     allowNull: false,
   },
 });
 
-Comment.belongsTo(User);
-Comment.belongsTo(SubTopic);
 
 module.exports = Comment;

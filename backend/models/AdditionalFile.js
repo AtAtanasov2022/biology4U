@@ -22,7 +22,7 @@ const AdditionalFile = sequelize.define("AdditionalFile", {
   },
 });
 
-AdditionalFile.belongsTo(SubTopic);
-AdditionalFile.belongsTo(User)
+
+
 
 module.exports = AdditionalFile;

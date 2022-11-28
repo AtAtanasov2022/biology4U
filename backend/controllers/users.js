@@ -2,14 +2,9 @@ const User = require("../models/User");
 
 const createUser = async (req, res) => {
   try {
-    
+    console.log(...req.body);
     const user = await User.create({
-      username: "John3",
-      userPassword: "12345",
-      email: "john3@elsys-bg.org",
-      firstname: "John",
-      lastname: "Karims",
-      userType: "student",
+      ...req.body
     });
     console.log(user);
     res.send("User created").status(201);

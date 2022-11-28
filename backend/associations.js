@@ -1,0 +1,27 @@
+const User = require('./models/User');
+const Comment = require('./models/Comment');
+const TestResult = require('./models/TestResult');
+const AdditionalFile = require('./models/AdditionalFile');
+const SubTopic = require('./models/SubTopic');
+const Topic = require('./models/Topic');
+const Question = require('./models/Question');
+const QuestionAnswer = require('./models/QuestionAnswer');
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
+User.hasMany(TestResult);
+TestResult.belongsTo(User);
+User.hasMany(AdditionalFile);
+AdditionalFile.belongsTo(User);
+Topic.hasMany(SubTopic);
+SubTopic.belongsTo(Topic);
+Topic.hasMany(TestResult);
+TestResult.belongsTo(Topic);
+SubTopic.hasMany(Question);
+Question.belongsTo(SubTopic);
+Question.hasMany(QuestionAnswer);
+QuestionAnswer.belongsTo(Question);
+SubTopic.hasMany(Comment);
+Comment.belongsTo(SubTopic);
+SubTopic.hasMany(AdditionalFile);
+AdditionalFile.belongsTo(SubTopic);

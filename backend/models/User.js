@@ -1,9 +1,10 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
-const AdditionalFile = require("./AdditionalFile");
-const Comment = require("./Comment");
-const TestResult = require("./TestResult");
+// const AdditionalFile = require("./AdditionalFile");
+// const Comment = require("./Comment");
+// const TestResult = require("./TestResult");
+// import './associations'
 
 const User = sequelize.define("User", {
   id: {
@@ -37,8 +38,6 @@ const User = sequelize.define("User", {
   },
 });
 
-User.hasMany(Comment);
-User.hasMany(TestResult);
-User.hasMany(AdditionalFile)
+
 
 module.exports = User;

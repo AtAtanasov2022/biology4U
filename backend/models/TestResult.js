@@ -16,7 +16,7 @@ const TestResult = sequelize.define("TestResult", {
   },
 });
 
-TestResult.belongsTo(Topic);
-TestResult.belongsTo(User);
+
+
 
 module.exports = TestResult;

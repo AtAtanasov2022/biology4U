@@ -15,12 +15,11 @@ const Topic = sequelize.define("Topic", {
     allowNull: false,
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT('long'),
     allowNull: false,
   },
 });
 
-Topic.hasMany(SubTopic);
-Topic.hasMany(TestResult);
+
 
 module.exports = Topic;
