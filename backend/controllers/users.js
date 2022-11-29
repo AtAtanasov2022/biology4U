@@ -2,12 +2,12 @@ const User = require("../models/User");
 
 const createUser = async (req, res) => {
   try {
-    console.log(...req.body);
-    const user = await User.create({
-      ...req.body
-    });
+    console.log(req.body);
+    const user = await User.create(
+      req.body
+    );
     console.log(user);
-    res.send("User created").status(201);
+    res.send(user).status(201);
   } catch (err) {
     // next(err);
     res.send(err);

@@ -34,10 +34,10 @@ export default {
     createUser() {
       const userInfo = {
         username: this.username,
-        password: this.password,
+        userPassword: this.password,
         email: this.email,
-        firstName: this.firstName,
-        lastName: this.lastName,
+        firstname: this.firstName,
+        lastname: this.lastName,
         userType: this.userType,
       };
 
