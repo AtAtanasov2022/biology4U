@@ -3,8 +3,7 @@
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
       <button id="menuButton">
-        <va-icon class="material-icons"
-          style="font-size: 2.188rem; height: 2.188rem; line-height: 2.188rem; cursor: pointer;">menu</va-icon>
+        <va-icon class="material-icons">menu</va-icon>
       </button>
     </div>
     <div class="paragraph">
@@ -47,6 +46,10 @@ body {
   padding: 0rem;
 }
 
+.material-icons {
+  --va-icon-height: 90rem;
+}
+
 .routerLink {
   text-decoration: none;
 }
@@ -75,7 +78,7 @@ body {
 }
 
 .paragraph {
-  margin-right: 4rem;
+  margin-right: 1.0rem;
 }
 
 /* .material-icons {
@@ -84,6 +87,13 @@ body {
   --va-icon-line-height: 2.188rem; 
   --va-icon-cursor:pointer;
 } */
+i.va-icon.material-icons {
+  font-size: 2.188rem !important;
+  height: 2.188rem !important;
+  line-height: 2.188rem !important;
+  cursor: pointer !important;
+  border: none !important;
+}
 
 #router1 {
   font-family: "Roboto";
@@ -120,5 +130,6 @@ body {
   border-radius: 0.313rem;
   color: #d8f3dc;
   background-color: #40916c;
+  border: none;
 }
 </style>

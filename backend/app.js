@@ -28,7 +28,8 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "http://localhost:8080", //???
+    // origin: "http://localhost:8080", //???
+    origin: "http://192.168.87.2:8080/",
   })
 );
 

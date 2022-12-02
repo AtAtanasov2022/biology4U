@@ -56,4 +56,11 @@ export default {
 
 <style>
 
+div.va-carousel__indicators {
+  display: none !important;
+}
+div.va-carousel__arrow--left,
+div.va-carousel__arrow--right {
+  display: none !important;
+}
 </style>
