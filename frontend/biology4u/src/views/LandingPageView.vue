@@ -1,6 +1,8 @@
 <template>
   <div class="landingPage">
     <!-- //Carousel -->
+    <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000" style="height: 39rem; border-radius: 0rem ;">
+    </va-carousel>
     <!-- //H1 tag with welcome message -->
     <!-- //Sign in Button  -->
 
@@ -17,9 +19,13 @@
 
 <script>
 import store from '@/store';
+import image1 from '../assets/image1Bio.jpg'
+import image2 from '../assets/image2Bio.jpg'
+import image3 from '../assets/image3Bio.jpg'
+import image4 from '../assets/image4Bio.jpg'
 
 export default {
-  data() {
+  data() {  
     return {
       username: "",
       password: "",
@@ -27,6 +33,7 @@ export default {
       firstName: "",
       lastName: "",
       userType: "",
+      items: [image1, image2, image3, image4],
     };
   },
 
@@ -47,4 +54,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
