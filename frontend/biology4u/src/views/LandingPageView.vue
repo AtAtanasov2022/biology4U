@@ -1,9 +1,11 @@
 <template>
   <div class="landingPage">
-    <!-- //Carousel -->
-    <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000" style="height: 39rem; border-radius: 0rem ;">
+    <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000">
     </va-carousel>
     <!-- //H1 tag with welcome message -->
+    <div class="paragraph1Div">
+      <p class="paragraph1">Всички теми по биология на едно място</p>
+    </div>
     <!-- //Sign in Button  -->
 
     <input placeholder="Username" v-model="username" />
@@ -25,7 +27,7 @@ import image3 from '../assets/image3Bio.jpg'
 import image4 from '../assets/image4Bio.jpg'
 
 export default {
-  data() {  
+  data() {
     return {
       username: "",
       password: "",
@@ -55,12 +57,46 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url(../fonts/Roboto-Bold.ttf) format("truetype");
+}
 
 div.va-carousel__indicators {
   display: none !important;
 }
+
 div.va-carousel__arrow--left,
 div.va-carousel__arrow--right {
   display: none !important;
+}
+
+div.va-carousel {
+  height: 35.5rem !important;
+  border-radius: 0rem;
+}
+
+.landingPage{
+  position: relative;
+}
+
+.paragraph1Div {
+  
+  height: 35.5rem;
+  width: 100%;
+  position: absolute;
+  top: 0rem; 
+  margin: auto;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.paragraph1 {
+  font-family: "Roboto";
+  position: relative;
+  top: 12.5rem;
+  left: 14rem;
+
+  font-size: 3rem;
 }
 </style>
