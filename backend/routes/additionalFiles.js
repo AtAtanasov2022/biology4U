@@ -7,7 +7,7 @@ const {
     updateAdditionalFileInfo,
     deleteAdditionalFile,
     getAllAdditionalFiles
-} = require('../controllers/topics');
+} = require('../controllers/additionalFiles');
 
 router.route('/').get(getAllAdditionalFiles).post(createAdditionalFile);
 router.route('/:id').get(getAdditionalFileInfo).delete(deleteAdditionalFile).put(updateAdditionalFileInfo);

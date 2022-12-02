@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
+
 const usersRoutes = require("./routes/users");
+const topicsRoutes = require("./routes/topics");
+const testResultsRoutes = require("./routes/testResults");
+
 const sequelize = require("./connect");
 const associations = require("./associations");
+
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -21,6 +26,8 @@ app.use(
 );
 
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/topics", topicsRoutes);
+app.use("/api/v1/testResults", testResultsRoutes);
 
 sequelize
   .authenticate()

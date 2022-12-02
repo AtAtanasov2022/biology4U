@@ -7,7 +7,7 @@ const {
     updateCommentInfo,
     deleteComment,
     getAllComments
-} = require('../controllers/topics');
+} = require('../controllers/comments');
 
 router.route('/').get(getAllComments).post(createComment);
 router.route('/:id').get(getCommentInfo).delete(deleteComment).put(updateCommentInfo);

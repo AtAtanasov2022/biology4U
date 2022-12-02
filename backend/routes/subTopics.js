@@ -7,7 +7,7 @@ const {
     updateSubTopicInfo,
     deleteSubTopic,
     getAllSubTopics
-} = require('../controllers/topics');
+} = require('../controllers/subtopics');
 
 router.route('/').get(getAllSubTopics).post(createSubTopic);
 router.route('/:id').get(getSubTopicInfo).delete(deleteSubTopic).put(updateSubTopicInfo);

@@ -1,27 +1,18 @@
 <template>
   <nav class="navBar">
     <div class="menuAndLogo">
-      <router-link class="routerLink" id="router1" to="/"
-        >Biology4U</router-link
-      >
-      <button  id="menuButton">
-        <va-icon
-          class="material-icons"
-          style="font-size: 2.188rem; height: 2.188rem; line-height: 2.188rem; cursor:pointer;"
-          >menu</va-icon
-        >
+      <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
+      <button id="menuButton">
+        <va-icon class="material-icons"
+          style="font-size: 2.188rem; height: 2.188rem; line-height: 2.188rem; cursor: pointer;">menu</va-icon>
       </button>
     </div>
     <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
     </div>
     <div class="navButtons">
-      <router-link class="routerLink" id="router2" to="/logIn"
-        >Вход</router-link
-      >
-      <router-link class="routerLink" id="router3" to="/signIn"
-        >Регистрация</router-link
-      >
+      <router-link class="routerLink" id="router2" to="/logIn">Вход</router-link>
+      <router-link class="routerLink" id="router3" to="/signIn">Регистрация</router-link>
     </div>
   </nav>
   <router-view />
