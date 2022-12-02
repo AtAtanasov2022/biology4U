@@ -1,6 +1,6 @@
 <template>
   <div class="landingPage">
-    <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000">
+    <va-carousel :items="items" stateful autoscroll :autoscrollInterval="2000">
     </va-carousel>
     <!-- //H1 tag with welcome message -->
     <div class="paragraphAndBtn">
