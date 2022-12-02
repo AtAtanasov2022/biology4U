@@ -107,13 +107,15 @@ div.va-carousel {
 
 .button {
   position: relative;
+  padding: 0.3rem;
   top: 13.5rem;
   left: 35rem;
   font-family: "RobotoRegular";
   font-size: 1.563rem;
   color: #ffffff;
   background-color: #40916c;
-  border-radius: 1.563rem;
+  /* border-radius: 1.563rem; */
+  border-radius: 1rem;
   width: 12.625rem;
   border: none;
   cursor: pointer;
