@@ -3,8 +3,9 @@
     <va-carousel :items="items" stateful autoscroll :autoscrollInterval="3000">
     </va-carousel>
     <!-- //H1 tag with welcome message -->
-    <div class="paragraph1Div">
+    <div class="paragraphAndBtn">
       <p class="paragraph1">Всички теми по биология на едно място</p>
+      <button class="button" @click="toSignIn">Регистрирай се</button>
     </div>
     <!-- //Sign in Button  -->
 
@@ -19,7 +20,8 @@
   </div>
 </template>
 
-<script>
+<script scoped>
+import router from '@/router';
 import store from '@/store';
 import image1 from '../assets/image1Bio.jpg'
 import image2 from '../assets/image2Bio.jpg'
@@ -52,6 +54,10 @@ export default {
 
       store.dispatch('setUserData', userInfo);
     },
+
+    toSignIn() {
+      router.push("/signIn");
+    }
   },
 };
 </script>
@@ -80,7 +86,7 @@ div.va-carousel {
   position: relative;
 }
 
-.paragraph1Div {
+.paragraphAndBtn {
   
   height: 35.5rem;
   width: 100%;
@@ -98,5 +104,19 @@ div.va-carousel {
   left: 14rem;
 
   font-size: 3rem;
+}
+
+.button {
+  position: relative;
+  top: 13.5rem;
+  left: 35rem;
+  font-family: "RobotoRegular";
+  font-size: 1.563rem;
+  color: #ffffff;
+  background-color: #40916c;
+  border-radius: 1.563rem;
+  width: 12.625rem;
+  border: none;
+  cursor: pointer;
 }
 </style>
