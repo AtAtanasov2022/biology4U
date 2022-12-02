@@ -16,20 +16,20 @@ const createUser = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   try {
-    await User.findAll({
+    const user = await User.findAll({
       where: {
-        id: 1,
+        id: req.body.id,
       },
     });
-    res.send("User").status(200);
+    res.send(user).status(200);
   } catch (err) {
-    next(err);
+    res.send(err);
   }
 };
 
 const updateUserInfo = async (req, res) => {
   try {
-    await User.update(
+    user = await User.update(
       { lastName: Jephfree },
       {
         where: {
@@ -37,9 +37,9 @@ const updateUserInfo = async (req, res) => {
         },
       }
     );
-    res.send("Updated").status(200);
+    res.send(user).status(200);
   } catch (err) {
-    next(err);
+    res.send(err);
   }
 };
 
@@ -50,9 +50,9 @@ const deleteUserInfo = async (req, res) => {
         id: 2,
       },
     });
-    res.send("Deleted").status(200);
+    res.send({destroyed: true}).status(200);
   } catch (err) {
-    next(err);
+    res.send(err);
   }
 };
 
