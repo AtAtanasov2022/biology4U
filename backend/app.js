@@ -16,6 +16,8 @@ const associations = require("./associations");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+// app.use(associations);
+
 app.use(
   bodyParser.urlencoded({
     extended: true,

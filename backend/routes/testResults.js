@@ -7,7 +7,7 @@ const {
     updateTestResultInfo,
     deleteTestResult,
     getAllTestResults
-} = require('../controllers/subtopics');
+} = require('../controllers/testResults');
 
 router.route('/').get(getAllTestResults).post(createTestResult);
 router.route('/:id').get(getTestResultInfo).delete(deleteTestResult).put(updateTestResultInfo);
