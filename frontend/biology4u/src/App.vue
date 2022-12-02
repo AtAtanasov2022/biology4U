@@ -71,6 +71,7 @@ body {
 }
 
 .menuAndLogo {
+  margin-left: 1rem;
   width: 15rem;
   display: flex;
   justify-content: space-between;

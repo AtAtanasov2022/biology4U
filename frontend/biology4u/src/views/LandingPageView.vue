@@ -9,14 +9,14 @@
     </div>
     <!-- //Sign in Button  -->
 
-    <input placeholder="Username" v-model="username" />
+    <!-- <input placeholder="Username" v-model="username" />
     <input placeholder="Password" v-model="password" />
     <input placeholder="Email" v-model="email" />
     <input placeholder="FirstName" v-model="firstName" />
     <input placeholder="LastName" v-model="lastName" />
     <input placeholder="UserType" v-model="userType" />
 
-    <button @click="createUser">Create User</button>
+    <button @click="createUser">Create User</button> -->
   </div>
 </template>
 
@@ -87,7 +87,6 @@ div.va-carousel {
 }
 
 .paragraphAndBtn {
-  
   height: 35.5rem;
   width: 100%;
   position: absolute;
