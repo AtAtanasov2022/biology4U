@@ -6,7 +6,6 @@ const createUser = async (req, res) => {
     const user = await User.create(
       req.body
     );
-    console.log(user);
     res.send(user).status(201);
   } catch (err) {
     // next(err);
@@ -30,10 +29,10 @@ const getUserInfo = async (req, res) => {
 const updateUserInfo = async (req, res) => {
   try {
     user = await User.update(
-      { lastName: Jephfree },
+      req.body,
       {
         where: {
-          lastName: "Doue",
+          id: req.body.id,
         },
       }
     );
@@ -47,7 +46,7 @@ const deleteUserInfo = async (req, res) => {
   try {
     await User.destroy({
       where: {
-        id: 2,
+        id: req.body.id,
       },
     });
     res.send({destroyed: true}).status(200);
