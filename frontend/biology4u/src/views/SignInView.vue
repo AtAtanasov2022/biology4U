@@ -1,7 +1,7 @@
 <template>
     <div class="signInView">
         <div class="inputContainer">
-            <va-input class="inputField firstInput" v-model="username" label="Потребителско име:" placeholder="Потребителско име:" />
+            <va-input class="inputField firstInput backgroundprimary" v-model="username" label="Потребителско име:" placeholder="Потребителско име:" />
             <va-input class="inputField" v-model="email" label="Имейл:" placeholder="Имейл:" />
             <va-input class="inputField" v-model="password" type="password" label="Парола:" placeholder="Парола:"/>
             <va-input class="inputField" v-model="repeatedPassword" type="password" label="Повторете паролата:" placeholder="Повторете паролата:"/>
@@ -33,9 +33,11 @@ export default {
 }
 </script>
 
-<style scoped>
-div.va-input-wrapper__conteiner {
-    background-color: white;
+<style >
+.va-input-wrapper__container {
+    display: flex;
+    align-items: center;
+    width: 21.25rem !important;
 }
 
 .signInView {
@@ -48,8 +50,8 @@ div.va-input-wrapper__conteiner {
     align-items: center;
     background-color: #D8F3DC;
     width: 34.25rem;
-    height: 34rem;
-    margin-top: 2.5rem;
+    height: 41rem;
+    margin-top: 3.5rem;
 }
 
 .inputField {
@@ -58,5 +60,6 @@ div.va-input-wrapper__conteiner {
 
 .firstInput {
     margin-top: 2rem;
+    height: 3.188rem;
 }
 </style>
