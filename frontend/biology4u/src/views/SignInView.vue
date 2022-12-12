@@ -34,26 +34,43 @@ export default {
     },
     methods: {
         signIn() {
-            const userInfo = {
-                username: this.username,
-                userPassword: this.password,
-                email: this.email,
-                firstname: this.firstname,
-                lastname: this.lastname,
-                userType: this.userType
-            };
+            const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
 
-            store.dispatch("signInUser", userInfo);
+            this.username = this.username.trim();
+            this.password = this.password.trim();
+            this.email = this.email.trim();
+            this.firstname = this.firstname.trim();
+            this.lastname = this.lastname.trim();
+
+            if (this.password != this.repeatedPassword) {
+                alert("Паролите не съвпадат.")
+            } else if (this.username === "" || this.password === "" ||
+                this.email === "" || this.firstname === "" ||
+                this.lastname === "" || this.userType === "") {
+                alert("Попълнете всички полета и опитайте отново.")
+            } else if (regexExp.test(this.email.trim()) === false) {
+                alert("Въведете валиден имейл адрес.");
+            } else {
+                const userInfo = {
+                    username: this.username,
+                    userPassword: this.password,
+                    email: this.email,
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    userType: this.userType
+                };
+
+                store.dispatch("signInUser", userInfo);
+            }
         }
-    } 
+    }
 }
 </script>
 
 <style scoped>
-
 @font-face {
-  font-family: "RobotoRegular";
-  src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");
+    font-family: "RobotoRegular";
+    src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");
 }
 
 div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
@@ -65,6 +82,7 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
     display: flex;
     justify-content: center;
 }
+
 .inputContainer {
     display: flex;
     flex-direction: column;
@@ -88,23 +106,25 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
 .firstInputField {
     margin-top: 3.5rem;
 }
+
 .buttonSignIn {
-  margin: 2rem auto 2rem auto;
-  font-family: "RobotoRegular";
-  font-size: 1.563rem;
-  color: #ffffff;
-  background-color: #40916c;
-  border-radius: 1rem;
-  width: 43%;
-  height: 3.313rem;
-  border: none;
-  cursor: pointer;
+    margin: 2rem auto 2rem auto;
+    font-family: "RobotoRegular";
+    font-size: 1.563rem;
+    color: #ffffff;
+    background-color: #40916c;
+    border-radius: 1rem;
+    width: 43%;
+    height: 3.313rem;
+    border: none;
+    cursor: pointer;
 }
 
 .userTypeLabel {
     margin-top: 1rem;
     width: 72%;
 }
+
 .userTypeSelect {
     width: 72%;
     height: 2.8rem;

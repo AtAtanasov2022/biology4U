@@ -17,15 +17,22 @@ export default {
             username: "",
             password: "",
         }
-    }, 
+    },
     methods: {
         logIn() {
-            const userInfo = {
-                username: this.username,
-                userPassword: this.password
-            };
+            this.username = this.username.trim();
+            this.password = this.password.trim();
 
-            store.dispatch("logInUser", userInfo);
+            if (this.password === "" || this.username === "") {
+                alert("Попълнете всички полета и опитайте отново")
+            } else {
+                const userInfo = {
+                    username: this.username,
+                    userPassword: this.password
+                };
+
+                store.dispatch("logInUser", userInfo);
+            }
         }
     }
 }
@@ -36,6 +43,7 @@ export default {
     display: flex;
     justify-content: center;
 }
+
 .inputContainer {
     display: flex;
     flex-direction: column;
@@ -61,15 +69,15 @@ export default {
 }
 
 .buttonLogIn {
-  margin: 6rem auto 5rem auto;
-  font-family: "RobotoRegular";
-  font-size: 1.563rem;
-  color: #ffffff;
-  background-color: #40916c;
-  border-radius: 1rem;
-  width: 43%;
-  height: 3.313rem;
-  border: none;
-  cursor: pointer;
+    margin: 6rem auto 5rem auto;
+    font-family: "RobotoRegular";
+    font-size: 1.563rem;
+    color: #ffffff;
+    background-color: #40916c;
+    border-radius: 1rem;
+    width: 43%;
+    height: 3.313rem;
+    border: none;
+    cursor: pointer;
 }
 </style>
