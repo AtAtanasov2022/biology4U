@@ -1,9 +1,9 @@
 <template>
     <div class="LogInView">
         <div class="inputContainer">
-            <va-input class="inputField firstInput backgroundprimary" v-model="username" label="Потребителско име:" placeholder="Потребителско име:" />
-            <va-input class="inputField" v-model="password" type="password" label="Парола:" placeholder="Парола:"/>
-            <va-checkbox class="" v-model="rememberMe" :label="longLabel" />
+            <input class="inputField firstInputField" v-model="username" placeholder="Потребителско име:">
+            <input class="inputField" v-model="password" type="password" placeholder="Парола:">
+            <button class="buttonLogIn" @click="logIn">Вход</button>
         </div>
     </div>
 </template>
@@ -16,20 +16,17 @@ export default {
         return {
             username: "",
             password: "",
-            rememberMe: false,
-            longLabel: "Запомни ме"
+        }
+    }, 
+    methods: {
+        logIn() {
+
         }
     }
 }
 </script>
 
 <style scoped>
-.va-input-wrapper__container {
-    display: flex;
-    align-items: center;
-    width: 21.25rem !important;
-}
-
 .LogInView {
     display: flex;
     justify-content: center;
@@ -39,17 +36,35 @@ export default {
     flex-direction: column;
     align-items: center;
     background-color: #D8F3DC;
-    width: 34.25rem;
-    height: 41rem;
+    width: 35%;
+    height: 100%;
     margin-top: 3.5rem;
+    border-radius: 0.625rem;
 }
 
 .inputField {
-    max-height: 3.125rem;
+    width: 72%;
+    height: 3.188rem;
+    border-radius: 0.625rem;
+    border: thin solid;
+    margin-top: 1.5rem;
+    padding: 1rem;
 }
 
-.firstInput {
-    margin-top: 2rem;
-    height: 3.188rem;
+.firstInputField {
+    margin-top: 8.5rem;
+}
+
+.buttonLogIn {
+  margin: 6rem auto 5rem auto;
+  font-family: "RobotoRegular";
+  font-size: 1.563rem;
+  color: #ffffff;
+  background-color: #40916c;
+  border-radius: 1rem;
+  width: 43%;
+  height: 3.313rem;
+  border: none;
+  cursor: pointer;
 }
 </style>

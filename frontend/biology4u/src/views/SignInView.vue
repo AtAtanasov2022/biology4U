@@ -5,8 +5,12 @@
             <input class="inputField" v-model="email" placeholder="Имейл:">
             <input class="inputField" v-model="password" type="password" placeholder="Парола:">
             <input class="inputField" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
-            <va-select background-color="#ffffff" label="Тип на потребителя" :options="options" v-model="userType"/>
-            <button class="button" @click="signIn">Регистрация</button>
+            <label class="userTypeLabel" for="user-types">Тип на потребителя:</label>
+            <select v-model="userType" name="user-types" class="userTypeSelect" placeholder="Тип на потребителя">
+                <option value="student">Ученик</option>
+                <option value="teacher">Учител</option>
+            </select>
+            <button class="buttonSignIn" @click="signIn">Регистрация</button>
         </div>
     </div>
 </template>
@@ -22,7 +26,6 @@ export default {
             password: "",
             repeatedPassword: "",
             userType: "",
-            options: ["учител", "ученик"],
         }
     },
     methods: {
@@ -61,26 +64,40 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
 }
 
 .inputField {
-    width: 21.25rem;
+    width: 72%;
     height: 3.188rem;
     border-radius: 0.625rem;
     border: thin solid;
     margin-top: 1.5rem;
+    padding: 1rem;
 }
 
 .firstInputField {
     margin-top: 3.5rem;
 }
-.button {
+.buttonSignIn {
   margin: 2rem auto 2rem auto;
   font-family: "RobotoRegular";
   font-size: 1.563rem;
   color: #ffffff;
   background-color: #40916c;
   border-radius: 1rem;
-  width: 12.813rem;
+  width: 43%;
   height: 3.313rem;
   border: none;
   cursor: pointer;
+}
+
+.userTypeLabel {
+    margin-top: 1rem;
+    width: 72%;
+}
+.userTypeSelect {
+    width: 72%;
+    height: 2.8rem;
+    border-radius: 0.625rem;
+    border: thin solid;
+    padding-left: 1rem;
+    margin-top: 0.3rem;
 }
 </style>
