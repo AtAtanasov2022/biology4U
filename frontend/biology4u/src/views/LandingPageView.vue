@@ -89,6 +89,7 @@ div.va-carousel {
 
 .landingPage {
   position: relative;
+  height: 100%;
 }
 
 .sloganAndBtn {
