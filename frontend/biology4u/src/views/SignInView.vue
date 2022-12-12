@@ -5,7 +5,7 @@
             <input class="inputField" v-model="email" placeholder="Имейл:">
             <input class="inputField" v-model="password" type="password" placeholder="Парола:">
             <input class="inputField" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
-            <va-select class="" label="Тип на потребителя" :options="options" v-model="userType" />
+            <va-select background-color="#ffffff" label="Тип на потребителя" :options="options" v-model="userType"/>
             <button class="button" @click="signIn">Регистрация</button>
         </div>
     </div>
@@ -38,6 +38,11 @@ export default {
 @font-face {
   font-family: "RobotoRegular";
   src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");
+}
+
+div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
+    width: 21.25rem;
+    margin: 1.5rem auto 0rem auto;
 }
 
 .signInView {
