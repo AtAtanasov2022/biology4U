@@ -55,28 +55,31 @@ const deleteUserInfo = async (req, res) => {
   }
 };
 
-const signInUserInfo = async (req, res) => {
+const logInUserInfo = async (req, res) => {
   try {
-    await User.findAll({
+    const user = await User.findAll({
       where: {
-        email: "joe@gmail.com",
+        username: req.body.username,
+        password: req.body.password,
       },
     });
 
     //Check user info here
 
-    res.send("Signed In").status(200);
+    res.send(user).status(200);
   } catch (err) {
-    next(err);
+    res.send(err);
+    // next(err);
   }
 };
 
 const getAllUsersInfo = async (req, res) => {
   try {
-    await User.findAll();
-    res.send("AllUsers").status(200);
+    const users = await User.findAll();
+    res.send(users).status(200);
   } catch (err) {
-    next(err);
+    res.send(err);
+    // next(err);
   }
 };
 
@@ -85,6 +88,6 @@ module.exports = {
   getUserInfo,
   updateUserInfo,
   deleteUserInfo,
-  signInUserInfo,
+  logInUserInfo,
   getAllUsersInfo,
 };

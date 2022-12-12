@@ -9,7 +9,7 @@
 </template>
 
 <script>
-
+import store from '@/store';
 
 export default {
     data() {
@@ -20,7 +20,12 @@ export default {
     }, 
     methods: {
         logIn() {
+            const userInfo = {
+                username: this.username,
+                userPassword: this.password
+            };
 
+            store.dispatch("logInUser", userInfo);
         }
     }
 }

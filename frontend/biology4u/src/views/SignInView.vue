@@ -5,6 +5,8 @@
             <input class="inputField" v-model="email" placeholder="Имейл:">
             <input class="inputField" v-model="password" type="password" placeholder="Парола:">
             <input class="inputField" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
+            <input class="inputField" v-model="firstname" placeholder="Име:">
+            <input class="inputField" v-model="lastname" placeholder="Фамилия:">
             <label class="userTypeLabel" for="user-types">Тип на потребителя:</label>
             <select v-model="userType" name="user-types" class="userTypeSelect" placeholder="Тип на потребителя">
                 <option value="student">Ученик</option>
@@ -16,7 +18,7 @@
 </template>
 
 <script>
-
+import store from '@/store';
 
 export default {
     data() {
@@ -25,12 +27,23 @@ export default {
             email: "",
             password: "",
             repeatedPassword: "",
+            firstname: "",
+            lastname: "",
             userType: "",
         }
     },
     methods: {
         signIn() {
+            const userInfo = {
+                username: this.username,
+                userPassword: this.password,
+                email: this.email,
+                firstname: this.firstname,
+                lastname: this.lastname,
+                userType: this.userType
+            };
 
+            store.dispatch("signInUser", userInfo);
         }
     } 
 }
