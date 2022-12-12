@@ -98,7 +98,7 @@ div.va-carousel {
 
 .paragraph1 {
   font-family: "Roboto";
-  position: relative;
+  /* position: relative; */
   top: 12.5rem;
   left: 14rem;
 
@@ -106,7 +106,7 @@ div.va-carousel {
 }
 
 .button {
-  position: relative;
+  /* position: relative; */
   padding: 0.3rem;
   top: 13.5rem;
   left: 35rem;
