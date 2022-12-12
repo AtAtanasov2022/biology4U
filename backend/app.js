@@ -15,6 +15,7 @@ const associations = require("./associations");
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
+require("dotenv").config();
 
 // app.use(associations);
 
@@ -49,7 +50,8 @@ sequelize
 
     console.log("Connection has been established successfully.");
 
-    const port = 5001;
+    const port = process.env.PORT;;
+    
 
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}...`);
