@@ -3,8 +3,8 @@
     <va-carousel :items="items" stateful autoscroll :autoscrollInterval="2000">
     </va-carousel>
     <!-- //H1 tag with welcome message -->
-    <div class="paragraphAndBtn">
-      <p class="paragraph1">Всички теми по биология на едно място</p>
+    <div class="sloganAndBtn">
+      <p class="slogan">Всички теми по биология на едно място</p>
       <button class="button" @click="toSignIn">Регистрирай се</button>
     </div>
     <!-- //Sign in Button  -->
@@ -68,6 +68,11 @@ export default {
   src: local("Roboto"), url(../fonts/Roboto-Bold.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "RobotoRegular";
+  src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");
+}
+
 div.va-carousel__indicators {
   display: none !important;
 }
@@ -82,41 +87,41 @@ div.va-carousel {
   border-radius: 0rem;
 }
 
-.landingPage{
+.landingPage {
   position: relative;
 }
 
-.paragraphAndBtn {
-  height: 35.5rem;
+.sloganAndBtn {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
   width: 100%;
   position: absolute;
-  top: 0rem; 
+  top: 0rem;
   margin: auto;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.paragraph1 {
+.slogan {
   font-family: "Roboto";
-  /* position: relative; */
-  top: 12.5rem;
-  left: 14rem;
+  width: fit-content;
+  margin: 0rem auto 3rem auto;
 
   font-size: 3rem;
 }
 
 .button {
-  /* position: relative; */
   padding: 0.3rem;
-  top: 13.5rem;
-  left: 35rem;
+  margin: 0rem auto 0rem auto;
   font-family: "RobotoRegular";
   font-size: 1.563rem;
   color: #ffffff;
   background-color: #40916c;
-  /* border-radius: 1.563rem; */
   border-radius: 1rem;
-  width: 12.625rem;
+  width: fit-content;
   border: none;
   cursor: pointer;
 }

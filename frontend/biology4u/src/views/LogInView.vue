@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 .va-input-wrapper__container {
     display: flex;
     align-items: center;

@@ -1,13 +1,12 @@
 <template>
     <div class="signInView">
         <div class="inputContainer">
-            <va-input class="inputField firstInput backgroundprimary" v-model="username" label="Потребителско име:" placeholder="Потребителско име:" />
-            <va-input class="inputField" v-model="email" label="Имейл:" placeholder="Имейл:" />
-            <va-input class="inputField" v-model="password" type="password" label="Парола:" placeholder="Парола:"/>
-            <va-input class="inputField" v-model="repeatedPassword" type="password" label="Повторете паролата:" placeholder="Повторете паролата:"/>
+            <input class="inputField firstInputField" v-model="username" placeholder="Потребителско име:">
+            <input class="inputField" v-model="email" placeholder="Имейл:">
+            <input class="inputField" v-model="password" type="password" placeholder="Парола:">
+            <input class="inputField" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
             <va-select class="" label="Тип на потребителя" :options="options" v-model="userType" />
-            <va-checkbox class="" v-model="termsAndServices" :label="label" />
-            <va-checkbox class="" v-model="rememberMe" :label="longLabel" />
+            <button class="button" @click="signIn">Регистрация</button>
         </div>
     </div>
 </template>
@@ -23,21 +22,22 @@ export default {
             password: "",
             repeatedPassword: "",
             userType: "",
-            termsAndServices: false,
-            rememberMe: false,
             options: ["учител", "ученик"],
-            label: "Условия",
-            longLabel: "Запомни ме"
         }
-    }
+    },
+    methods: {
+        signIn() {
+
+        }
+    } 
 }
 </script>
 
-<style >
-.va-input-wrapper__container {
-    display: flex;
-    align-items: center;
-    width: 21.25rem !important;
+<style scoped>
+
+@font-face {
+  font-family: "RobotoRegular";
+  src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");
 }
 
 .signInView {
@@ -49,17 +49,33 @@ export default {
     flex-direction: column;
     align-items: center;
     background-color: #D8F3DC;
-    width: 34.25rem;
-    height: 41rem;
+    width: 35%;
+    height: 100%;
     margin-top: 3.5rem;
+    border-radius: 0.625rem;
 }
 
 .inputField {
-    max-height: 3.125rem;
+    width: 21.25rem;
+    height: 3.188rem;
+    border-radius: 0.625rem;
+    border: thin solid;
+    margin-top: 1.5rem;
 }
 
-.firstInput {
-    margin-top: 2rem;
-    height: 3.188rem;
+.firstInputField {
+    margin-top: 3.5rem;
+}
+.button {
+  margin: 2rem auto 2rem auto;
+  font-family: "RobotoRegular";
+  font-size: 1.563rem;
+  color: #ffffff;
+  background-color: #40916c;
+  border-radius: 1rem;
+  width: 12.813rem;
+  height: 3.313rem;
+  border: none;
+  cursor: pointer;
 }
 </style>
