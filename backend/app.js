@@ -15,9 +15,12 @@ const associations = require("./associations");
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const createError = require("http-errors");
+
 require("dotenv").config();
 
 // app.use(associations);
+app.use(express.json());
 
 app.use(
   bodyParser.urlencoded({
@@ -33,6 +36,16 @@ app.use(
     // origin: "http://192.168.87.2:8080/",
   })
 );
+
+//Should move to other file
+app.use((err, req, res, next) => {
+  // console.log(err);
+  err.statusCode = err.statusCode || 500;
+  err.message = err.message || "Internal Server Error";
+  res.status(err.statusCode).json({
+    message: err.message,
+  });
+});
 
 app.use("/api/v1/users", usersRoutes);
 app.use("/api/v1/topics", topicsRoutes);
