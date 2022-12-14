@@ -88,7 +88,7 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
     flex-direction: column;
     align-items: center;
     background-color: #D8F3DC;
-    width: 35%;
+    width: 25%;
     height: 100%;
     margin-top: 3.5rem;
     border-radius: 0.625rem;
@@ -96,7 +96,7 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
 
 .inputField {
     width: 72%;
-    height: 3.188rem;
+    height: 2.188rem;
     border-radius: 0.625rem;
     border: thin solid;
     margin-top: 1.5rem;
@@ -110,12 +110,12 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
 .buttonSignIn {
     margin: 2rem auto 2rem auto;
     font-family: "RobotoRegular";
-    font-size: 1.563rem;
+    font-size: 1.2rem;
     color: #ffffff;
     background-color: #40916c;
     border-radius: 1rem;
     width: 43%;
-    height: 3.313rem;
+    height: 2.8rem;
     border: none;
     cursor: pointer;
 }
@@ -127,7 +127,7 @@ div.va-dropdown.va-select.va-select__dropdown.va-select-dropdown {
 
 .userTypeSelect {
     width: 72%;
-    height: 2.8rem;
+    height: 2.188rem;
     border-radius: 0.625rem;
     border: thin solid;
     padding-left: 1rem;

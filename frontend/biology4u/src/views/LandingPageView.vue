@@ -2,21 +2,10 @@
   <div class="landingPage">
     <va-carousel :items="items" stateful autoscroll :autoscrollInterval="2000">
     </va-carousel>
-    <!-- //H1 tag with welcome message -->
     <div class="sloganAndBtn">
       <p class="slogan">Всички теми по биология на едно място</p>
       <button class="button" @click="toSignIn">Регистрирай се</button>
     </div>
-    <!-- //Sign in Button  -->
-
-    <!-- <input placeholder="Username" v-model="username" />
-    <input placeholder="Password" v-model="password" />
-    <input placeholder="Email" v-model="email" />
-    <input placeholder="FirstName" v-model="firstName" />
-    <input placeholder="LastName" v-model="lastName" />
-    <input placeholder="UserType" v-model="userType" />
-
-    <button @click="createUser">Create User</button> -->
   </div>
 </template>
 
@@ -115,7 +104,7 @@ div.va-carousel {
 }
 
 .button {
-  padding: 0.3rem;
+  padding: 0.5rem;
   margin: 0rem auto 0rem auto;
   font-family: "RobotoRegular";
   font-size: 1.563rem;

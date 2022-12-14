@@ -49,7 +49,7 @@ export default {
     flex-direction: column;
     align-items: center;
     background-color: #D8F3DC;
-    width: 35%;
+    width: 25%;
     height: 100%;
     margin-top: 3.5rem;
     border-radius: 0.625rem;
@@ -57,7 +57,7 @@ export default {
 
 .inputField {
     width: 72%;
-    height: 3.188rem;
+    height: 2.188rem;
     border-radius: 0.625rem;
     border: thin solid;
     margin-top: 1.5rem;
@@ -71,12 +71,12 @@ export default {
 .buttonLogIn {
     margin: 6rem auto 5rem auto;
     font-family: "RobotoRegular";
-    font-size: 1.563rem;
+    font-size: 1.2rem;
     color: #ffffff;
     background-color: #40916c;
     border-radius: 1rem;
     width: 43%;
-    height: 3.313rem;
+    height: 2.8rem;
     border: none;
     cursor: pointer;
 }
