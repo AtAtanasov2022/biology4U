@@ -2,9 +2,12 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <button id="menuButton">
+      <!-- <button id="menuButton">
         <va-icon class="material-icons">menu</va-icon>
-      </button>
+      </button> -->
+      <va-button-dropdown icon="menu" left-icon>
+        Content
+      </va-button-dropdown>
     </div>
     <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
@@ -25,7 +28,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @font-face {
   font-family: "Roboto";
   src: local("Roboto"), url(./fonts/Roboto-Bold.ttf) format("truetype");
@@ -44,6 +47,11 @@ export default {
 body {
   margin: 0rem;
   padding: 0rem;
+}
+
+button.va-button.va-button--normal.va-button--icon-only {
+  background-color: #40916c !important;
+  /* background-color: #40916c; */
 }
 
 .material-icons {
@@ -80,6 +88,31 @@ body {
 
 .paragraph {
   margin-right: 1.0rem;
+}
+
+.va-button-dropdown {
+  display: inline-block;
+  font-family: var(--va-font-family);
+  vertical-align: middle;
+  max-width: 3rem !important;
+}
+
+i.va-icon.material-icons.va-button__left-icon {
+  color: rgb(255, 255, 255);
+  font-size: 35px !important;
+  height: 24px;
+  line-height: 24px;
+}
+
+button.va-button.va-button--normal.va-button--icon-only {
+  border-color: transparent;
+  color: rgb(255, 255, 255);
+  max-height: 2.7rem;
+  background: transparent;
+  --ac227dcc: #40916c;
+  --55b53d91: 1;
+  --29868a0e: transparent;
+  --5deb53f6: 0;
 }
 
 /* .material-icons {
