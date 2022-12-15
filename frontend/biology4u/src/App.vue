@@ -2,11 +2,14 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <!-- <button id="menuButton">
-        <va-icon class="material-icons">menu</va-icon>
-      </button> -->
-      <va-button-dropdown icon="menu" left-icon>
-        Content
+      <va-button-dropdown :close-on-content-click="false" icon="menu" left-icon>
+        <va-accordion v-model="value" style="width: 400px;">
+          <va-collapse v-for="(collapse, index) in collapses" :key="index" :header="collapse.title">
+            <div>
+              {{ collapse.content }}
+            </div>
+          </va-collapse>
+        </va-accordion>
       </va-button-dropdown>
     </div>
     <div class="paragraph">
@@ -23,8 +26,20 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      value: [false, false, false],
+      collapses: [
+        { title: 'First collapse', content: 'first collapse content' },
+        { title: 'Second collapse', content: 'second collapse content' },
+        { title: 'Third collapse', content: 'third collapse content' },
+      ],
+    };
   },
+  methods: {
+    something(index) {
+      alert(`Hi from ${index}`);
+    }
+  }
 };
 </script>
 
@@ -115,12 +130,6 @@ button.va-button.va-button--normal.va-button--icon-only {
   --5deb53f6: 0;
 }
 
-/* .material-icons {
-  --va-icon-font-size: 2.188rem; 
-  --va-icon-height: 2.188rem; 
-  --va-icon-line-height: 2.188rem; 
-  --va-icon-cursor:pointer;
-} */
 i.va-icon.material-icons {
   font-size: 2.188rem !important;
   height: 2.188rem !important;
