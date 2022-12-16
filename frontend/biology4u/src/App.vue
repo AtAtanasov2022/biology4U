@@ -3,7 +3,7 @@
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
       <va-button-dropdown :close-on-content-click="false" icon="menu" left-icon>
-        <va-accordion v-model="value" style="width: 400px;">
+        <va-accordion backgroundColor="primary" v-model="value" style="width: 400px;">
           <va-collapse v-for="(collapse, index) in collapses" :key="index" :header="collapse.title">
             <div>
               {{ collapse.content }}

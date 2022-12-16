@@ -1,10 +1,6 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
-// const AdditionalFile = require("./AdditionalFile");
-// const Comment = require("./Comment");
-// const TestResult = require("./TestResult");
-// import './associations'
 
 const User = sequelize.define("User", {
   id: {
