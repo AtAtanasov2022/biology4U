@@ -4,11 +4,9 @@
             <va-accordion v-model="opened" style="width: 400px;">
                 <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
                     color="textInverted" flat>
-                    <!--v-for="(subTopic, id) in subTopics" :key"id"-->
-                    <va-accordion v-model="opened2" style="width: 400px;">
+                    <va-accordion  style="width: 390px; margin: 1px 0px 0px 10px;">
                         <va-collapse v-for="(subTopic, id) in subTopics" :key="id" :header="subTopic.title"
                             text-color="textPrimary" color="textInverted" flat>
-                            <!--v-for="(subTopic, id) in subTopics" :key"id"-->
                             <div class="subTopic">
                                 <div>
                                     <p>Лекция</p>
@@ -24,23 +22,6 @@
                     </va-accordion>
                 </va-collapse>
             </va-accordion>
-            <!-- <va-accordion v-model="opened" style="width: 400px;">
-                <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
-                    color="textInverted" flat>
-                    v-for="(subTopic, id) in subTopics" :key"id"
-                    <div class="subTopic">
-                        <div>
-                            <p>Лекция</p>
-                        </div>
-                        <div>
-                            <p>Кратък план</p>
-                        </div>
-                        <div>
-                            <p>Допълнителни файлове</p>
-                        </div>
-                    </div>
-                </va-collapse>
-            </va-accordion> -->
         </div>
         <div class="topicBox">
 
@@ -53,7 +34,6 @@ export default {
     data() {
         return {
             opened: [true, true, true],
-            opened2: [false, false, false],
             items: [
                 {
                     title: 'UI Elements',
