@@ -1,12 +1,12 @@
 <template>
     <div class="mainPage">
         <div class="accordionMenu">
-            <va-accordion v-model="opened" style="width: 25rem;">
-                <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary" style="margin-top: 0.263rem"
-                    color="textInverted" flat>
-                    <va-accordion  style="width: 24.575rem; margin: 0.163rem 0rem 0rem 0.425rem;">
-                        <va-collapse style="margin-top: 0.163rem" v-for="(subTopic, id) in subTopics" :key="id" :header="subTopic.title"
-                            text-color="textPrimary" color="textInverted" flat>
+            <va-accordion class="mainAccordion" v-model="opened">
+                <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
+                    class="mainCollapse" color="textInverted" flat>
+                    <va-accordion class="secondaryAccordion">
+                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in subTopics" :key="id"
+                            :header="subTopic.title" text-color="textPrimary" color="textInverted" flat>
                             <div class="subTopic">
                                 <div class="accordionMenuOption">
                                     <p>Лекция</p>
@@ -79,11 +79,29 @@ export default {
     width: 30%;
 }
 
+.mainAccordion {
+    width: 25rem;
+}
+
+.mainCollapse {
+    margin-top: 0.263rem;
+}
+
+.secondaryAccordion {
+    width: 24.575rem;
+    margin: 0.163rem 0rem 0rem 0.425rem;
+}
+
+.secondaryCollapse {
+    margin-top: 0.163rem;
+}
+
 .subTopic {
     padding: 0 0.2rem 0.5rem;
     display: flex;
     flex-direction: column;
 }
+
 .accordionMenuOption {
     /* width: 24.15rem; */
     width: 100%;
