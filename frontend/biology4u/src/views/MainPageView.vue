@@ -11,10 +11,10 @@
                                 <div class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
-                                <div class="accordionMenuOption">
+                                <div v-if="userLoggedIn" class="accordionMenuOption">
                                     <p>Кратък план</p>
                                 </div>
-                                <div class="accordionMenuOption">
+                                <div v-if="userLoggedIn" class="accordionMenuOption">
                                     <p>Допълнителни файлове</p>
                                 </div>
                             </div>
@@ -33,6 +33,7 @@
 export default {
     data() {
         return {
+            userLoggedIn: false,
             opened: [true, true, true],
             items: [
                 {
