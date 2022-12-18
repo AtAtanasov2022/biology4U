@@ -1,20 +1,20 @@
 <template>
     <div class="mainPage">
         <div class="accordionMenu">
-            <va-accordion v-model="opened" style="width: 400px;">
+            <va-accordion v-model="opened" style="width: 25rem;">
                 <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
                     color="textInverted" flat>
-                    <va-accordion  style="width: 390px; margin: 1px 0px 0px 10px;">
+                    <va-accordion  style="width: 24.375rem; margin: 0.063rem 0rem 0rem 0.625rem;">
                         <va-collapse v-for="(subTopic, id) in subTopics" :key="id" :header="subTopic.title"
                             text-color="textPrimary" color="textInverted" flat>
                             <div class="subTopic">
-                                <div>
+                                <div class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
-                                <div>
+                                <div class="accordionMenuOption">
                                     <p>Кратък план</p>
                                 </div>
-                                <div>
+                                <div class="accordionMenuOption">
                                     <p>Допълнителни файлове</p>
                                 </div>
                             </div>
@@ -83,6 +83,13 @@ export default {
     padding: 0 1rem 0.75rem;
     display: flex;
     flex-direction: column;
-    border: solid black;
+}
+.accordionMenuOption {
+    width: 23.15rem;
+    height: 3rem;
+    margin: 0.15rem 0rem 0rem 0.25rem;
+    padding: 1rem 1.25rem 0rem 1.25rem;
+    background-color: white;
+    border-radius: 0.55rem;
 }
 </style>
