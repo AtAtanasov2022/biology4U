@@ -24,7 +24,16 @@
             </va-accordion>
         </div>
         <div class="topicBox">
-
+            <h1 class="topicBoxHeader1">
+                What is Lorem Ipsum?
+            </h1>
+            <p class="topicBoxParagraph">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
         </div>
     </div>
 </template>
@@ -76,12 +85,17 @@ export default {
 </script>
     
 <style >
+.mainPage {
+    display: flex;
+    flex-direction: row;
+}
+
 .accordionMenu {
     width: 30%;
 }
 
 .mainAccordion {
-    width: 25rem;
+    width: 99%;
 }
 
 .mainCollapse {
@@ -89,7 +103,7 @@ export default {
 }
 
 .secondaryAccordion {
-    width: 24.575rem;
+    width: 100%;
     margin: 0.163rem 0rem 0rem 0.425rem;
 }
 
@@ -111,5 +125,21 @@ export default {
     padding: 1rem 1.25rem 0rem 1.25rem;
     background-color: white;
     border-radius: 0.35rem;
+}
+
+.topicBox {
+    width: 70%;
+    min-height: 45rem;
+    padding: 4rem;
+    background-color: white;
+}
+
+.topicBoxHeader1 {
+    text-align: center;
+}
+
+.topicBoxParagraph {
+    text-align: justify;
+    margin-top: 3rem;
 }
 </style>
