@@ -81,6 +81,10 @@ export default {
             ],
         }
     },
+
+    beforeUpdate() {
+        this.opened = [true, true, true];
+    }
 }
 </script>
     
