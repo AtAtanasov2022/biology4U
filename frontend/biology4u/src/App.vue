@@ -170,6 +170,7 @@ button.va-button.va-button--normal.va-button--icon-only {
   padding: 1rem 1.25rem 0rem 1.25rem;
   background-color: white;
   border-radius: 0.35rem;
+  cursor: pointer;
 }
 
 i.va-icon.material-icons.va-button__left-icon {

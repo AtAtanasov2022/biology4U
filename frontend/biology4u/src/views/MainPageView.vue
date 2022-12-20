@@ -125,6 +125,7 @@ export default {
     padding: 1rem 1.25rem 0rem 1.25rem;
     background-color: white;
     border-radius: 0.35rem;
+    cursor: pointer;
 }
 
 .topicBox {
