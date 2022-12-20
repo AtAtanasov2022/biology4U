@@ -11,7 +11,7 @@ createApp(App).use(store).use(router).use(createVuestic({
             variables: {
                 // Default colors
                 primary: '#40916c',
-                secondary: '#002c85',
+                secondary: '#ffffff',
                 success: '#40e583',
                 info: '#2c82e0',
                 danger: '#e34b4a',

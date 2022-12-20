@@ -3,11 +3,14 @@
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
       <va-button-dropdown :close-on-content-click="false" icon="menu" left-icon>
-        <va-accordion backgroundColor="primary" v-model="value" style="width: 400px;">
-          <va-collapse v-for="(collapse, index) in collapses" :key="index" :header="collapse.title">
-            <div>
-              {{ collapse.content }}
-            </div>
+        <va-accordion class="dropdownAccordionMenu" v-model="opened">
+          <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
+            class="topicCollapse" color="textInverted" flat>
+            <va-accordion class="secondDropdownAccordion">
+              <div class="subTopicCollapse" v-for="(subTopic, id) in subTopics" :key="id">
+                <p>{{ subTopic.title }}</p>
+              </div>
+            </va-accordion>
           </va-collapse>
         </va-accordion>
       </va-button-dropdown>
@@ -27,11 +30,42 @@
 export default {
   data() {
     return {
-      value: [false, false, false],
-      collapses: [
-        { title: 'First collapse', content: 'first collapse content' },
-        { title: 'Second collapse', content: 'second collapse content' },
-        { title: 'Third collapse', content: 'third collapse content' },
+      userLoggedIn: false,
+      opened: [false, false, false],
+      items: [
+        {
+          title: 'UI Elements',
+          items: [
+            { label: 'Button', to: '/ui-elements/button' },
+            { label: 'Data Table', to: '/ui-elements/table' },
+            { label: 'Radio', to: '/ui-elements/radio' },
+          ],
+        },
+        {
+          title: 'Services',
+          items: [
+            { label: 'Global Config', to: '/services/global-config' },
+            { label: 'Breakpoint Service', to: '/services/breakpoints' },
+          ],
+        },
+        {
+          title: 'Styles',
+          items: [
+            { label: 'Colors', to: '/styles/colors' },
+            { label: 'Typography', to: '/styles/typography' },
+          ],
+        },
+      ],
+      subTopics: [
+        {
+          title: 'SubTopic1',
+        },
+        {
+          title: 'SubTopic2',
+        },
+        {
+          title: 'SubTopic3',
+        },
       ],
     };
   },
@@ -110,6 +144,32 @@ button.va-button.va-button--normal.va-button--icon-only {
   font-family: var(--va-font-family);
   vertical-align: middle;
   max-width: 3rem !important;
+}
+
+.va-dropdown__content {
+  background-color: whitesmoke !important;
+}
+
+.dropdownAccordionMenu {
+  width: 20rem;
+}
+
+.topicCollapse {
+  margin-top: 0.263rem;
+}
+
+.secondDropdownAccordion {
+  width: 100%;
+  margin: 0.163rem 0rem 0rem 0.425rem;
+}
+
+.subTopicCollapse {
+  width: 97%;
+  height: 3rem;
+  margin: 0.15rem 0rem 0rem 0.15rem;
+  padding: 1rem 1.25rem 0rem 1.25rem;
+  background-color: white;
+  border-radius: 0.35rem;
 }
 
 i.va-icon.material-icons.va-button__left-icon {
