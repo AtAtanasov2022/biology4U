@@ -38,9 +38,6 @@ app.use(
   })
 );
 
-//Should move to other file
-app.use(errorHandler);
-
 app.use("/api/v1/users", usersRoutes);
 app.use("/api/v1/topics", topicsRoutes);
 app.use("/api/v1/testResults", testResultsRoutes);
@@ -49,6 +46,8 @@ app.use("/api/v1/questions", questionsRoutes);
 app.use("/api/v1/questionAnswers", questionAnswersRoutes);
 app.use("/api/v1/comments", commentsRoutes);
 app.use("/api/v1/additionalFiles", additionalFilesRoutes);
+
+app.use(errorHandler);
 
 sequelize
   .authenticate()

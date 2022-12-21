@@ -42,7 +42,7 @@
 export default {
     data() {
         return {
-            userLoggedIn: false,
+            userLoggedIn: true,
             opened: [true, true, true],
             items: [
                 {

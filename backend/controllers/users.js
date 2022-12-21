@@ -8,10 +8,11 @@ const createUser = async (req, res) => {
     const user = await User.create(
       req.body
     );
-    res.send(user).status(201);
+    const token = generateAccessToken({ userId: user.id });
+
+    res.status(201).send({});
   } catch (err) {
-    // next(err);
-    res.send(err);
+    next(err); //everywhere
   }
 };
 
@@ -24,7 +25,7 @@ const getUserInfo = async (req, res) => {
     });
     res.send(user).status(200);
   } catch (err) {
-    res.send(err);
+    next(err);
   }
 };
 
@@ -51,7 +52,7 @@ const deleteUserInfo = async (req, res) => {
         id: req.body.id,
       },
     });
-    res.send({destroyed: true}).status(200);
+    res.send({ destroyed: true }).status(200);
   } catch (err) {
     res.send(err);
   }
