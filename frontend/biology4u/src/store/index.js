@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    userInfo: {}
+    userInfo: {} //logged type 
   },
   getters: {
     getUserInfo(state) {
