@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const uuid = require('uuid/v4');
 const { ResultWithContext } = require("express-validator/src/chain");
 
 const createUser = async (req, res) => {
@@ -11,12 +12,13 @@ const createUser = async (req, res) => {
       req.body.lastname.length == 0 || req.body.lastname == null || req.body.userType.length == 0 || req.body.userType == null) {
       throw new Error("Invalid request body");
     } else {
+      req.body.userPassword = bcrypt.hashSync(req.body.userPassword, 10);
       const user = await User.create(
         req.body
       );
       const token = generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
-
-      res.status(201).send(token);
+      const refreshToken = jwt.sign({userId: user.id, username: user.username, userType: user.userType}, process.env.REFRESH_SECRET, {expiresIn: '7d'})
+      res.status(201).send({ token: token, refreshToken: refreshToken });
     }
   } catch (err) {
     next(err);
@@ -28,16 +30,20 @@ const logInUserInfo = async (req, res) => {
     if (req.body.username.length == 0 || req.body.username == null || req.body.userPassword.length == 0 || req.body.userPassword == null) {
       throw new Error("Invalid request body");
     } else {
+      req.body.userPassword = bcrypt.hashSync(req.body.userPassword, 10);
       const user = await User.findAll({
         where: {
-          username: req.body.username,
-          password: req.body.password,
+          username: req.body.username
         },
       });
 
-      const token = generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
+      if (!user || !bcrypt.compareSync(req.body.userPassword, user.password)) {
+        return res.status(401).send('Unauthorized');
+      }
 
-      res.status(200).send(token);
+      const token = generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
+      const refreshToken = jwt.sign({userId: user.id, username: user.username, userType: user.userType}, process.env.REFRESH_SECRET, {expiresIn: '7d'})
+      res.status(200).send({ token: token, refreshToken: refreshToken });
     }
 
   } catch (err) {

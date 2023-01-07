@@ -1,5 +1,5 @@
-const generateAccessToken = async (userId) => {
-    return jwt.sign(userId, process.env.TOKEN_SECRET, { expiresIn: '30m' });
+const generateAccessToken = async (user) => {
+    return jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '30m' });
 }
 
 module.exports = generateAccessToken;
