@@ -1,8 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const uuid = require('uuid/v4');
 const { ResultWithContext } = require("express-validator/src/chain");
+const {generateAccessToken} = require("../middleware/createJWTToken");
 
 const createUser = async (req, res) => {
   try {
@@ -16,12 +16,12 @@ const createUser = async (req, res) => {
       const user = await User.create(
         req.body
       );
-      const token = generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
+      const token = await generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
       const refreshToken = jwt.sign({userId: user.id, username: user.username, userType: user.userType}, process.env.REFRESH_SECRET, {expiresIn: '7d'})
       res.status(201).send({ token: token, refreshToken: refreshToken });
     }
   } catch (err) {
-    next(err);
+    console.log(err);
   }
 };
 

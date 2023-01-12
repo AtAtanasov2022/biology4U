@@ -2,7 +2,7 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <va-button-dropdown :close-on-content-click="false" icon="menu" left-icon>
+      <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
         <va-accordion class="dropdownAccordionMenu" v-model="opened">
           <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
@@ -18,19 +18,24 @@
     <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
     </div>
-    <div class="navButtons">
+    <div v-if="!user.username" class="navButtons">
       <router-link class="routerLink" id="router2" to="/logIn">Вход</router-link>
       <router-link class="routerLink" id="router3" to="/signIn">Регистрация</router-link>
+    </div>
+    <div v-else>
+      <button>Profile</button>
+      <button>Exit</button>
     </div>
   </nav>
   <router-view />
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      userLoggedIn: false,
       opened: [false, false, false],
       items: [
         {
@@ -69,6 +74,13 @@ export default {
       ],
     };
   },
+
+  computed: {
+    ...mapGetters({
+      user: "getUserInfo",
+    }),
+  },
+
   methods: {
     something(index) {
       alert(`Hi from ${index}`);
