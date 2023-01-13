@@ -26,7 +26,7 @@
       <va-avatar class="mr-4" color="primary" col font-size="2rem">
         {{ user.username[0].toUpperCase() }}
       </va-avatar>
-      <va-icon class="material-icons" color="#d8f3dc">logout</va-icon>
+      <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon>
     </div>
   </nav>
   <router-view />
@@ -34,6 +34,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import store from "./store";
 
 export default {
   data() {
@@ -77,6 +78,8 @@ export default {
     };
   },
 
+  beforeCreate() { this.$store.commit('initialiseStore'); },
+
   computed: {
     ...mapGetters({
       user: "getUserInfo",
@@ -84,8 +87,8 @@ export default {
   },
 
   methods: {
-    something(index) {
-      alert(`Hi from ${index}`);
+    logout() {
+      store.dispatch("logout")
     }
   }
 };

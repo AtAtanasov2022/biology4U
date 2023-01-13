@@ -13,14 +13,26 @@ export default createStore({
     }
   },
   mutations: {
+    initialiseStore(state) {
+      const userInfo = localStorage.getItem('user');
+      if (userInfo) {
+        state.userInfo = JSON.parse(userInfo);
+      }
+    },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
+    },
+    deleteUserInfo(state) {
+      state.userInfo = {};
     }
   },
   actions: {
     signInUser(context, userInfo) {
       axios.post("http://localhost:5001/api/v1/users/", userInfo).then(response => {
         context.commit('setUserInfo', jwt_decode(response.data.token));
+        console.log(response.data);
+        localStorage.setItem("user", JSON.stringify(jwt_decode(response.data.token)));
+        localStorage.setItem("refreshToken", JSON.stringify(response.data.refreshToken));
         router.push('/main');
       }).catch(err => {
         console.log(err.message);
@@ -31,10 +43,16 @@ export default createStore({
       axios.get("http://localhost:5001/api/v1/users/logIn", userInfo).then(response => {
         console.log(response);
         context.commit('setUserInfo', jwt_decode(response.data.token));
+        localStorage.setItem("user", JSON.stringify(jwt_decode(response.data.token)));
+        localStorage.setItem("refreshToken", JSON.stringify(response.data.refreshToken));
         router.push('/main');
       }).catch(err => {
         console.log(err.message);
       })
+    },
+
+    logout(context) {
+      context.commit('deleteUserInfo');
     }
   },
   modules: {
