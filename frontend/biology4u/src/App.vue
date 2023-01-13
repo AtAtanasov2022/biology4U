@@ -7,8 +7,8 @@
           <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
             <va-accordion class="secondDropdownAccordion">
-              <div class="subTopicCollapse" v-for="(subTopic, id) in subTopics" :key="id">
-                <p>{{ subTopic.title }}</p>
+              <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id">
+                <p>{{ subTopic.label }}</p>
               </div>
             </va-accordion>
           </va-collapse>
@@ -38,15 +38,15 @@ import store from "./store";
 
 export default {
   data() {
-    return {
+    return { 
       opened: [false, false, false],
       items: [
         {
           title: 'UI Elements',
           items: [
-            { label: 'Button', to: '/ui-elements/button' },
-            { label: 'Data Table', to: '/ui-elements/table' },
-            { label: 'Radio', to: '/ui-elements/radio' },
+            { label: 'Button', },
+            { label: 'Data Table', },
+            { label: 'Radio', },
           ],
         },
         {
@@ -62,17 +62,6 @@ export default {
             { label: 'Colors', to: '/styles/colors' },
             { label: 'Typography', to: '/styles/typography' },
           ],
-        },
-      ],
-      subTopics: [
-        {
-          title: 'SubTopic1',
-        },
-        {
-          title: 'SubTopic2',
-        },
-        {
-          title: 'SubTopic3',
         },
       ],
     };

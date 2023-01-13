@@ -40,9 +40,10 @@ export default createStore({
     },
 
     logInUser(context, userInfo) {
-      axios.get("http://localhost:5001/api/v1/users/logIn", userInfo).then(response => {
-        console.log(response);
+      axios.post("http://localhost:5001/api/v1/users/logIn", userInfo).then(response => {
+        console.log(response.data);
         context.commit('setUserInfo', jwt_decode(response.data.token));
+        console.log(jwt_decode(response.data.token));
         localStorage.setItem("user", JSON.stringify(jwt_decode(response.data.token)));
         localStorage.setItem("refreshToken", JSON.stringify(response.data.refreshToken));
         router.push('/main');
@@ -52,8 +53,8 @@ export default createStore({
     },
 
     logout(context) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      localStorage.removeItem("refreshToken");
       context.commit('deleteUserInfo');
     }
   },

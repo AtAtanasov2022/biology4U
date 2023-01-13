@@ -2,7 +2,8 @@ const User = require("../models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { ResultWithContext } = require("express-validator/src/chain");
-const {generateAccessToken} = require("../middleware/createJWTToken");
+const { generateAccessToken } = require("../middleware/createJWTToken");
+const jwt_decode = require("jwt-decode");
 
 const createUser = async (req, res) => {
   try {
@@ -17,37 +18,40 @@ const createUser = async (req, res) => {
         req.body
       );
       const token = await generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
-      const refreshToken = jwt.sign({userId: user.id, username: user.username, userType: user.userType}, process.env.REFRESH_SECRET, {expiresIn: '7d'})
+      const refreshToken = jwt.sign({ userId: user.id, username: user.username, userType: user.userType }, process.env.REFRESH_SECRET, { expiresIn: '7d' })
       res.status(201).send({ token: token, refreshToken: refreshToken });
     }
   } catch (err) {
+    next(err);
     console.log(err);
   }
 };
 
 const logInUserInfo = async (req, res) => {
   try {
+    console.log(req.body);
     if (req.body.username.length == 0 || req.body.username == null || req.body.userPassword.length == 0 || req.body.userPassword == null) {
       throw new Error("Invalid request body");
     } else {
-      req.body.userPassword = bcrypt.hashSync(req.body.userPassword, 10);
       const user = await User.findAll({
         where: {
-          username: req.body.username
+          username: req.body.username,
         },
       });
 
-      if (!user || !bcrypt.compareSync(req.body.userPassword, user.password)) {
+      const resultComp = bcrypt.compareSync(req.body.userPassword, user[0].dataValues.userPassword)
+      
+      if (!user || !resultComp) {
         return res.status(401).send('Unauthorized');
       }
-
-      const token = generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
-      const refreshToken = jwt.sign({userId: user.id, username: user.username, userType: user.userType}, process.env.REFRESH_SECRET, {expiresIn: '7d'})
+      const token = await generateAccessToken({ userId: user[0].dataValues.id, username: user[0].dataValues.username, userType: user[0].dataValues.userType });
+      const refreshToken = jwt.sign({ userId: user[0].dataValues.id, username: user[0].dataValues.username, userType: user[0].dataValues.userType }, process.env.REFRESH_SECRET, { expiresIn: '7d' })
       res.status(200).send({ token: token, refreshToken: refreshToken });
     }
 
   } catch (err) {
-    next(err);
+    // next(err);
+    console.log(err);
   }
 };
 
