@@ -23,8 +23,10 @@
       <router-link class="routerLink" id="router3" to="/signIn">Регистрация</router-link>
     </div>
     <div v-else>
-      <button>Profile</button>
-      <button>Exit</button>
+      <va-avatar class="mr-4" color="primary" col font-size="2rem">
+        {{ user.username[0].toUpperCase() }}
+      </va-avatar>
+      <va-icon class="material-icons" color="#d8f3dc">logout</va-icon>
     </div>
   </nav>
   <router-view />

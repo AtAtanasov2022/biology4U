@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { createVuestic } from 'vuestic-ui'
 import 'vuestic-ui/css'
+import '@mdi/font/css/materialdesignicons.css'
 
 createApp(App).use(store).use(router).use(createVuestic({
     config: {
