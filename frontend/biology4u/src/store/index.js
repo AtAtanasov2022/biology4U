@@ -52,6 +52,8 @@ export default createStore({
     },
 
     logout(context) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("refreshToken");
       context.commit('deleteUserInfo');
     }
   },
