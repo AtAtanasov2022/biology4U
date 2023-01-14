@@ -26,7 +26,8 @@
       <va-avatar class="mr-4" color="primary" col font-size="2rem">
         {{ user.username[0].toUpperCase() }}
       </va-avatar>
-      <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon>
+      <router-link to="/" @click="logout"><va-icon class="material-icons" color="#d8f3dc">logout</va-icon></router-link>
+      <!-- <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon> -->
     </div>
   </nav>
   <router-view />

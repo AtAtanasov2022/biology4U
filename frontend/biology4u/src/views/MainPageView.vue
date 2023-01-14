@@ -5,16 +5,16 @@
                 <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
                     class="mainCollapse" color="textInverted" flat>
                     <va-accordion class="secondaryAccordion">
-                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in subTopics" :key="id"
-                            :header="subTopic.title" text-color="textPrimary" color="textInverted" flat>
+                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
+                            :header="subTopic.label" text-color="textPrimary" color="textInverted" flat>
                             <div class="subTopic">
                                 <div class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
-                                <div v-if="userLoggedIn" class="accordionMenuOption">
+                                <div :disabled="disableOptions" class="accordionMenuOption">
                                     <p>Кратък план</p>
                                 </div>
-                                <div v-if="userLoggedIn" class="accordionMenuOption">
+                                <div :disabled="disableOptions" class="accordionMenuOption">
                                     <p>Допълнителни файлове</p>
                                 </div>
                             </div>
@@ -39,9 +39,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     data() {
         return {
+            disableOptions: true,
             userLoggedIn: true,
             opened: [true, true, true],
             items: [
@@ -68,23 +71,31 @@ export default {
                     ],
                 },
             ],
-            subTopics: [
-                {
-                    title: 'SubTopic1',
-                },
-                {
-                    title: 'SubTopic2',
-                },
-                {
-                    title: 'SubTopic3',
-                },
-            ],
+        }
+    },
+
+    beforeMount() {
+        if (this.user.username) {
+            this.disableOptions = undefined;
+        } else {
+            this.disableOptions = true;
         }
     },
 
     beforeUpdate() {
         this.opened = [true, true, true];
-    }
+        if (this.user.username) {
+            this.disableOptions = undefined;
+        } else {
+            this.disableOptions = true;
+        }
+    },
+
+    computed: {
+    ...mapGetters({
+      user: "getUserInfo",
+    }),
+  },
 }
 </script>
     
@@ -123,13 +134,21 @@ export default {
 
 .accordionMenuOption {
     /* width: 24.15rem; */
-    width: 100%;
+    width: 98%;
     height: 3rem;
     margin: 0.15rem 0rem 0rem 0.25rem;
     padding: 1rem 1.25rem 0rem 1.25rem;
     background-color: white;
     border-radius: 0.35rem;
     cursor: pointer;
+}
+
+.accordionMenuOption:disabled,
+.accordionMenuOption[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor:default ;
 }
 
 .topicBox {
