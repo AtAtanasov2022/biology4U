@@ -11,10 +11,10 @@
                                 <div @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
-                                <div :disabled="disableOptions" class="accordionMenuOption">
+                                <div :disabled="disableOptions" @click="openShortPlan(subTopic.id)" class="accordionMenuOption">
                                     <p>Кратък план</p>
                                 </div>
-                                <div :disabled="disableOptions" class="accordionMenuOption">
+                                <div :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)" class="accordionMenuOption">
                                     <p>Допълнителни файлове</p>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                 </va-collapse>
             </va-accordion>
         </div>
-        <div class="topicBox">
+        <div v-if="lection" class="topicBox">
             <h1 v-if="welcomeTopicBox" class="topicBoxHeader1">
                 What is Lorem Ipsum?
             </h1>
@@ -39,6 +39,18 @@
                 This is the text from the subTopic with id = {{ subTopicInfo.id }}
             </p>
         </div>
+        <div v-else-if="shortPlan" class="topicBox">
+            <h1>Short plan for {{ subTopicInfo.label }}</h1>
+            <p>
+                This is the short plan from the subTopic with id = {{ subTopicInfo.id }}
+            </p>
+        </div>
+        <div v-else-if="additionalFiles" class="topicBox">
+            <h1> Additional files for{{ subTopicInfo.label }}</h1>
+            <p>
+                Those are the additionalFiles from the subTopic with id = {{ subTopicInfo.id }}
+            </p>
+        </div>
     </div>
 </template>
 
@@ -49,6 +61,9 @@ import router from "../router";
 export default {
     data() {
         return {
+            lection:true,
+            shortPlan: false,
+            additionalFiles: false,
             disableOptions: true,
             welcomeTopicBox: true,
             subTopicInfo: {},
@@ -87,57 +102,62 @@ export default {
     },
 
     beforeMount() {
-        if (this.user.username) {
-            this.disableOptions = undefined;
-        } else {
-            this.disableOptions = true;
-        }
-
-        let productId = this.$route.params.id;
-        if (productId == undefined) {
-            this.welcomeTopicBox = true;
-        } else {
-            this.welcomeTopicBox = false;
-            //get zayavka
-            for (let index = 0; index < this.items.length; index++) {
-                for (let index2 = 0; index2 < this.items[index].items.length; index2++) {
-                    if (this.items[index].items[index2].id == productId) {
-                        this.subTopicInfo = this.items[index].items[index2];
-                    }
-                }
-
-            }
-        }
+        this.setDisableOptions();
+        this.setMainPageBasedOnTheIdValue();
     },
 
     beforeUpdate() {
         this.opened = [true, true, true];
-        if (this.user.username) {
-            this.disableOptions = undefined;
-        } else {
-            this.disableOptions = true;
-        }
-
-        let productId = this.$route.params.id;
-        if (productId == undefined) {
-            this.welcomeTopicBox = true;
-        } else {
-            this.welcomeTopicBox = false;
-            //get zayavka
-            for (let index = 0; index < this.items.length; index++) {
-                for (let index2 = 0; index2 < this.items[index].items.length; index2++) {
-                    if (this.items[index].items[index2].id == productId) {
-                        this.subTopicInfo = this.items[index].items[index2];
-                    }
-                }
-
-            }
-        }
+        this.setDisableOptions();
+        this.setMainPageBasedOnTheIdValue();
     },
 
     methods: {
         openSubTopic(id) {
             router.push("/main/" + id);
+            this.lection = true;
+            this.shortPlan = false;
+            this.additionalFiles = false;
+        },
+
+        openShortPlan(id) {
+            router.push("/main/" + id);
+            this.lection = false;
+            this.shortPlan = true;
+            this.additionalFiles = false;
+        },
+
+        openAdditionalFiles(id) {
+            router.push("/main/" + id);
+            this.lection = false;
+            this.shortPlan = false;
+            this.additionalFiles = true;
+        },
+
+        setDisableOptions() {
+            if (this.user.username) {
+                this.disableOptions = undefined;
+            } else {
+                this.disableOptions = true;
+            }
+        },
+
+        setMainPageBasedOnTheIdValue() {
+            let productId = this.$route.params.id;
+            if (productId == undefined) {
+                this.welcomeTopicBox = true;
+            } else {
+                this.welcomeTopicBox = false;
+                //get zayavka
+                for (let index = 0; index < this.items.length; index++) {
+                    for (let index2 = 0; index2 < this.items[index].items.length; index2++) {
+                        if (this.items[index].items[index2].id == productId) {
+                            this.subTopicInfo = this.items[index].items[index2];
+                        }
+                    }
+
+                }
+            }
         }
     },
 }
