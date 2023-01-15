@@ -7,7 +7,7 @@
           <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
             <va-accordion class="secondDropdownAccordion">
-              <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id">
+              <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id" @click="openSubTopic(subTopic.id)">
                 <p>{{ subTopic.label }}</p>
               </div>
             </va-accordion>
@@ -35,6 +35,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import router from "./router";
 import store from "./store";
 
 export default {
@@ -45,23 +46,23 @@ export default {
         {
           title: 'UI Elements',
           items: [
-            { label: 'Button', },
-            { label: 'Data Table', },
-            { label: 'Radio', },
+            { label: 'Button', id: 1 },
+            { label: 'Data Table', id: 2 },
+            { label: 'Radio', id: 3 },
           ],
         },
         {
           title: 'Services',
           items: [
-            { label: 'Global Config', to: '/services/global-config' },
-            { label: 'Breakpoint Service', to: '/services/breakpoints' },
+            { label: 'Global Config', to: '/services/global-config', id: 4 },
+            { label: 'Breakpoint Service', to: '/services/breakpoints', id: 5 },
           ],
         },
         {
           title: 'Styles',
           items: [
-            { label: 'Colors', to: '/styles/colors' },
-            { label: 'Typography', to: '/styles/typography' },
+            { label: 'Colors', to: '/styles/colors', id: 6 },
+            { label: 'Typography', to: '/styles/typography', id: 7 },
           ],
         },
       ],
@@ -79,6 +80,10 @@ export default {
   methods: {
     logout() {
       store.dispatch("logout")
+    },
+
+    openSubTopic(id) {
+      router.push("/main/" + id);
     }
   }
 };

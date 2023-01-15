@@ -8,7 +8,7 @@
                         <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
                             :header="subTopic.label" text-color="textPrimary" color="textInverted" flat>
                             <div class="subTopic">
-                                <div class="accordionMenuOption">
+                                <div @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
                                 <div :disabled="disableOptions" class="accordionMenuOption">
@@ -24,54 +24,66 @@
             </va-accordion>
         </div>
         <div class="topicBox">
-            <h1 class="topicBoxHeader1">
+            <h1 v-if="welcomeTopicBox" class="topicBoxHeader1">
                 What is Lorem Ipsum?
             </h1>
-            <p class="topicBoxParagraph">
+            <h1 v-else>{{ subTopicInfo.label }}</h1>
+            <p v-if="welcomeTopicBox" class="topicBoxParagraph">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
                 scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
                 into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
                 release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
                 software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p v-else>
+                This is the text from the subTopic with id = {{ subTopicInfo.id }}
+            </p>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import router from "../router";
 
 export default {
     data() {
         return {
             disableOptions: true,
-            userLoggedIn: true,
+            welcomeTopicBox: true,
+            subTopicInfo: {},
             opened: [true, true, true],
             items: [
                 {
                     title: 'UI Elements',
                     items: [
-                        { label: 'Button', to: '/ui-elements/button' },
-                        { label: 'Data Table', to: '/ui-elements/table' },
-                        { label: 'Radio', to: '/ui-elements/radio' },
+                        { label: 'Button', id: 1 },
+                        { label: 'Data Table', id: 2 },
+                        { label: 'Radio', id: 3 },
                     ],
                 },
                 {
                     title: 'Services',
                     items: [
-                        { label: 'Global Config', to: '/services/global-config' },
-                        { label: 'Breakpoint Service', to: '/services/breakpoints' },
+                        { label: 'Global Config', to: '/services/global-config', id: 4 },
+                        { label: 'Breakpoint Service', to: '/services/breakpoints', id: 5 },
                     ],
                 },
                 {
                     title: 'Styles',
                     items: [
-                        { label: 'Colors', to: '/styles/colors' },
-                        { label: 'Typography', to: '/styles/typography' },
+                        { label: 'Colors', to: '/styles/colors', id: 6 },
+                        { label: 'Typography', to: '/styles/typography', id: 7 },
                     ],
                 },
             ],
         }
+    },
+
+    computed: {
+        ...mapGetters({
+            user: "getUserInfo",
+        }),
     },
 
     beforeMount() {
@@ -79,6 +91,22 @@ export default {
             this.disableOptions = undefined;
         } else {
             this.disableOptions = true;
+        }
+
+        let productId = this.$route.params.id;
+        if (productId == undefined) {
+            this.welcomeTopicBox = true;
+        } else {
+            this.welcomeTopicBox = false;
+            //get zayavka
+            for (let index = 0; index < this.items.length; index++) {
+                for (let index2 = 0; index2 < this.items[index].items.length; index2++) {
+                    if (this.items[index].items[index2].id == productId) {
+                        this.subTopicInfo = this.items[index].items[index2];
+                    }
+                }
+
+            }
         }
     },
 
@@ -89,13 +117,29 @@ export default {
         } else {
             this.disableOptions = true;
         }
+
+        let productId = this.$route.params.id;
+        if (productId == undefined) {
+            this.welcomeTopicBox = true;
+        } else {
+            this.welcomeTopicBox = false;
+            //get zayavka
+            for (let index = 0; index < this.items.length; index++) {
+                for (let index2 = 0; index2 < this.items[index].items.length; index2++) {
+                    if (this.items[index].items[index2].id == productId) {
+                        this.subTopicInfo = this.items[index].items[index2];
+                    }
+                }
+
+            }
+        }
     },
 
-    computed: {
-    ...mapGetters({
-      user: "getUserInfo",
-    }),
-  },
+    methods: {
+        openSubTopic(id) {
+            router.push("/main/" + id);
+        }
+    },
 }
 </script>
     
@@ -144,11 +188,11 @@ export default {
 }
 
 .accordionMenuOption:disabled,
-.accordionMenuOption[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-  cursor:default ;
+.accordionMenuOption[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
 }
 
 .topicBox {
