@@ -24,6 +24,11 @@ const routes = [
     path: '/main',
     name: 'mainPage',
     component: MainPage
+  },
+  {
+    path: '/main/:id',
+    name: 'mainPageSubTopic',
+    component: MainPage
   }
 ]
 

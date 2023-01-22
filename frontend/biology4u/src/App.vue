@@ -2,13 +2,13 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <va-button-dropdown :close-on-content-click="false" icon="menu" left-icon>
+      <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
         <va-accordion class="dropdownAccordionMenu" v-model="opened">
           <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
             <va-accordion class="secondDropdownAccordion">
-              <div class="subTopicCollapse" v-for="(subTopic, id) in subTopics" :key="id">
-                <p>{{ subTopic.title }}</p>
+              <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id" @click="openSubTopic(subTopic.id)">
+                <p>{{ subTopic.label }}</p>
               </div>
             </va-accordion>
           </va-collapse>
@@ -18,60 +18,72 @@
     <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
     </div>
-    <div class="navButtons">
+    <div v-if="!user.username" class="navButtons">
       <router-link class="routerLink" id="router2" to="/logIn">Вход</router-link>
       <router-link class="routerLink" id="router3" to="/signIn">Регистрация</router-link>
+    </div>
+    <div v-else>
+      <va-avatar class="mr-4" color="primary" col font-size="2rem">
+        {{ user.username[0].toUpperCase() }}
+      </va-avatar>
+      <router-link to="/" @click="logout"><va-icon class="material-icons" color="#d8f3dc">logout</va-icon></router-link>
+      <!-- <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon> -->
     </div>
   </nav>
   <router-view />
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import router from "./router";
+import store from "./store";
+
 export default {
   data() {
-    return {
-      userLoggedIn: false,
+    return { 
       opened: [false, false, false],
       items: [
         {
           title: 'UI Elements',
           items: [
-            { label: 'Button', to: '/ui-elements/button' },
-            { label: 'Data Table', to: '/ui-elements/table' },
-            { label: 'Radio', to: '/ui-elements/radio' },
+            { label: 'Button', id: 1 },
+            { label: 'Data Table', id: 2 },
+            { label: 'Radio', id: 3 },
           ],
         },
         {
           title: 'Services',
           items: [
-            { label: 'Global Config', to: '/services/global-config' },
-            { label: 'Breakpoint Service', to: '/services/breakpoints' },
+            { label: 'Global Config', to: '/services/global-config', id: 4 },
+            { label: 'Breakpoint Service', to: '/services/breakpoints', id: 5 },
           ],
         },
         {
           title: 'Styles',
           items: [
-            { label: 'Colors', to: '/styles/colors' },
-            { label: 'Typography', to: '/styles/typography' },
+            { label: 'Colors', to: '/styles/colors', id: 6 },
+            { label: 'Typography', to: '/styles/typography', id: 7 },
           ],
-        },
-      ],
-      subTopics: [
-        {
-          title: 'SubTopic1',
-        },
-        {
-          title: 'SubTopic2',
-        },
-        {
-          title: 'SubTopic3',
         },
       ],
     };
   },
+
+  beforeCreate() { this.$store.commit('initialiseStore'); },
+
+  computed: {
+    ...mapGetters({
+      user: "getUserInfo",
+    }),
+  },
+
   methods: {
-    something(index) {
-      alert(`Hi from ${index}`);
+    logout() {
+      store.dispatch("logout")
+    },
+
+    openSubTopic(id) {
+      router.push("/main/" + id);
     }
   }
 };
