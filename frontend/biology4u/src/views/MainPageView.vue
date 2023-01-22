@@ -11,12 +11,11 @@
                                 <div @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
                                     <p>Лекция</p>
                                 </div>
-                                <div :disabled="disableOptions" @click="openShortPlan(subTopic.id)" class="accordionMenuOption">
-                                    <p>Кратък план</p>
-                                </div>
-                                <div :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)" class="accordionMenuOption">
-                                    <p>Допълнителни файлове</p>
-                                </div>
+                                <button :disabled="disableOptions" @click="openShortPlan(subTopic.id)"
+                                    class="accordionMenuOption">Кратък план</button>
+                                <button :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)"
+                                    class="accordionMenuOption">Допълнителни файлове
+                                </button>
                             </div>
                         </va-collapse>
                     </va-accordion>
@@ -55,13 +54,14 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
 import router from "../router";
 
 export default {
     data() {
         return {
-            lection:true,
+            lection: true,
             shortPlan: false,
             additionalFiles: false,
             disableOptions: true,
@@ -102,6 +102,8 @@ export default {
     },
 
     beforeMount() {
+        this.getSubtopics(3);
+
         this.setDisableOptions();
         this.setMainPageBasedOnTheIdValue();
     },
@@ -113,6 +115,16 @@ export default {
     },
 
     methods: {
+        getSubtopics(id) {
+            axios.get(`http://localhost:5001/api/v1/subTopics/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(
+                console.log
+            ).catch(() => { console.log("err") })
+        },
+
         openSubTopic(id) {
             router.push("/main/" + id);
             this.lection = true;
@@ -198,6 +210,8 @@ export default {
 
 .accordionMenuOption {
     /* width: 24.15rem; */
+    display: flex;
+    justify-content: center;
     width: 98%;
     height: 3rem;
     margin: 0.15rem 0rem 0rem 0.25rem;
@@ -205,6 +219,7 @@ export default {
     background-color: white;
     border-radius: 0.35rem;
     cursor: pointer;
+    border: none;
 }
 
 .accordionMenuOption:disabled,

@@ -1,3 +1,5 @@
+const { UnauthorizedError } = require("express-jwt");
+
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -10,6 +12,8 @@ const authenticate = (req, res, next) => {
       req.body = decoded.user;
       next();
     } catch (err) {
+      next();
+      res.send('Unauthorized');
       return res.status(401).send('Unauthorized');
     }
   }

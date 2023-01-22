@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingPage from '../views/LandingPageView.vue'
-import SignIn from '../views/SignInView.vue'
+import SignUp from '../views/SignUpView.vue'
 import LogIn from '../views/LogInView.vue'
 import MainPage from '../views/MainPageView.vue'
 
@@ -11,9 +11,9 @@ const routes = [
     component: LandingPage
   },
   {
-    path: '/signIn',
-    name: 'signIn',
-    component: SignIn
+    path: '/signUp',
+    name: 'signUp',
+    component: SignUp
   },
   {
     path: '/logIn',
@@ -36,5 +36,9 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach((to, from) => {
+  
+// })
 
 export default router

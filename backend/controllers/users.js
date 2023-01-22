@@ -5,7 +5,7 @@ const { ResultWithContext } = require("express-validator/src/chain");
 const { generateAccessToken } = require("../middleware/createJWTToken");
 const jwt_decode = require("jwt-decode");
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     console.log(req.body);
     if (req.body.username.length == 0 || req.body.username == null || req.body.userPassword.length == 0 || req.body.userPassword == null ||
@@ -13,10 +13,8 @@ const createUser = async (req, res) => {
       req.body.lastname.length == 0 || req.body.lastname == null || req.body.userType.length == 0 || req.body.userType == null) {
       throw new Error("Invalid request body");
     } else {
-      req.body.userPassword = bcrypt.hashSync(req.body.userPassword, 10);
-      const user = await User.create(
-        req.body
-      );
+      const userPassword = bcrypt.hashSync(req.body.userPassword, 10);
+      const user = await User.create({...req.body,userPassword});
       const token = await generateAccessToken({ userId: user.id, username: user.username, userType: user.userType });
       const refreshToken = jwt.sign({ userId: user.id, username: user.username, userType: user.userType }, process.env.REFRESH_SECRET, { expiresIn: '7d' })
       res.status(201).send({ token: token, refreshToken: refreshToken });
@@ -24,6 +22,7 @@ const createUser = async (req, res) => {
   } catch (err) {
     next(err);
     console.log(err);
+    throw new Error("Cannot create user");
   }
 };
 

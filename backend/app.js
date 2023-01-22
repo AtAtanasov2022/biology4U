@@ -18,6 +18,7 @@ const errorHandler = require("./middleware/errorHandler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
+const authenticate = require("./middleware/authenticate");
 
 require("dotenv").config();
 
@@ -39,15 +40,16 @@ app.use(
   })
 );
 
+
 app.use("/api/v1/users", usersRoutes);
-app.use("/api/v1/topics", topicsRoutes);
-app.use("/api/v1/testResults", testResultsRoutes);
-app.use("/api/v1/subTopics", subTopicsRoutes);
-app.use("/api/v1/questions", questionsRoutes);
-app.use("/api/v1/questionAnswers", questionAnswersRoutes);
-app.use("/api/v1/comments", commentsRoutes);
-app.use("/api/v1/additionalFiles", additionalFilesRoutes);
-app.use("/api/v1/refreshTokens", refreshTokenRoutes);
+app.use("/api/v1/topics", topicsRoutes).use(authenticate);
+app.use("/api/v1/testResults", testResultsRoutes).use(authenticate);
+app.use("/api/v1/subTopics", subTopicsRoutes).use(authenticate);
+app.use("/api/v1/questions", questionsRoutes).use(authenticate);
+app.use("/api/v1/questionAnswers", questionAnswersRoutes).use(authenticate);
+app.use("/api/v1/comments", commentsRoutes).use(authenticate);
+app.use("/api/v1/additionalFiles", additionalFilesRoutes).use(authenticate);
+app.use("/api/v1/refreshTokens", refreshTokenRoutes).use(authenticate);
 
 app.use(errorHandler);
 
