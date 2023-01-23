@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { ResultWithContext } = require("express-validator/src/chain");
-const { generateAccessToken } = require("../middleware/createJWTToken");
+const { generateAccessToken } = require("../middleware/generateAccessToken");
 const jwt_decode = require("jwt-decode");
 
 const createUser = async (req, res, next) => {

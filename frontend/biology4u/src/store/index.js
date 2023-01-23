@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import axios from 'axios';
+// import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import router from '@/router';
 import AuthService from '@/services/auth.service';
@@ -82,9 +82,9 @@ export default createStore({
       // AuthService.logout();
     }, 
 
-    refreshToken (context) {
+    // refreshToken (context) {
       
-    }
+    // }
   },
   modules: {
   }
