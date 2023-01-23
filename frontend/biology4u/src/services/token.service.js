@@ -2,19 +2,19 @@ import jwt_decode from "jwt-decode";
 
 class TokenService {
   getLocalRefreshToken() {
-    const refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+    const refreshToken = localStorage.getItem("refreshToken");
     return refreshToken;
   }
 
   getLocalAccessToken() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user?.accessToken;
+    const token = localStorage.getItem("token");
+    return token;
   }
 
   updateLocalAccessToken(token) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user.accessToken = token;
-    localStorage.setItem("user", JSON.stringify(user));
+    let userToken = localStorage.getItem("token");
+    userToken = token;
+    localStorage.setItem("token", JSON.stringify(userToken));
   }
 
   getUser() {
@@ -22,9 +22,9 @@ class TokenService {
   }
 
   setUser(user) {
-    localStorage.setItem("token", JSON.stringify(user.token));
+    localStorage.setItem("token", user.token);
     localStorage.setItem("user", JSON.stringify(jwt_decode(user.token)));
-    localStorage.setItem("refreshToken", JSON.stringify(user.refreshToken));
+    localStorage.setItem("refreshToken", user.refreshToken);
   }
 
   removeUser() {

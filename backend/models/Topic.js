@@ -14,10 +14,6 @@ const Topic = sequelize.define("Topic", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  content: {
-    type: DataTypes.TEXT('long'),
-    allowNull: false,
-  },
 });
 
 

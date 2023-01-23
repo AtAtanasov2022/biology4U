@@ -16,8 +16,13 @@ const deleteTopic = async (req, res) => {
     res.send("Topic Deleted");
 }
 
-const getAllTopics = async (req, res) => {
-    res.send("All Topics");
+const getAllTopics = async (req, res, next) => {
+    try {
+        const topics = await Topic.findAll();
+        res.send(topics).status(200);
+      } catch (err) {
+        next(err);
+      }
 }
 
 module.exports = {

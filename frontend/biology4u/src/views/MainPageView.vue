@@ -2,11 +2,11 @@
     <div class="mainPage">
         <div class="accordionMenu">
             <va-accordion class="mainAccordion" v-model="opened">
-                <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
+                <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
                     class="mainCollapse" color="textInverted" flat>
                     <va-accordion class="secondaryAccordion">
                         <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
-                            :header="subTopic.label" text-color="textPrimary" color="textInverted" flat>
+                            :header="subTopic.subTopicName" text-color="textPrimary" color="textInverted" flat>
                             <div class="subTopic">
                                 <div @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
                                     <p>Лекция</p>
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import store from "@/store";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import router from "../router";
@@ -98,6 +99,7 @@ export default {
     computed: {
         ...mapGetters({
             user: "getUserInfo",
+            menuItems: "getMenuItems"
         }),
     },
 
@@ -106,12 +108,14 @@ export default {
 
         this.setDisableOptions();
         this.setMainPageBasedOnTheIdValue();
+        store.dispatch("getAllTopicsAndShortSubTopics");
     },
 
     beforeUpdate() {
         this.opened = [true, true, true];
         this.setDisableOptions();
         this.setMainPageBasedOnTheIdValue();
+        store.dispatch("getAllTopicsAndShortSubTopics");
     },
 
     methods: {
