@@ -49,8 +49,6 @@ const setup = (store) => {
             return Promise.reject(err);
         }
     );
-
-    // setup axios interceptors to all requests except login and sign up in vue 
 };
 
 export default setup;
