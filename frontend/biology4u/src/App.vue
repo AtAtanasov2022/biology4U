@@ -20,7 +20,7 @@
     </div>
     <div v-if="!user.username" class="navButtons">
       <router-link class="routerLink" id="router2" to="/logIn">Вход</router-link>
-      <router-link class="routerLink" id="router3" to="/signIn">Регистрация</router-link>
+      <router-link class="routerLink" id="router3" to="/signUp">Регистрация</router-link>
     </div>
     <div v-else>
       <va-avatar class="mr-4" color="primary" col font-size="2rem">

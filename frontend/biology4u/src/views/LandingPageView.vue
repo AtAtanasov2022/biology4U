@@ -4,7 +4,7 @@
     </va-carousel>
     <div class="sloganAndBtn">
       <p class="slogan">Всички теми по биология на едно място</p>
-      <button class="button" @click="toSignIn">Регистрирай се</button>
+      <button class="button" @click="toSignUp">Регистрирай се</button>
     </div>
   </div>
 </template>
@@ -44,8 +44,8 @@ export default {
       store.dispatch('setUserData', userInfo);
     },
 
-    toSignIn() {
-      router.push("/signIn");
+    toSignUp() {
+      router.push("/signUp");
     }
   },
 };
