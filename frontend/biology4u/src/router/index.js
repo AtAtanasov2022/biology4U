@@ -3,6 +3,9 @@ import LandingPage from '../views/LandingPageView.vue'
 import SignUp from '../views/SignUpView.vue'
 import LogIn from '../views/LogInView.vue'
 import MainPage from '../views/MainPageView.vue'
+import LectionComponent from '../components/LectionComponent.vue'
+import FilesComponent from '../components/FilesComponent.vue'
+import ShortPlanComponent from '../components/ShortPlanComponent.vue'
 
 const routes = [
   {
@@ -26,9 +29,19 @@ const routes = [
     component: MainPage
   },
   {
-    path: '/main/:id',
+    path: '/main/topic/:id',
     name: 'mainPageSubTopic',
-    component: MainPage
+    component: LectionComponent
+  },
+  {
+    path: '/main/files/:id',
+    name: 'mainPageTopicFiles',
+    component: FilesComponent
+  },
+  {
+    path: '/main/plan/:id',
+    name: 'mainPageTopicShortPlan',
+    component: ShortPlanComponent
   }
 ]
 

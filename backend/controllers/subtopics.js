@@ -4,16 +4,14 @@ const createSubTopic = async (req, res) => {
   res.send("Created SubTopic");
 };
 
-const getSubTopicInfo = async (req, res) => {
+const getSubTopicInfo = async (req, res, next) => {
   try {
     console.log("Retrieve subtopic");
+    console.log(req.params.id);
 
-    const id = req.query.id;
+    const id = req.params.id;
 
-    const result = {
-      topicTitle: "Testing",
-      topicContent: `This is a test for suptopic ${id}`,
-    };
+    const result = await SubTopic.findOne({where: {id: id}});
 
     res.status(200).send(result);
   } catch (err) {
