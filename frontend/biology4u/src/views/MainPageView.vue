@@ -69,30 +69,6 @@ export default {
             welcomeTopicBox: true,
             subTopicInfo: {},
             opened: [true, true, true],
-            items: [
-                {
-                    title: 'UI Elements',
-                    items: [
-                        { label: 'Button', id: 1 },
-                        { label: 'Data Table', id: 2 },
-                        { label: 'Radio', id: 3 },
-                    ],
-                },
-                {
-                    title: 'Services',
-                    items: [
-                        { label: 'Global Config', to: '/services/global-config', id: 4 },
-                        { label: 'Breakpoint Service', to: '/services/breakpoints', id: 5 },
-                    ],
-                },
-                {
-                    title: 'Styles',
-                    items: [
-                        { label: 'Colors', to: '/styles/colors', id: 6 },
-                        { label: 'Typography', to: '/styles/typography', id: 7 },
-                    ],
-                },
-            ],
         }
     },
 
