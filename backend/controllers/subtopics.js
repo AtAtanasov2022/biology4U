@@ -30,8 +30,25 @@ const deleteSubTopic = async (req, res) => {
   res.send("SubTopic Deleted");
 };
 
-const getAllSubTopics = async (req, res) => {
-  res.send("All SubTopics");
+const getAllSubTopics = async (req, res, next) => {
+  try {
+    const subTopics = await SubTopic.findAll();
+    console.log(subTopics);
+    let subTopicsShortInfo = [];
+
+    for (let index = 0; index < subTopics.length; index++) {
+      const shortSubTopic = {
+        id: subTopics[index].id,
+        subTopicName: subTopics[index].sub_topic_name,
+        topicId: subTopics[index].TopicId
+      };
+      subTopicsShortInfo.push(shortSubTopic);
+    }
+
+    res.send(subTopicsShortInfo).status(200);
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {
