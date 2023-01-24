@@ -1,15 +1,15 @@
 import { createStore } from 'vuex'
-// import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import router from '@/router';
 import AuthService from '@/services/auth.service';
 import TopicService from '@/services/topic.service';
-// import SubTopicService from '@/services/subTopic.service';
+import SubTopicService from '@/services/subTopic.service';
 
 export default createStore({
   state: {
     userInfo: {},
-    menuItems: []
+    menuItems: [],
+    subTopicInfo: {}
   },
   getters: {
     getUserInfo(state) {
@@ -17,6 +17,9 @@ export default createStore({
     },
     getMenuItems(state) {
       return state.menuItems;
+    }, 
+    getSubTopicInfo(state) {
+      return state.subTopicInfo;
     }
   },
   mutations: {
@@ -35,6 +38,10 @@ export default createStore({
 
     setTopicsAndSubTopics(state, topicsAndSubTopicsInfo) {
       state.menuItems = topicsAndSubTopicsInfo;
+    }, 
+    
+    setSubTopicInfo(state, subTopicInfo) {
+      state.subTopicInfo = subTopicInfo;
     }
   },
   actions: {
@@ -62,11 +69,13 @@ export default createStore({
     },
 
     async getAllTopicsAndShortSubTopics(context) {
-      console.log(context)
       // console.log(await TopicService.getAllTopicsAndShortSubTopics());
       context.commit("setTopicsAndSubTopics", await TopicService.getAllTopicsAndShortSubTopics());
-    }
+    },
 
+    async getSubtopic(context, subTopicId) {
+      context.commit("setSubTopicInfo", await SubTopicService.getSubtopicInfo(subTopicId));
+    }
     // refreshToken (context) {
 
     // }

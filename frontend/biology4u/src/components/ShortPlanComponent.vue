@@ -23,22 +23,18 @@
             </va-accordion>
         </div>
         <div class="topicBox">
-            <h1 class="topicBoxHeader1">
-                What is Lorem Ipsum?
-            </h1>
-            <p class="topicBoxParagraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <h1>Short plan for {{ subTopicInfo.sub_topic_name }}</h1>
+            <p>
+                This is the short plan from the subTopic with id = {{ subTopicInfo.TopicId }}
+            </p>
         </div>
+        
     </div>
 </template>
 
 <script>
 import store from "@/store";
+import SubTopicService from "@/services/subTopic.service";
 import { mapGetters } from "vuex";
 import router from "../router";
 
@@ -59,6 +55,19 @@ export default {
         }),
     },
 
+    created() {
+    // watch the params of the route to fetch the data again
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.getSubtopics(this.$route.params.id)
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    )
+  },
+
     beforeMount() {
         this.setDisableOptions();
         store.dispatch("getAllTopicsAndShortSubTopics");
@@ -71,6 +80,14 @@ export default {
     },
 
     methods: {
+        getSubtopics(id) {
+            return SubTopicService.getSubtopicInfo(id).then(
+                (response) => {
+                    this.subTopicInfo = response.data;
+                }
+            ).catch(() => { console.log("err") })
+        },
+
         openSubTopic(id) {
             router.push("/main/topic/" + id);
         },
