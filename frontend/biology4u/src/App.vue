@@ -4,11 +4,11 @@
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
       <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
         <va-accordion class="dropdownAccordionMenu" v-model="opened">
-          <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
+          <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
             <va-accordion class="secondDropdownAccordion">
               <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id" @click="openSubTopic(subTopic.id)">
-                <p>{{ subTopic.label }}</p>
+                <p>{{ subTopic.subTopicName }}</p>
               </div>
             </va-accordion>
           </va-collapse>
@@ -37,11 +37,13 @@
 import { mapGetters } from "vuex";
 import router from "./router";
 import store from "./store";
+import TopicService from "./services/topic.service";
 
 export default {
   data() {
     return { 
       opened: [false, false, false],
+      menuItems: [],
       items: [
         {
           title: 'UI Elements',
@@ -71,6 +73,13 @@ export default {
 
   beforeCreate() { this.$store.commit('initialiseStore'); },
 
+  beforeMount() {
+    TopicService.getAllTopicsAndShortSubTopics().then(response => {
+        console.log(response);
+        this.menuItems = response;
+    })
+  },
+
   computed: {
     ...mapGetters({
       user: "getUserInfo",
@@ -83,7 +92,7 @@ export default {
     },
 
     openSubTopic(id) {
-      router.push("/main/" + id);
+      router.push(`/main/topic/${id}`);
     }
   }
 };

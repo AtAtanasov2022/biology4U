@@ -23,9 +23,12 @@
             </va-accordion>
         </div>
         <div class="topicBox">
-            <h1>{{ subTopicInfo.sub_topic_name }}</h1>
+            <h1>{{ subTopicInfo.subTopicName }}</h1>
             <p>
-                This is the text from the subTopic with id = {{ subTopicInfo.TopicId }}
+                This is the text from the subTopic with id = {{ subTopicInfo.id }}
+            </p>
+            <p>
+                {{ subTopicInfo.content }}
             </p>
         </div>
     </div>

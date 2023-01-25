@@ -12,7 +12,7 @@ const SubTopic = sequelize.define("SubTopic", {
     autoIncrement: true,
     primaryKey: true
   },
-  sub_topic_name: {
+  subTopicName: {
     type: DataTypes.STRING,
     allowNull: false,
   },

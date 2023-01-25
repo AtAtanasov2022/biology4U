@@ -69,12 +69,15 @@ export default createStore({
     },
 
     async getAllTopicsAndShortSubTopics(context) {
-      // console.log(await TopicService.getAllTopicsAndShortSubTopics());
-      context.commit("setTopicsAndSubTopics", await TopicService.getAllTopicsAndShortSubTopics());
+      TopicService.getAllTopicsAndShortSubTopics().then(response => {
+        context.commit("setTopicsAndSubTopics", response);
+      })
     },
 
     async getSubtopic(context, subTopicId) {
-      context.commit("setSubTopicInfo", await SubTopicService.getSubtopicInfo(subTopicId));
+      SubTopicService.getSubtopicInfo(subTopicId).then(response => {
+        context.commit("setSubTopicInfo", response);
+      })
     }
     // refreshToken (context) {
 

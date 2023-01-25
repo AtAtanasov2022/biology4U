@@ -35,15 +35,17 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "http://localhost:8080", //???
+    origin: "http://localhost:8081", //???
     // origin: "http://192.168.87.2:8080/",
   })
 );
 
 
 app.use("/api/v1/users", usersRoutes);
-app.use("/api/v1/topics", topicsRoutes).use(authenticate);
-app.use("/api/v1/testResults", testResultsRoutes).use(authenticate);
+app.use("/api/v1/topics", topicsRoutes);
+app.use("/api/v1/testResults", testResultsRoutes);
+// app.use("/api/v1/topics", topicsRoutes).use(authenticate);
+// app.use("/api/v1/testResults", testResultsRoutes).use(authenticate);
 app.use("/api/v1/subTopics", subTopicsRoutes).use(authenticate);
 app.use("/api/v1/questions", questionsRoutes).use(authenticate);
 app.use("/api/v1/questionAnswers", questionAnswersRoutes).use(authenticate);

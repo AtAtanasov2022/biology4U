@@ -24,7 +24,7 @@ class TopicService {
             }
 
             let element = {
-                title: topics.data[index].topic_name,
+                title: topics.data[index].topicName,
                 items: itemsArray,
             }
             finalArray.push(element)
