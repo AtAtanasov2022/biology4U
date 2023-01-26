@@ -133,6 +133,10 @@ button.va-button.va-button--normal.va-button--icon-only {
     flex-direction: row;
 } */
 
+button.va-button.va-button--normal.va-button--icon-only {
+  max-width: 3rem !important;
+}
+
 .material-icons {
   --va-icon-height: 90rem;
 }
