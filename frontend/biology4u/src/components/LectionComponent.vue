@@ -98,9 +98,10 @@ export default {
 .mainPage {
     display: flex;
     flex-direction: row;
+    margin-left: 30%;
 }
 
-.accordionMenu {
+/* .accordionMenu {
     width: 30%;
 }
 
@@ -128,7 +129,7 @@ export default {
 }
 
 .accordionMenuOption {
-    /* width: 24.15rem; */
+    width: 24.15rem;
     display: flex;
     justify-content: center;
     width: 98%;
@@ -147,15 +148,15 @@ export default {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
-}
+} */
 
 .topicBox {
-    width: 70%;
+    width: 100%;
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
 }
-
+/* 
 .topicBoxHeader1 {
     text-align: center;
 }
@@ -163,5 +164,5 @@ export default {
 .topicBoxParagraph {
     text-align: justify;
     margin-top: 3rem;
-}
+} */
 </style>

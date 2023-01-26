@@ -34,9 +34,9 @@
   </nav>
   <div v-if="!isFullview" class="mainPage">
     <topic-sidebar v-if="isSidebarShow"></topic-sidebar>
-    <router-view/>
+    <router-view />
   </div>
-  <router-view v-if="isFullview"/>
+  <router-view v-if="isFullview" />
 </template>
 
 <script>
@@ -47,15 +47,17 @@ import store from "./store";
 // import TopicService from "./services/topic.service";
 
 export default {
-  components:{
-    TopicSidebar   
+  components: {
+    TopicSidebar
   },
   data() {
-    return { 
-      isFullview:true,
-      isSidebarShow:true
+    return {
+      isFullview: true,
+      isSidebarShow: true
     };
   },
+
+
 
   beforeCreate() { this.$store.commit('initialiseStore'); },
 
@@ -67,18 +69,31 @@ export default {
   // },
 
   created() {
-        // watch the params of the route to fetch the data again
-        this.$watch(
-            () => this.$route.meta,
-            () => {
-              this.isFullview = this.$route.meta && !!this.$route.meta.isFullview;
-              //this.getSubtopics(this.$route.params.id)
-            },
-            // fetch the data when the view is created and the data is
-            // already being observed
-            { immediate: true }
-        )
-    },
+    // watch the params of the route to fetch the data again
+    this.$watch(
+      () => this.$route.meta,
+      () => {
+        this.isFullview = this.$route.meta && !!this.$route.meta.isFullview;
+        //this.getSubtopics(this.$route.params.id)
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    )
+  },
+
+  watch: {
+    $route (to, from) {
+      console.log(to);
+      console.log(from);
+
+      if (to.fullPath == "/logIn" || to.fullPath == "/signUp" || to.fullPath == "/") {
+        this.isSidebarShow = false;
+      } else {
+        this.isSidebarShow = to.fullPath.includes("/main");
+      }
+    }
+  },
 
   computed: {
     ...mapGetters({
@@ -95,8 +110,8 @@ export default {
     //   router.push(`/main/topic/${id}`);
     // }
 
-    toggleSidebar(){
-      this.isSidebarShow=!this.isSidebarShow;
+    toggleSidebar() {
+      this.isSidebarShow = !this.isSidebarShow;
     }
   }
 };

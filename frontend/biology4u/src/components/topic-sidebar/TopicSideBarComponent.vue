@@ -6,7 +6,7 @@
                 color="textInverted" flat>
                 <va-accordion class="secondaryAccordion">
                     <va-collapse :model-value="isExpanded(sidebar.openedSubtopicId, id)"
-                        @click.stop="toggle('openedSubtopicId',idx)"
+                        @click.stop="toggle('openedSubtopicId',id)"
                          class="secondaryCollapse"
                         v-for="(subTopic, id) in group.items" :key="id" :header="subTopic.subTopicName"
                         text-color="textPrimary" color="textInverted" flat>
@@ -45,7 +45,8 @@ export default {
     computed: {
         ...mapGetters({
             menuItems: "getMenuItems",
-            sidebar: "sidebarState"
+            sidebar: "sidebarState",
+            user: "getUserInfo",
         }),
     },
 
@@ -85,11 +86,11 @@ export default {
         },
 
         setDisableOptions() {
-            // if (this.user.username) {
-            //     this.disableOptions = undefined;
-            // } else {
-            //     this.disableOptions = true;
-            // }
+            if (this.user.username) {
+                this.disableOptions = undefined;
+            } else {
+                this.disableOptions = true;
+            }
         },
 
         isExpanded(sidebarId, itemId) {
@@ -120,7 +121,7 @@ export default {
 .accordionMenu {
     width: 30%;
     position: absolute;
-    background: grey;
+    background: whitesmoke;
     left: 0.2rem;
     z-index: 1;
     border-radius: 0.3rem;

@@ -81,8 +81,9 @@ export default {
 .mainPage {
     display: flex;
     flex-direction: row;
+    margin-left: 30%;
 }
-
+/* 
 .accordionMenu {
     width: 30%;
 }
@@ -109,9 +110,10 @@ export default {
     display: flex;
     flex-direction: column;
 }
+*/
 
-.accordionMenuOption {
-    /* width: 24.15rem; */
+/* .accordionMenuOption {
+    width: 24.15rem;
     display: flex;
     justify-content: center;
     width: 98%;
@@ -130,10 +132,10 @@ export default {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
-}
+} */
 
 .topicBox {
-    width: 70%;
+    width: 100%;
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
