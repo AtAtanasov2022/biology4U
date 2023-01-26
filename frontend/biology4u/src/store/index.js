@@ -3,13 +3,18 @@ import jwt_decode from "jwt-decode"
 import router from '@/router';
 import AuthService from '@/services/auth.service';
 import TopicService from '@/services/topic.service';
-import SubTopicService from '@/services/subTopic.service';
+import TokenService from '@/services/token.service';
+// import SubTopicService from '@/services/subTopic.service';
 
 export default createStore({
   state: {
     userInfo: {},
     menuItems: [],
-    subTopicInfo: {}
+    // subTopicInfo: {}
+    sidebarState:{
+      openedTopicId:-1,
+      openedSubtopicId:-1
+    }
   },
   getters: {
     getUserInfo(state) {
@@ -18,8 +23,11 @@ export default createStore({
     getMenuItems(state) {
       return state.menuItems;
     }, 
-    getSubTopicInfo(state) {
-      return state.subTopicInfo;
+    // getSubTopicInfo(state) {
+    //   return state.subTopicInfo;
+    // }
+    sidebarState(state){
+      return state.sidebarState;
     }
   },
   mutations: {
@@ -40,14 +48,20 @@ export default createStore({
       state.menuItems = topicsAndSubTopicsInfo;
     }, 
     
-    setSubTopicInfo(state, subTopicInfo) {
-      state.subTopicInfo = subTopicInfo;
+    // setSubTopicInfo(state, subTopicInfo) {
+    //   state.subTopicInfo = subTopicInfo;
+    // }
+
+    openedTopic(state,sidebarState){
+      state.sidebarState = sidebarState;
     }
   },
   actions: {
     signUpUser(context, userInfo) {
       AuthService.register(userInfo).then(response => {
-        context.commit('setUserInfo', jwt_decode(response.data.token));
+        console.log(response);
+        console.log(jwt_decode(response.token));
+        context.commit('setUserInfo', jwt_decode(response.token));
         router.push('/main');
       }).catch(err => {
         console.log(err.message);
@@ -56,7 +70,7 @@ export default createStore({
 
     logInUser(context, userInfo) {
       AuthService.login(userInfo).then(response => {
-        context.commit('setUserInfo', jwt_decode(response.data.token));
+        context.commit('setUserInfo', jwt_decode(response.token));
         router.push('/main');
       }).catch(err => {
         console.log(err.message);
@@ -68,17 +82,26 @@ export default createStore({
       context.commit('deleteUserInfo');
     },
 
-    async getAllTopicsAndShortSubTopics(context) {
+    getAllTopicsAndShortSubTopics(context) {
       TopicService.getAllTopicsAndShortSubTopics().then(response => {
         context.commit("setTopicsAndSubTopics", response);
       })
     },
 
-    async getSubtopic(context, subTopicId) {
-      SubTopicService.getSubtopicInfo(subTopicId).then(response => {
-        context.commit("setSubTopicInfo", response);
-      })
-    }
+    openTopic(context,sidebarState){
+      context.commit("openedTopic", sidebarState);
+    },
+
+    refreshToken(context,newTokens){
+      context.commit('setUserInfo', jwt_decode(newTokens.token))
+      TokenService.setUser(newTokens);
+    },
+
+    // getSubtopic(context, subTopicId) {
+    //   SubTopicService.getSubtopicInfo(subTopicId).then(response => {
+    //     context.commit("setSubTopicInfo", response);
+    //   })
+    // }
     // refreshToken (context) {
 
     // }

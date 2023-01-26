@@ -19,6 +19,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const authenticate = require("./middleware/authenticate");
+const validateRefreshToken = require("./middleware/validateRefreshToken");
 
 require("dotenv").config();
 
@@ -35,7 +36,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "http://localhost:8081", //???
+    origin: "http://localhost:8080", //???
     // origin: "http://192.168.87.2:8080/",
   })
 );

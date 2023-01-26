@@ -1,11 +1,12 @@
 import api from './api';
+import requestWrapper from './requestwrapper';
 
 class SubTopicService {
   getAllSubTopicsShort() {
-    return api.get('/subTopics');
+    return requestWrapper(api.get('/subTopics'));
   }
   getSubtopicInfo(subTopicId) {
-    return api.get(`/subTopics/${subTopicId}`);
+    return requestWrapper(api.get(`/subTopics/${subTopicId}`));
   }
 }
 

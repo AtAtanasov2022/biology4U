@@ -1,9 +1,10 @@
 import api from './api';
+import requestWrapper from './requestwrapper';
 import SubTopicService from './subTopic.service';
 
 class TopicService {
     getAllTopics() {
-        return api.get('/topics');
+        return requestWrapper(api.get('/topics'));
     }
 
     async getAllTopicsAndShortSubTopics() {
@@ -11,11 +12,11 @@ class TopicService {
         let topics = await this.getAllTopics();
         let subTopics = await SubTopicService.getAllSubTopicsShort();
 
-        for (let index = 0; index < topics.data.length; index++) {
+        for (let index = 0; index < topics.length; index++) {
             let itemsArray = [];
-            for (let index2 = 0; index2 < subTopics.data.length; index2++) {
-                let tempElement = subTopics.data[index2];
-                if (tempElement.topicId === topics.data[index].id) {
+            for (let index2 = 0; index2 < subTopics.length; index2++) {
+                let tempElement = subTopics[index2];
+                if (tempElement.topicId === topics[index].id) {
                     itemsArray.push({
                         id: tempElement.id,
                         subTopicName: tempElement.subTopicName
@@ -24,7 +25,7 @@ class TopicService {
             }
 
             let element = {
-                title: topics.data[index].topicName,
+                title: topics[index].topicName,
                 items: itemsArray,
             }
             finalArray.push(element)

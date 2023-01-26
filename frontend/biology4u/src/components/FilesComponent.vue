@@ -42,7 +42,7 @@ export default {
         return {
             disableOptions: true,
             opened: [true, true, true, true, true],
-            subTopicInfo: {}
+            // subTopicInfo: {}
         }
     },
 
@@ -110,7 +110,7 @@ export default {
 }
 </script>
     
-<style >
+<style scoped>
 .mainPage {
     display: flex;
     flex-direction: row;
@@ -170,14 +170,5 @@ export default {
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
-}
-
-.topicBoxHeader1 {
-    text-align: center;
-}
-
-.topicBoxParagraph {
-    text-align: justify;
-    margin-top: 3rem;
 }
 </style>

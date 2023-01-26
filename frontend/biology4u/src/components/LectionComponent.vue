@@ -1,27 +1,5 @@
 <template>
     <div class="mainPage">
-        <div class="accordionMenu">
-            <va-accordion class="mainAccordion" v-model="opened">
-                <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
-                    class="mainCollapse" color="textInverted" flat>
-                    <va-accordion class="secondaryAccordion">
-                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
-                            :header="subTopic.subTopicName" text-color="textPrimary" color="textInverted" flat>
-                            <div class="subTopic">
-                                <button @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
-                                    Лекция
-                                </button>
-                                <button :disabled="disableOptions" @click="openShortPlan(subTopic.id)"
-                                    class="accordionMenuOption">Кратък план</button>
-                                <button :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)"
-                                    class="accordionMenuOption">Допълнителни файлове
-                                </button>
-                            </div>
-                        </va-collapse>
-                    </va-accordion>
-                </va-collapse>
-            </va-accordion>
-        </div>
         <div class="topicBox">
             <h1>{{ subTopicInfo.subTopicName }}</h1>
             <p>
@@ -35,26 +13,29 @@
 </template>
 
 <script>
-import store from "@/store";
+// import store from "@/store";
 import SubTopicService from "@/services/subTopic.service";
-import { mapGetters } from "vuex";
-import router from "../router";
+// import { mapGetters } from "vuex";
+// import router from "../router";
 
 export default {
     data() {
         return {
-            disableOptions: true,
-            opened: [true, true, true, true, true],
-            subTopicInfo: {}
+            // disableOptions: true,
+            // opened: [true, true, true, true, true],
+            subTopicInfo: {
+                subTopicName: "",
+                id: ""
+            }
         }
     },
 
     computed: {
-        ...mapGetters({
-            user: "getUserInfo",
-            menuItems: "getMenuItems",
-            subTopicInfo: "getSubTopicInfo",
-        }),
+        // ...mapGetters({
+        //     user: "getUserInfo",
+        //     menuItems: "getMenuItems",
+        //     // subTopicInfo: "getSubTopicInfo",
+        // }),
     },
 
     created() {
@@ -71,49 +52,49 @@ export default {
   },
 
     beforeMount() {
-        this.setDisableOptions();
-        store.dispatch("getAllTopicsAndShortSubTopics");
-        this.opened = [true, true, true, true, true];
+        // this.setDisableOptions();
+        // store.dispatch("getAllTopicsAndShortSubTopics");
+        // this.opened = [true, true, true, true, true];
     },
 
     beforeUpdate() {
-        this.setDisableOptions();
-        this.opened = [true, true, true, true, true];
+        // this.setDisableOptions();
+        // this.opened = [true, true, true, true, true];
     },
 
     methods: {
         getSubtopics(id) {
             return SubTopicService.getSubtopicInfo(id).then(
                 (response) => {
-                    this.subTopicInfo = response.data;
+                    this.subTopicInfo = response;
                 }
             ).catch(() => { console.log("err") })
         },
 
-        openSubTopic(id) {
-            router.push("/main/topic/" + id);
-        },
+        // openSubTopic(id) {
+        //     router.push("/main/topic/" + id);
+        // },
 
-        openShortPlan(id) {
-            router.push("/main/plan/" + id);
-        },
+        // openShortPlan(id) {
+        //     router.push("/main/plan/" + id);
+        // },
 
-        openAdditionalFiles(id) {
-            router.push("/main/files/" + id);
-        },
+        // openAdditionalFiles(id) {
+        //     router.push("/main/files/" + id);
+        // },
 
-        setDisableOptions() {
-            if (this.user.username) {
-                this.disableOptions = undefined;
-            } else {
-                this.disableOptions = true;
-            }
-        },
+        // setDisableOptions() {
+        //     if (this.user.username) {
+        //         this.disableOptions = undefined;
+        //     } else {
+        //         this.disableOptions = true;
+        //     }
+        // },
     },
 }
 </script>
     
-<style >
+<style scoped>
 .mainPage {
     display: flex;
     flex-direction: row;

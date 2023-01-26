@@ -1,16 +1,17 @@
 import api from "./api";
+import requestWrapper from "./requestwrapper";
 import TokenService from "./token.service";
 
 class AuthService {
   login({ username, userPassword }) {
-    return api
+    return requestWrapper(api
       .post("/users/logIn", {
         username,
         userPassword
-      })
+      }))
       .then((response) => {
-        if (response.data.token) {
-          TokenService.setUser(response.data);
+        if (response) {
+          TokenService.setUser(response);
         }
 
         return response;

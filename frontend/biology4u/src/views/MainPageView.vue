@@ -1,27 +1,6 @@
 <template>
     <div class="mainPage">
-        <div class="accordionMenu">
-            <va-accordion class="mainAccordion" v-model="opened">
-                <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
-                    class="mainCollapse" color="textInverted" flat>
-                    <va-accordion class="secondaryAccordion">
-                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
-                            :header="subTopic.subTopicName" text-color="textPrimary" color="textInverted" flat>
-                            <div class="subTopic">
-                                <button @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
-                                    Лекция
-                                </button>
-                                <button :disabled="disableOptions" @click="openShortPlan(subTopic.id)"
-                                    class="accordionMenuOption">Кратък план</button>
-                                <button :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)"
-                                    class="accordionMenuOption">Допълнителни файлове
-                                </button>
-                            </div>
-                        </va-collapse>
-                    </va-accordion>
-                </va-collapse>
-            </va-accordion>
-        </div>
+        <!-- <topic-sidebar></topic-sidebar> -->
         <div class="topicBox">
             <h1 class="topicBoxHeader1">
                 What is Lorem Ipsum?
@@ -43,11 +22,15 @@ import { mapGetters } from "vuex";
 import router from "../router";
 
 export default {
+    // components:{
+    //     TopicSidebar   
+    // },
     data() {
         return {
             disableOptions: true,
             opened: [true, true, true, true, true],
-            subTopicInfo: {}
+            // test: true
+            // subTopicInfo: {}
         }
     },
 
@@ -62,12 +45,12 @@ export default {
     beforeMount() {
         this.setDisableOptions();
         store.dispatch("getAllTopicsAndShortSubTopics");
-        this.opened = [true, true, true, true, true];
+        // this.opened = [true, true, true, true, true];
     },
 
     beforeUpdate() {
         this.setDisableOptions();
-        this.opened = [true, true, true, true, true];
+        // this.opened = [true, true, true, true, true];
     },
 
     methods: {
@@ -94,7 +77,7 @@ export default {
 }
 </script>
     
-<style >
+<style scoped>
 .mainPage {
     display: flex;
     flex-direction: row;

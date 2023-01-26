@@ -51,7 +51,7 @@ export default {
         ...mapGetters({
             user: "getUserInfo",
             menuItems: "getMenuItems",
-            subTopicInfo: "getSubTopicInfo",
+            // subTopicInfo: "getSubTopicInfo",
         }),
     },
 
@@ -111,7 +111,7 @@ export default {
 }
 </script>
     
-<style >
+<style scoped>
 .mainPage {
     display: flex;
     flex-direction: row;
