@@ -16,8 +16,15 @@ const deleteComment = async (req, res) => {
     res.send("Comment Deleted");
 }
 
-const getAllComments = async (req, res) => {
-    res.send("All Comments");
+const getAllCommentsBySubTopic = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        console.log(req.body);
+        const comments = await Comment.findAll({ where: {SubTopicId: id}});
+        res.send(comments).status(200);
+      } catch (err) {
+        next(err);
+      }
 }
 
 module.exports = {
@@ -25,5 +32,5 @@ module.exports = {
     getCommentInfo,
     updateCommentInfo,
     deleteComment,
-    getAllComments
+    getAllCommentsBySubTopic
 }
