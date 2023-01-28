@@ -10,7 +10,7 @@ const Topic = sequelize.define("Topic", {
     autoIncrement: true,
     primaryKey: true,
   },
-  topic_name: {
+  topicName: {
     type: DataTypes.STRING,
     allowNull: false,
   },

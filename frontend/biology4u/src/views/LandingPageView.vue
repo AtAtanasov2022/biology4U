@@ -11,7 +11,7 @@
 
 <script scoped>
 import router from '@/router';
-import store from '@/store';
+// import store from '@/store';
 import image1 from '../assets/image1Bio.jpg'
 import image2 from '../assets/image2Bio.jpg'
 import image3 from '../assets/image3Bio.jpg'
@@ -31,18 +31,18 @@ export default {
   },
 
   methods: {
-    createUser() {
-      const userInfo = {
-        username: this.username,
-        userPassword: this.password,
-        email: this.email,
-        firstname: this.firstName,
-        lastname: this.lastName,
-        userType: this.userType,
-      };
+    // createUser() {
+    //   const userInfo = {
+    //     username: this.username,
+    //     userPassword: this.password,
+    //     email: this.email,
+    //     firstname: this.firstName,
+    //     lastname: this.lastName,
+    //     userType: this.userType,
+    //   };
 
-      store.dispatch('setUserData', userInfo);
-    },
+    //   store.dispatch('setUserData', userInfo);
+    // },
 
     toSignUp() {
       router.push("/signUp");

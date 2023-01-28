@@ -16,6 +16,7 @@
         </div>
     </div>
 </template>
+//@keyup.enter="signUp"
 
 <script>
 import store from '@/store';
