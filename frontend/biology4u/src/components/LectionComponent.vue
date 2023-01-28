@@ -8,6 +8,8 @@
             <p>
                 {{ subTopicInfo.content }}
             </p>
+
+            <CommentFeed></CommentFeed>
         </div>
     </div>
 </template>
@@ -15,10 +17,14 @@
 <script>
 // import store from "@/store";
 import SubTopicService from "@/services/subTopic.service";
+import CommentFeed from "@/components/CommentOrFileFeed.vue"
 // import { mapGetters } from "vuex";
 // import router from "../router";
 
 export default {
+    components: {
+        CommentFeed
+    },
     data() {
         return {
             // disableOptions: true,

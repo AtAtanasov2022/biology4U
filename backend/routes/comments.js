@@ -6,10 +6,10 @@ const {
     getCommentInfo,
     updateCommentInfo,
     deleteComment,
-    getAllComments
+    getAllCommentsBySubTopic
 } = require('../controllers/comments');
 
-router.route('/').get(getAllComments).post(createComment);
+router.route('/').post(getAllCommentsBySubTopic).post(createComment);
 router.route('/:id').get(getCommentInfo).delete(deleteComment).put(updateCommentInfo);
 
 module.exports = router;
