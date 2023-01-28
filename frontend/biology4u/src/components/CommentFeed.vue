@@ -27,27 +27,23 @@ export default {
     },
 
     watch: {
-      '$route' () {
-        const subTopicId = this.$route.params.id;
-        console.log(subTopicId);
-        CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
-            this.comments = response;
-            console.log(this.comments);
-        })
-      }
+        '$route'() {
+            this.getComments();
+        }
     },
 
     beforeMount() {
-        const subTopicId = this.$route.params.id;
-        console.log(subTopicId);
-        CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
-            this.comments = response;
-            console.log(this.comments);
-        })
+        this.getComments();
     },
-    // watch the url and on change do console.log()
 
-    updated() {
+    methods: {
+        getComments() {
+            const subTopicId = this.$route.params.id;
+            CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
+                this.comments = response;
+                console.log(this.comments);
+            })
+        }
     }
 
 }

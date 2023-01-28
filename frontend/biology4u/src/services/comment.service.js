@@ -4,7 +4,7 @@ import UserService from './user.service';
 
 class CommentService {
     async getComments(subTopicId) {
-        return await requestWrapper(api.post(`/comments/${subTopicId}`));
+        return await requestWrapper(api.get(`/comments/${subTopicId}`));
     }
 
     async getAllCommentsAndUserInfo(subTopicId) {
