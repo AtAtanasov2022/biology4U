@@ -20,6 +20,7 @@ const getAllCommentsBySubTopic = async (req, res, next) => {
     try {
         const id = req.body.id;
         console.log(req.body);
+        console.log("HERERERERERERERERERREREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         const comments = await Comment.findAll({ where: {SubTopicId: id}});
         res.send(comments).status(200);
       } catch (err) {
