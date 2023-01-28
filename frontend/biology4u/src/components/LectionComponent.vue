@@ -17,7 +17,7 @@
 <script>
 // import store from "@/store";
 import SubTopicService from "@/services/subTopic.service";
-import CommentFeed from "@/components/CommentOrFileFeed.vue"
+import CommentFeed from "@/components/CommentFeed.vue"
 // import { mapGetters } from "vuex";
 // import router from "../router";
 

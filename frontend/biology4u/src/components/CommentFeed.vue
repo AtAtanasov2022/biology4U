@@ -38,17 +38,16 @@ export default {
     },
 
     beforeMount() {
-        
-    },
-    // watch the url and on change do console.log()
-
-    updated() {
         const subTopicId = this.$route.params.id;
         console.log(subTopicId);
         CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
             this.comments = response;
             console.log(this.comments);
         })
+    },
+    // watch the url and on change do console.log()
+
+    updated() {
     }
 
 }
