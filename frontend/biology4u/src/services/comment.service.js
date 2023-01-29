@@ -27,6 +27,11 @@ class CommentService {
 
         return finalComments;
     }
+
+    addComment(comment) {
+        console.log(comment);
+        api.post('/comments/', comment);
+    }
 }
 
 export default new CommentService;

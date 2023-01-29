@@ -1,7 +1,14 @@
 const Comment = require("../models/Comment");
 
-const createComment = async (req, res) => {
-    res.send("Created Comment");
+const createComment = async (req, res, next) => {
+    try {
+        console.log(req);
+        console.log(req.body);
+        const comment = await Comment.create(req.body);
+        res.send(comment).status(201);
+    } catch (err) {
+        next(err);
+    }
 }
 
 const updateCommentInfo = async (req, res) => {
@@ -15,11 +22,11 @@ const deleteComment = async (req, res) => {
 const getAllCommentsBySubTopic = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const comments = await Comment.findAll({ where: {SubTopicId: id}});
+        const comments = await Comment.findAll({ where: { SubTopicId: id } });
         res.send(comments).status(200);
-      } catch (err) {
+    } catch (err) {
         next(err);
-      }
+    }
 }
 
 module.exports = {

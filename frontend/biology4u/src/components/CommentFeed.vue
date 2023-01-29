@@ -1,9 +1,9 @@
 <template>
     <div>
-        <!-- <div>
-            <input type="text" placeholder="Comment">
-            <button>Add</button>
-        </div> -->
+        <div>
+            <va-input class="mb-6" v-model="userComment" type="textarea" label="Write your comment here..." autosize />
+            <va-button @click="addComment" size="large" class="mr-6 mb-2" round>Add comment</va-button>
+        </div>
         <div v-for="comment in comments" :key="comment.id">
             <h3>Creator {{ comment.creatorInfo.username }}</h3>
             <p>{{ comment.content }}</p>
@@ -17,7 +17,10 @@ import CommentService from "@/services/comment.service";
 export default {
     name: "comments-feed",
     data() {
-        return { comments: [] };
+        return { 
+            comments: [], 
+            userComment: "" 
+        };
     },
 
     computed: {
@@ -43,6 +46,17 @@ export default {
                 this.comments = response;
                 console.log(this.comments);
             })
+        },
+
+        addComment() {
+            const subTopicId = this.$route.params.id;
+            const commentInfo = {
+                content: this.userComment,
+                UserId: JSON.parse(this.user.userId),
+                SubTopicId: JSON.parse(subTopicId)
+            }
+            console.log(commentInfo);
+            CommentService.addComment(commentInfo);
         }
     }
 
