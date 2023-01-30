@@ -1,11 +1,12 @@
 <template>
-    <div>
-        <div>
-            <va-input class="mb-6" v-model="userComment" type="textarea" label="Write your comment here..." autosize />
-            <va-button @click="addComment" size="large" class="mr-6 mb-2" round>Add comment</va-button>
+    <div class="commentFeed">
+        <h1>Comment Feed</h1>
+        <div class="addCommentBox">
+            <va-input  class="mb-6" id="commentInput"  v-model="userComment" type="textarea" label="Write your comment here..." autosize />
+            <va-button @click="addComment" size="medium" class="mr-6 mb-2 ml-3" round>Add comment</va-button>
         </div>
-        <div v-for="comment in comments" :key="comment.id">
-            <h3>Creator {{ comment.creatorInfo.username }}</h3>
+        <div class="comment" v-for="comment in comments" :key="comment.id">
+            <h2>{{ comment.creatorInfo.username }}</h2>
             <p>{{ comment.content }}</p>
         </div>
     </div>
@@ -63,3 +64,18 @@ export default {
 }
 
 </script>
+
+<style scoped>
+    .commentFeed {
+        padding: 0.5rem;
+        margin: 1rem 0 0 0;
+    }
+
+    .addCommentBox {
+        margin: 1rem 0 0 0;
+    }
+
+    .comment {
+        margin: 1rem 0 0 0;
+    }
+</style>

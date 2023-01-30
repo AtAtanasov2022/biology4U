@@ -9,7 +9,7 @@
                 {{ subTopicInfo.content }}
             </p>
 
-            <CommentFeed></CommentFeed>
+            <CommentFeed v-if="user.username"></CommentFeed>
         </div>
     </div>
 </template>
@@ -18,7 +18,7 @@
 // import store from "@/store";
 import SubTopicService from "@/services/subTopic.service";
 import CommentFeed from "@/components/CommentFeed.vue"
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 // import router from "../router";
 
 export default {
@@ -37,11 +37,11 @@ export default {
     },
 
     computed: {
-        // ...mapGetters({
-        //     user: "getUserInfo",
-        //     menuItems: "getMenuItems",
-        //     // subTopicInfo: "getSubTopicInfo",
-        // }),
+        ...mapGetters({
+            user: "getUserInfo",
+            // menuItems: "getMenuItems",
+            // subTopicInfo: "getSubTopicInfo",
+        }),
     },
 
     created() {
