@@ -1,3 +1,4 @@
+import router from '@/router';
 import api from './api';
 import requestWrapper from './requestwrapper';
 import UserService from './user.service';
@@ -30,7 +31,9 @@ class CommentService {
 
     addComment(comment) {
         console.log(comment);
-        api.post('/comments/', comment);
+        api.post('/comments', comment).then(() => {
+            router.go(0);
+        });
     }
 }
 

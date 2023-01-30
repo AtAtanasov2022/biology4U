@@ -2,11 +2,11 @@ const Comment = require("../models/Comment");
 
 const createComment = async (req, res, next) => {
     try {
-        console.log(req);
         console.log(req.body);
         const comment = await Comment.create(req.body);
         res.send(comment).status(201);
     } catch (err) {
+        // console.log("Something is wrong");
         next(err);
     }
 }
