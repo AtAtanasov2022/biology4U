@@ -30,7 +30,7 @@ export default {
             repeatedPassword: "",
             firstname: "",
             lastname: "",
-            userType: "",
+            userType: "student",
         }
     },
     methods: {
