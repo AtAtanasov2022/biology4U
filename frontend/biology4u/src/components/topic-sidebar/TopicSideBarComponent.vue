@@ -2,12 +2,11 @@
     <div class="accordionMenu">
         <va-accordion class="mainAccordion">
             <va-collapse v-for="(group, idx) in menuItems" :model-value="isExpanded(sidebar.openedTopicId, idx)"
-                @click.stop="toggle('openedTopicId',idx)" :key="idx" :header="group.title" text-color="textPrimary" class="mainCollapse"
-                color="textInverted" flat>
+                @click.stop="toggle('openedTopicId', idx)" :key="idx" :header="group.title" text-color="textPrimary"
+                class="mainCollapse" color="textInverted" flat>
                 <va-accordion class="secondaryAccordion">
                     <va-collapse :model-value="isExpanded(sidebar.openedSubtopicId, id)"
-                        @click.stop="toggle('openedSubtopicId',id)"
-                         class="secondaryCollapse"
+                        @click.stop="toggle('openedSubtopicId', id)" class="secondaryCollapse"
                         v-for="(subTopic, id) in group.items" :key="id" :header="subTopic.subTopicName"
                         text-color="textPrimary" color="textInverted" flat>
                         <div class="subTopic">
@@ -50,19 +49,6 @@ export default {
         }),
     },
 
-    created() {
-        // watch the params of the route to fetch the data again
-        // this.$watch(
-        //     () => this.$route.params,
-        //     () => {
-        //         this.getSubtopics(this.$route.params.id)
-        //     },
-        //     // fetch the data when the view is created and the data is
-        //     // already being observed
-        //     { immediate: true }
-        // )
-    },
-
     beforeMount() {
         this.setDisableOptions();
         store.dispatch("getAllTopicsAndShortSubTopics");
@@ -97,15 +83,14 @@ export default {
             return sidebarId == itemId;
         },
 
-        toggle(key,id) {
-            // console.log(event);
+        toggle(key, id) {
             if (this.sidebar[key] == id) {
                 //close
                 store.dispatch('openTopic', {
                     ...this.sidebar,
                     [key]: -1,
                 });
-            }else{
+            } else {
                 //open
                 store.dispatch('openTopic', {
                     ...this.sidebar,
@@ -152,7 +137,6 @@ export default {
 }
 
 .accordionMenuOption {
-    /* width: 24.15rem; */
     display: flex;
     justify-content: center;
     width: 98%;

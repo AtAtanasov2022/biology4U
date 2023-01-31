@@ -22,7 +22,6 @@ const createUser = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
     throw new Error("Cannot create user");
   }
 };
@@ -50,8 +49,7 @@ const logInUserInfo = async (req, res, next) => {
     }
 
   } catch (err) {
-    // next(err);
-    console.log(err);
+    next(err);
   }
 };
 

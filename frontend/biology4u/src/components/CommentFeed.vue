@@ -1,12 +1,13 @@
 <template>
     <div class="commentFeed">
-        <h1>Comment Feed</h1>
+        <h1>Коментари</h1>
         <div class="addCommentBox">
-            <va-input  class="mb-6" id="commentInput"  v-model="userComment" type="textarea" label="Write your comment here..." autosize />
+            <va-input class="mb-6" id="commentInput" v-model="userComment" type="textarea"
+                label="Write your comment here..." autosize />
             <va-button @click="addComment" size="medium" class="mr-6 mb-2 ml-3" round>Add comment</va-button>
         </div>
         <div class="comment" v-for="comment in comments" :key="comment.id">
-            <h2>{{ comment.creatorInfo.username }}</h2>
+            <h2>{{ comment.creatorInfo.username || user.username }}</h2>
             <p>{{ comment.content }}</p>
         </div>
     </div>
@@ -15,12 +16,13 @@
 <script>
 import { mapGetters } from "vuex";
 import CommentService from "@/services/comment.service";
+
 export default {
     name: "comments-feed",
     data() {
-        return { 
-            comments: [], 
-            userComment: "" 
+        return {
+            comments: [],
+            userComment: ""
         };
     },
 
@@ -57,7 +59,20 @@ export default {
                 SubTopicId: JSON.parse(subTopicId)
             }
             console.log(commentInfo);
-            CommentService.addComment(commentInfo);
+            CommentService.addComment(commentInfo).then((response) => {
+                console.log("Returned comment")
+                console.log(response);
+                const comment = {
+                    id: response.data.id,
+                    content: response.data.content,
+                    UserId: response.data.UserId,
+                    SubTopicId: response.data.SubTopicId,
+                    creatorInfo: {
+                        username: this.user.username
+                    }
+                }
+                this.comments.unshift(comment);
+            });
         }
     }
 
@@ -66,16 +81,16 @@ export default {
 </script>
 
 <style scoped>
-    .commentFeed {
-        padding: 0.5rem;
-        margin: 1rem 0 0 0;
-    }
+.commentFeed {
+    padding: 0.5rem;
+    margin: 1rem 0 0 0;
+}
 
-    .addCommentBox {
-        margin: 1rem 0 0 0;
-    }
+.addCommentBox {
+    margin: 1rem 0 0 0;
+}
 
-    .comment {
-        margin: 1rem 0 0 0;
-    }
+.comment {
+    margin: 1rem 0 0 0;
+}
 </style>

@@ -1,4 +1,3 @@
-import router from '@/router';
 import api from './api';
 import requestWrapper from './requestwrapper';
 import UserService from './user.service';
@@ -29,11 +28,8 @@ class CommentService {
         return finalComments;
     }
 
-    addComment(comment) {
-        console.log(comment);
-        api.post('/comments', comment).then(() => {
-            router.go(0);
-        });
+    async addComment(comment) {
+        return api.post('/comments', comment);
     }
 }
 
