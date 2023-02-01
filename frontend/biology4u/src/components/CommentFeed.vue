@@ -33,7 +33,7 @@ export default {
     },
 
     watch: {
-        '$route'() {
+        '$route.params'() {
             this.getComments();
         }
     },
@@ -47,32 +47,33 @@ export default {
             const subTopicId = this.$route.params.id;
             CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
                 this.comments = response;
-                console.log(this.comments);
             })
         },
 
         addComment() {
+            if (this.userComment.trim() === "") {
+                this.userComment = "Speechless"; // Handle empty comments later
+            }
             const subTopicId = this.$route.params.id;
             const commentInfo = {
                 content: this.userComment,
-                UserId: JSON.parse(this.user.userId),
-                SubTopicId: JSON.parse(subTopicId)
+                UserId: this.user.userId,
+                SubTopicId: subTopicId
             }
-            console.log(commentInfo);
-            CommentService.addComment(commentInfo).then((response) => {
-                console.log("Returned comment")
-                console.log(response);
+            CommentService.addComment(commentInfo).then((data) => {
                 const comment = {
-                    id: response.data.id,
-                    content: response.data.content,
-                    UserId: response.data.UserId,
-                    SubTopicId: response.data.SubTopicId,
+                    id: data.id,
+                    content: data.content,
+                    UserId: data.UserId,
+                    SubTopicId: data.SubTopicId,
                     creatorInfo: {
                         username: this.user.username
                     }
                 }
                 this.comments.unshift(comment);
             });
+
+            this.userComment = "";
         }
     }
 

@@ -57,9 +57,7 @@ export default {
   },
 
   watch: {
-    $route(to, from) {
-      console.log(from);
-
+    $route(to) {
       if (to.fullPath == "/logIn" || to.fullPath == "/signUp" || to.fullPath == "/") {
         this.isSidebarShow = false;
       } else {

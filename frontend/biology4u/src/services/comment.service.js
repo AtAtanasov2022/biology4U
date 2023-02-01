@@ -29,7 +29,7 @@ class CommentService {
     }
 
     async addComment(comment) {
-        return api.post('/comments', comment);
+        return requestWrapper(api.post('/comments', comment));
     }
 }
 
