@@ -1,7 +1,7 @@
 const AdditionalFile = require("../models/AdditionalFile");
 
 const createAdditionalFile = async (req, res) => {
-    res.send("Created AdditionalFile");
+    
 }
 
 const getAdditionalFileInfo = async (req, res) => {
