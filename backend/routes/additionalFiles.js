@@ -6,10 +6,14 @@ const {
     getAdditionalFileInfo,
     updateAdditionalFileInfo,
     deleteAdditionalFile,
-    getAllAdditionalFiles
+    getAllAdditionalFiles,
+    downloadFile,
+    upload
 } = require('../controllers/additionalFiles');
 
-router.route('/').get(getAllAdditionalFiles).post(createAdditionalFile);
-router.route('/:id').get(getAdditionalFileInfo).delete(deleteAdditionalFile).put(updateAdditionalFileInfo);
+router.route('/:subTopicId').get(getAllAdditionalFiles);
+router.route('/:userId/:subTopicId').post(upload.single('asd'), createAdditionalFile);
+router.route('/:id').delete(deleteAdditionalFile);
+router.route('/download/:fileId/').get(downloadFile);
 
 module.exports = router;
