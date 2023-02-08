@@ -13,6 +13,11 @@ const AdditionalFile = sequelize.define("AdditionalFile", {
     allowNull: false,
     unique: true,
   },
+  fileName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  }
 });
 
 
