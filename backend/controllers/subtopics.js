@@ -37,7 +37,7 @@ const getAllSubTopics = async (req, res, next) => {
     for (let index = 0; index < subTopics.length; index++) {
       const shortSubTopic = {
         id: subTopics[index].id,
-        subTopicName: subTopics[index].sub_topic_name,
+        subTopicName: subTopics[index].subTopicName,
         topicId: subTopics[index].TopicId
       };
       subTopicsShortInfo.push(shortSubTopic);

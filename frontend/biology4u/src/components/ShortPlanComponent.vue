@@ -1,6 +1,6 @@
 <template>
     <div class="mainPage">
-        <div class="accordionMenu">
+        <!-- <div class="accordionMenu">
             <va-accordion class="mainAccordion" v-model="opened">
                 <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
                     class="mainCollapse" color="textInverted" flat>
@@ -21,11 +21,11 @@
                     </va-accordion>
                 </va-collapse>
             </va-accordion>
-        </div>
+        </div> -->
         <div class="topicBox">
-            <h1>Short plan for {{ subTopicInfo.sub_topic_name }}</h1>
+            <h1>Short plan for {{ subTopicInfo.subTopicName }}</h1>
             <p>
-                This is the short plan from the subTopic with id = {{ subTopicInfo.TopicId }}
+                This is the short plan from the subTopic with id = {{ subTopicInfo.id }}
             </p>
         </div>
         
@@ -33,26 +33,29 @@
 </template>
 
 <script>
-import store from "@/store";
+// import store from "@/store";
 import SubTopicService from "@/services/subTopic.service";
-import { mapGetters } from "vuex";
-import router from "../router";
+// import { mapGetters } from "vuex";
+// import router from "../router";
 
 export default {
     data() {
         return {
-            disableOptions: true,
-            opened: [true, true, true, true, true],
-            subTopicInfo: {}
+            // disableOptions: true,
+            // opened: [true, true, true, true, true],
+            subTopicInfo: {
+                subTopicName: "",
+                id: ""
+            }
         }
     },
 
     computed: {
-        ...mapGetters({
-            user: "getUserInfo",
-            menuItems: "getMenuItems",
-            subTopicInfo: "getSubTopicInfo",
-        }),
+        // ...mapGetters({
+        //     user: "getUserInfo",
+        //     menuItems: "getMenuItems",
+        //     // subTopicInfo: "getSubTopicInfo",
+        // }),
     },
 
     created() {
@@ -69,55 +72,56 @@ export default {
   },
 
     beforeMount() {
-        this.setDisableOptions();
-        store.dispatch("getAllTopicsAndShortSubTopics");
-        this.opened = [true, true, true, true, true];
+        // this.setDisableOptions();
+        // store.dispatch("getAllTopicsAndShortSubTopics");
+        // this.opened = [true, true, true, true, true];
     },
 
     beforeUpdate() {
-        this.setDisableOptions();
-        this.opened = [true, true, true, true, true];
+        // this.setDisableOptions();
+        // this.opened = [true, true, true, true, true];
     },
 
     methods: {
         getSubtopics(id) {
             return SubTopicService.getSubtopicInfo(id).then(
                 (response) => {
-                    this.subTopicInfo = response.data;
+                    this.subTopicInfo = response;
                 }
             ).catch(() => { console.log("err") })
         },
 
-        openSubTopic(id) {
-            router.push("/main/topic/" + id);
-        },
+        // openSubTopic(id) {
+        //     router.push("/main/topic/" + id);
+        // },
 
-        openShortPlan(id) {
-            router.push("/main/plan/" + id);
-        },
+        // openShortPlan(id) {
+        //     router.push("/main/plan/" + id);
+        // },
 
-        openAdditionalFiles(id) {
-            router.push("/main/files/" + id);
-        },
+        // openAdditionalFiles(id) {
+        //     router.push("/main/files/" + id);
+        // },
 
-        setDisableOptions() {
-            if (this.user.username) {
-                this.disableOptions = undefined;
-            } else {
-                this.disableOptions = true;
-            }
-        },
+        // setDisableOptions() {
+        //     if (this.user.username) {
+        //         this.disableOptions = undefined;
+        //     } else {
+        //         this.disableOptions = true;
+        //     }
+        // },
     },
 }
 </script>
     
-<style >
+<style scoped>
 .mainPage {
     display: flex;
     flex-direction: row;
+    margin-left: 30%;
 }
 
-.accordionMenu {
+/* .accordionMenu {
     width: 30%;
 }
 
@@ -142,10 +146,10 @@ export default {
     padding: 0 0.2rem 0.5rem;
     display: flex;
     flex-direction: column;
-}
-
+} */
+/* 
 .accordionMenuOption {
-    /* width: 24.15rem; */
+    width: 24.15rem; 
     display: flex;
     justify-content: center;
     width: 98%;
@@ -164,21 +168,21 @@ export default {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
-}
+} */
 
 .topicBox {
-    width: 70%;
+    width: 100%;
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
 }
 
-.topicBoxHeader1 {
+/* .topicBoxHeader1 {
     text-align: center;
 }
 
 .topicBoxParagraph {
     text-align: justify;
     margin-top: 3rem;
-}
+} */
 </style>

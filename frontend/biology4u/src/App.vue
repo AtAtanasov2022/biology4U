@@ -2,18 +2,20 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
+      <!-- <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
         <va-accordion class="dropdownAccordionMenu" v-model="opened">
-          <va-collapse v-for="(group, idx) in items" :key="idx" :header="group.title" text-color="textPrimary"
+          <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
             class="topicCollapse" color="textInverted" flat>
             <va-accordion class="secondDropdownAccordion">
               <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id" @click="openSubTopic(subTopic.id)">
-                <p>{{ subTopic.label }}</p>
+                <p>{{ subTopic.subTopicName }}</p>
               </div>
             </va-accordion>
           </va-collapse>
         </va-accordion>
-      </va-button-dropdown>
+      </va-button-dropdown> -->
+      <va-button v-if="!user.username" icon="menu" left-icon @click="toggleSidebar()">
+      </va-button>
     </div>
     <div class="paragraph">
       <p id="paragraph1">Теми и тестове по биология</p>
@@ -30,46 +32,68 @@
       <!-- <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon> -->
     </div>
   </nav>
-  <router-view />
+  <div v-if="!isFullview" class="mainPage">
+    <topic-sidebar v-if="isSidebarShow"></topic-sidebar>
+    <router-view />
+  </div>
+  <router-view v-if="isFullview" />
 </template>
 
 <script>
+import TopicSidebar from "./components/topic-sidebar/TopicSideBarComponent.vue";
 import { mapGetters } from "vuex";
-import router from "./router";
+// import router from "./router";
 import store from "./store";
+// import TopicService from "./services/topic.service";
 
 export default {
+  components: {
+    TopicSidebar
+  },
   data() {
-    return { 
-      opened: [false, false, false],
-      items: [
-        {
-          title: 'UI Elements',
-          items: [
-            { label: 'Button', id: 1 },
-            { label: 'Data Table', id: 2 },
-            { label: 'Radio', id: 3 },
-          ],
-        },
-        {
-          title: 'Services',
-          items: [
-            { label: 'Global Config', to: '/services/global-config', id: 4 },
-            { label: 'Breakpoint Service', to: '/services/breakpoints', id: 5 },
-          ],
-        },
-        {
-          title: 'Styles',
-          items: [
-            { label: 'Colors', to: '/styles/colors', id: 6 },
-            { label: 'Typography', to: '/styles/typography', id: 7 },
-          ],
-        },
-      ],
+    return {
+      isFullview: true,
+      isSidebarShow: true
     };
   },
 
+
+
   beforeCreate() { this.$store.commit('initialiseStore'); },
+
+  // beforeMount() {
+  //   TopicService.getAllTopicsAndShortSubTopics().then(response => {
+  //       console.log(response);
+  //       this.menuItems = response;
+  //   })
+  // },
+
+  created() {
+    // watch the params of the route to fetch the data again
+    this.$watch(
+      () => this.$route.meta,
+      () => {
+        this.isFullview = this.$route.meta && !!this.$route.meta.isFullview;
+        //this.getSubtopics(this.$route.params.id)
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    )
+  },
+
+  watch: {
+    $route (to, from) {
+      console.log(to);
+      console.log(from);
+
+      if (to.fullPath == "/logIn" || to.fullPath == "/signUp" || to.fullPath == "/") {
+        this.isSidebarShow = false;
+      } else {
+        this.isSidebarShow = to.fullPath.includes("/main");
+      }
+    }
+  },
 
   computed: {
     ...mapGetters({
@@ -82,8 +106,12 @@ export default {
       store.dispatch("logout")
     },
 
-    openSubTopic(id) {
-      router.push("/main/" + id);
+    // openSubTopic(id) {
+    //   router.push(`/main/topic/${id}`);
+    // }
+
+    toggleSidebar() {
+      this.isSidebarShow = !this.isSidebarShow;
     }
   }
 };
@@ -113,6 +141,15 @@ body {
 button.va-button.va-button--normal.va-button--icon-only {
   background-color: #40916c !important;
   /* background-color: #40916c; */
+}
+
+/* .mainPage {
+    display: flex;
+    flex-direction: row;
+} */
+
+button.va-button.va-button--normal.va-button--icon-only {
+  max-width: 3rem !important;
 }
 
 .material-icons {

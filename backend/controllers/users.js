@@ -26,7 +26,7 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const logInUserInfo = async (req, res) => {
+const logInUserInfo = async (req, res, next) => {
   try {
     console.log(req.body);
     if (req.body.username.length == 0 || req.body.username == null || req.body.userPassword.length == 0 || req.body.userPassword == null) {
@@ -54,25 +54,21 @@ const logInUserInfo = async (req, res) => {
   }
 };
 
-const getUserInfo = async (req, res) => {
+const getUserInfo = async (req, res, next) => {
   try {
-    //Token maybe?
-    if (req.body.id == null) {
-      throw new Error("Invalid request body");
-    } else {
-      const user = await User.findAll({
+    const id = req.params.id;
+      const user = await User.findOne({
         where: {
-          id: req.body.id,
+          id: id,
         },
       });
       res.send(user).status(200);
-    }
   } catch (err) {
     next(err);
   }
 };
 
-const updateUserInfo = async (req, res) => {
+const updateUserInfo = async (req, res, next) => {
   try {
     user = await User.update(
       req.body,
@@ -88,7 +84,7 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
-const deleteUserInfo = async (req, res) => {
+const deleteUserInfo = async (req, res, next) => {
   try {
     await User.destroy({
       where: {
@@ -101,7 +97,7 @@ const deleteUserInfo = async (req, res) => {
   }
 };
 
-const getAllUsersInfo = async (req, res) => {
+const getAllUsersInfo = async (req, res, next) => {
   try {
     const users = await User.findAll();
     res.send(users).status(200);
