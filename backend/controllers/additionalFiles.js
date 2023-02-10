@@ -2,7 +2,8 @@ const AdditionalFile = require("../models/AdditionalFile");
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
-
+const fs = require('fs');
+const mime = require('mime');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -58,7 +59,22 @@ const downloadFile = async (req, res) => {
         },
     });
     
-    res.download(path.join(__dirname, file.pathName), file.fileName);
+    try {
+        const fileName = file.fileName;
+        const fileURL =  `${__dirname}/uploads/${file.pathName}`;
+        const stream = fs.createReadStream(fileURL);
+        const contentType = mime.getType(fileName);
+        
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Content-Disposition', `attachment; filename=${fileName}`)
+        stream.pipe(res);
+        // res.status(200).send({fileName: file.fileName, fileId: file.id});
+      } catch (e) {
+        console.error(e)
+        res.status(500).end();
+      }
+
+    // res.download(path.join(__dirname, file.pathName), file.fileName);
 }
 
 module.exports = {
@@ -68,5 +84,5 @@ module.exports = {
     deleteAdditionalFile,
     getAllAdditionalFiles,
     downloadFile,
-    upload
+    upload,
 }
