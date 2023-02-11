@@ -14,7 +14,7 @@ class FileService {
     }
 
     async download(fileId) {
-        return api.get(`/additionalFiles/download/${fileId}`), {responseType: "blob"};
+        return api.get(`/additionalFiles/download/${fileId}`, {responseType: "blob"});
     }
 }
 

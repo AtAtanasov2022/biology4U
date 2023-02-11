@@ -95,12 +95,15 @@ export default {
         download(fileId) {
             FileService.download(fileId, this.subTopicInfo.id).then((response) => {
                 console.log(response);
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'file.pdf');
-                document.body.appendChild(link);
-                link.click();
+                const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                const fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+                const fileName = response.headers['content-disposition'].substring(21);
+                fileLink.setAttribute('download', fileName);
+                fileLink.setAttribute('target', '_blank');
+                document.body.appendChild(fileLink);
+                fileLink.click();
+                fileLink.remove();
             });
         }
     },
