@@ -98,7 +98,7 @@ export default {
                 const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                 const fileLink = document.createElement('a');
                 fileLink.href = fileURL;
-                const fileName = response.headers['content-disposition'].substring(22, 52);
+                const fileName = response.headers['content-disposition'].substring(21);
                 fileLink.setAttribute('download', fileName);
                 fileLink.setAttribute('target', '_blank');
                 document.body.appendChild(fileLink);
