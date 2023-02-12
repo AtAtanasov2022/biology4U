@@ -1,4 +1,5 @@
 const Comment = require("../models/Comment");
+const User = require("../models/User");
 
 const createComment = async (req, res, next) => {
     try {
@@ -20,7 +21,7 @@ const deleteComment = async (req, res) => {
 const getAllCommentsBySubTopic = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const comments = await Comment.findAll({ where: { SubTopicId: id } });
+        const comments = await Comment.findAll({ where: { SubTopicId: id }, include: {model: User} });
         res.send(comments).status(200);
     } catch (err) {
         next(err);

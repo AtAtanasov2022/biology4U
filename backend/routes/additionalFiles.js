@@ -13,7 +13,7 @@ const {
 const cors = require('cors');
 
 router.route('/:subTopicId').get(getAllAdditionalFiles);
-router.route('/:userId/:subTopicId').post(upload.single('asd'), createAdditionalFile);
+router.route('/:userId/:subTopicId').post(upload.single('file'), createAdditionalFile);
 router.route('/:id').delete(deleteAdditionalFile);
 router.route('/download/:fileId/').get(cors({
     exposedHeaders: ['Content-Disposition'],

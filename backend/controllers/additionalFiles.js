@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const mime = require('mime');
+const User = require("../models/User");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -42,11 +43,13 @@ const getAllAdditionalFiles = async (req, res) => {
         where: {
             SubTopicId: req.params.subTopicId,
         },
+        include: {model: User}
     });
     const response = files.map((file) => {
         return {
             id: file.id,
-            fileName: file.fileName
+            fileName: file.fileName,
+            username: file.User.username
         }
     })
     res.send(response);
