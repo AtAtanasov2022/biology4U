@@ -1,22 +1,20 @@
 <template>
     <div class="mainPage">
         <div class="topicBox">
-            <div v-if="user.userType === 'teacher'" class="container">
-                <div>
-                    <h2>Добавяне на файлове</h2>
-                    <hr />
-                    <label>Файл
-                        <input type="file" @change="handleFileUpload($event)" />
-                    </label>
-                    <br>
-                    <button v-on:click="submitFile()">Добавяне</button>
-                </div>
+            <div v-if="user.userType === 'teacher'" class="addFileContainer">
+
+                <h1>Добавяне на файлове</h1>
+                <hr />
+                <label>Файл
+                    <input type="file" @change="handleFileUpload($event)" />
+                </label>
+                <br>
+                <button v-on:click="submitFile()">Добавяне</button>
+
             </div>
-            <h1> Additional files for {{ subTopicInfo.subTopicName }}</h1>
-            <p>
-                Those are the additionalFiles from the subTopic with id = {{ subTopicInfo.id }}
-            </p>
-            <div v-for="(file, index) in fileNames" :key="index">
+            <h2> Допълнителни файлове за {{ subTopicInfo.subTopicName }}</h2>
+            <div class="file" v-for="(file, index) in fileNames" :key="index">
+                <h3>{{ file.username }}</h3>
                 <a style="cursor: pointer" @click="download(file.id)">{{ file.fileName }}</a>
             </div>
         </div>
@@ -50,6 +48,7 @@ export default {
         this.$watch(
             () => this.$route.params,
             () => {
+                this.fileNames = [];
                 this.getSubtopics(this.$route.params.id).then(() => {
                     return this.getFiles(this.subTopicInfo.id);
                 });
@@ -75,20 +74,22 @@ export default {
 
         handleFileUpload(event) {
             this.file = event.target.files[0];
-            console.log(this.file);
         },
 
         submitFile() {
             let formData = new FormData();
-            formData.append('asd', this.file);
+            formData.append('file', this.file);
             const data = {
                 userId: this.user.userId,
                 subTopicId: this.subTopicInfo.id
             }
             FileService.addFile(formData, data).then(response => {
-                this.fileNames.push(response.fileName);
-
-                console.log(response);
+                const element = {
+                    id: response.id,
+                    fileName: response.fileName,
+                    username: this.user.username
+                }
+                this.fileNames.unshift(element);
             });
         },
 
@@ -122,5 +123,13 @@ export default {
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
+}
+
+.file {
+    margin-top: 1.5rem;
+}
+
+.addFileContainer {
+    margin-bottom: 1.5rem;
 }
 </style>
