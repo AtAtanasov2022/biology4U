@@ -3,7 +3,6 @@ import requestWrapper from './requestwrapper';
 
 class FileService {
     async addFile(formData, data) {
-        console.log(formData);
         return requestWrapper(api.post(`/additionalFiles/${data.userId}/${data.subTopicId}`, formData, {headers: {
             'Content-Type': 'multipart/form-data'
         }}));
