@@ -6,7 +6,7 @@
                 <h1>Добавяне на файлове</h1>
                 <hr />
                 <label>Файл
-                    <input type="file" @change="handleFileUpload($event)" />
+                    <input type="file" accept=".jpg, .jpeg, .png, .pdf, .docx, .xlsx, .pptx" @change="handleFileUpload($event)" />
                 </label>
                 <br>
                 <button v-on:click="submitFile()">Добавяне</button>
@@ -69,6 +69,7 @@ export default {
         async getFiles(id) {
             return FileService.getAllFiles(id).then((files) => {
                 this.fileNames.push(...files);
+                this.fileNames.reverse();
             });
         },
 

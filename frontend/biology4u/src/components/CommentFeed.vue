@@ -46,7 +46,7 @@ export default {
         getComments() {
             const subTopicId = this.$route.params.id;
             CommentService.getAllCommentsAndUserInfo(subTopicId).then(response => {
-                this.comments = response;
+                this.comments = response.reverse();
             })
         },
 
