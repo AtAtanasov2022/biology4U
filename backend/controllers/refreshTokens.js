@@ -9,11 +9,11 @@ const refreshToken = async (req, res) => {
 
     jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(401).send({message: 'Invalid refresh token'});
+            return res.status(401).send({ message: 'Invalid refresh token' });
         }
 
-        const token = generateAccessToken({userId: decoded.id, username: decoded.username, userType: decoded.userType });
-        res.send({token});
+        const token = generateAccessToken({ userId: decoded.id, username: decoded.username, userType: decoded.userType });
+        res.send({ token });
     })
 }
 

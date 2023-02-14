@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
-// const SubTopic = require("./SubTopic");
 
 const QuestionAnswer = sequelize.define("QuestionAnswer", {
   id: {
