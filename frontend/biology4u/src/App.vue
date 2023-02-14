@@ -2,18 +2,6 @@
   <nav class="navBar">
     <div class="menuAndLogo">
       <router-link class="routerLink" id="router1" to="/">Biology4U</router-link>
-      <!-- <va-button-dropdown v-if="!user.username" :close-on-content-click="false" icon="menu" left-icon>
-        <va-accordion class="dropdownAccordionMenu" v-model="opened">
-          <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
-            class="topicCollapse" color="textInverted" flat>
-            <va-accordion class="secondDropdownAccordion">
-              <div class="subTopicCollapse" v-for="(subTopic, id) in group.items" :key="id" @click="openSubTopic(subTopic.id)">
-                <p>{{ subTopic.subTopicName }}</p>
-              </div>
-            </va-accordion>
-          </va-collapse>
-        </va-accordion>
-      </va-button-dropdown> -->
       <va-button v-if="!user.username" icon="menu" left-icon @click="toggleSidebar()">
       </va-button>
     </div>
@@ -29,7 +17,6 @@
         {{ user.username[0].toUpperCase() }}
       </va-avatar>
       <router-link to="/" @click="logout"><va-icon class="material-icons" color="#d8f3dc">logout</va-icon></router-link>
-      <!-- <va-icon @click="logout" class="material-icons" color="#d8f3dc">logout</va-icon> -->
     </div>
   </nav>
   <div v-if="!isFullview" class="mainPage">
@@ -42,9 +29,7 @@
 <script>
 import TopicSidebar from "./components/topic-sidebar/TopicSideBarComponent.vue";
 import { mapGetters } from "vuex";
-// import router from "./router";
 import store from "./store";
-// import TopicService from "./services/topic.service";
 
 export default {
   components: {
@@ -61,32 +46,18 @@ export default {
 
   beforeCreate() { this.$store.commit('initialiseStore'); },
 
-  // beforeMount() {
-  //   TopicService.getAllTopicsAndShortSubTopics().then(response => {
-  //       console.log(response);
-  //       this.menuItems = response;
-  //   })
-  // },
-
   created() {
-    // watch the params of the route to fetch the data again
     this.$watch(
       () => this.$route.meta,
       () => {
         this.isFullview = this.$route.meta && !!this.$route.meta.isFullview;
-        //this.getSubtopics(this.$route.params.id)
       },
-      // fetch the data when the view is created and the data is
-      // already being observed
       { immediate: true }
     )
   },
 
   watch: {
-    $route (to, from) {
-      console.log(to);
-      console.log(from);
-
+    $route(to) {
       if (to.fullPath == "/logIn" || to.fullPath == "/signUp" || to.fullPath == "/") {
         this.isSidebarShow = false;
       } else {
@@ -105,10 +76,6 @@ export default {
     logout() {
       store.dispatch("logout")
     },
-
-    // openSubTopic(id) {
-    //   router.push(`/main/topic/${id}`);
-    // }
 
     toggleSidebar() {
       this.isSidebarShow = !this.isSidebarShow;
@@ -140,13 +107,7 @@ body {
 
 button.va-button.va-button--normal.va-button--icon-only {
   background-color: #40916c !important;
-  /* background-color: #40916c; */
 }
-
-/* .mainPage {
-    display: flex;
-    flex-direction: row;
-} */
 
 button.va-button.va-button--normal.va-button--icon-only {
   max-width: 3rem !important;

@@ -6,11 +6,7 @@ const createSubTopic = async (req, res) => {
 
 const getSubTopicInfo = async (req, res, next) => {
   try {
-    console.log("Retrieve subtopic");
-    console.log(req.params.id);
-
     const id = req.params.id;
-
     const result = await SubTopic.findOne({where: {id: id}});
 
     res.status(200).send(result);
@@ -31,7 +27,6 @@ const deleteSubTopic = async (req, res) => {
 const getAllSubTopics = async (req, res, next) => {
   try {
     const subTopics = await SubTopic.findAll();
-    console.log(subTopics);
     let subTopicsShortInfo = [];
 
     for (let index = 0; index < subTopics.length; index++) {

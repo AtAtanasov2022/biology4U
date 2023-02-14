@@ -1,8 +1,6 @@
 const { DataTypes } = require("sequelize");
 
 const sequelize = require("../connect");
-const SubTopic = require("./SubTopic");
-const User = require("./User");
 
 const AdditionalFile = sequelize.define("AdditionalFile", {
   id: {
@@ -18,8 +16,7 @@ const AdditionalFile = sequelize.define("AdditionalFile", {
   fileName: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
-  },
+  }
 });
 
 

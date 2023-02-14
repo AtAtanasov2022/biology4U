@@ -1,3 +1,4 @@
+const SubTopic = require('../models/SubTopic');
 const Topic = require('../models/Topic');
 
 const createTopic = async (req, res) => {
@@ -18,7 +19,7 @@ const deleteTopic = async (req, res) => {
 
 const getAllTopics = async (req, res, next) => {
     try {
-        const topics = await Topic.findAll();
+        const topics = await Topic.findAll({include: {model: SubTopic}});
         res.send(topics).status(200);
       } catch (err) {
         next(err);

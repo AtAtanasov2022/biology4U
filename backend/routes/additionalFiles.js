@@ -6,10 +6,17 @@ const {
     getAdditionalFileInfo,
     updateAdditionalFileInfo,
     deleteAdditionalFile,
-    getAllAdditionalFiles
+    getAllAdditionalFiles,
+    downloadFile,
+    upload,
 } = require('../controllers/additionalFiles');
+const cors = require('cors');
 
-router.route('/').get(getAllAdditionalFiles).post(createAdditionalFile);
-router.route('/:id').get(getAdditionalFileInfo).delete(deleteAdditionalFile).put(updateAdditionalFileInfo);
+router.route('/:subTopicId').get(getAllAdditionalFiles);
+router.route('/:userId/:subTopicId').post(upload.single('file'), createAdditionalFile);
+router.route('/:id').delete(deleteAdditionalFile);
+router.route('/download/:fileId/').get(cors({
+    exposedHeaders: ['Content-Disposition'],
+}), downloadFile);
 
 module.exports = router;

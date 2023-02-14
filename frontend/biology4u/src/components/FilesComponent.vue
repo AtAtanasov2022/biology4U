@@ -1,88 +1,64 @@
 <template>
     <div class="mainPage">
-        <!-- <div class="accordionMenu">
-            <va-accordion class="mainAccordion" v-model="opened">
-                <va-collapse v-for="(group, idx) in menuItems" :key="idx" :header="group.title" text-color="textPrimary"
-                    class="mainCollapse" color="textInverted" flat>
-                    <va-accordion class="secondaryAccordion">
-                        <va-collapse class="secondaryCollapse" v-for="(subTopic, id) in group.items" :key="id"
-                            :header="subTopic.subTopicName" text-color="textPrimary" color="textInverted" flat>
-                            <div class="subTopic">
-                                <button @click="openSubTopic(subTopic.id)" class="accordionMenuOption">
-                                    Лекция
-                                </button>
-                                <button :disabled="disableOptions" @click="openShortPlan(subTopic.id)"
-                                    class="accordionMenuOption">Кратък план</button>
-                                <button :disabled="disableOptions" @click="openAdditionalFiles(subTopic.id)"
-                                    class="accordionMenuOption">Допълнителни файлове
-                                </button>
-                            </div>
-                        </va-collapse>
-                    </va-accordion>
-                </va-collapse>
-            </va-accordion>
-        </div> -->
         <div class="topicBox">
-            <h1> Additional files for {{ subTopicInfo.subTopicName }}</h1>
-            <p>
-                Those are the additionalFiles from the subTopic with id = {{ subTopicInfo.id }}
-            </p>
+            <div v-if="user.userType === 'teacher'" class="addFileContainer">
+
+                <h1>Добавяне на файлове</h1>
+                <hr />
+                <label>Файл
+                    <input type="file" accept=".jpg, .jpeg, .png, .pdf, .docx, .xlsx, .pptx" @change="handleFileUpload($event)" />
+                </label>
+                <br>
+                <button v-on:click="submitFile()">Добавяне</button>
+
+            </div>
+            <h2> Допълнителни файлове за {{ subTopicInfo.subTopicName }}</h2>
+            <div class="file" v-for="(file, index) in fileNames" :key="index">
+                <h3>{{ file.username }}</h3>
+                <a style="cursor: pointer" @click="download(file.id)">{{ file.fileName }}</a>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-// import store from "@/store";
+import FileService from "@/services/file.service";
 import SubTopicService from "@/services/subTopic.service";
-// import { mapGetters } from "vuex";
-// import router from "../router";
+import { mapGetters } from "vuex";
 
 export default {
     data() {
         return {
-            // disableOptions: true,
-            // opened: [true, true, true, true, true],
             subTopicInfo: {
                 subTopicName: "",
-                id: ""
-            }
+                id: "",
+            },
+            file: null,
+            fileNames: []
         }
     },
 
     computed: {
-        // ...mapGetters({
-        //     user: "getUserInfo",
-        //     menuItems: "getMenuItems",
-        //     // subTopicInfo: "getSubTopicInfo",
-        // }),
+        ...mapGetters({
+            user: "getUserInfo",
+        }),
     },
 
     created() {
-    // watch the params of the route to fetch the data again
-    this.$watch(
-      () => this.$route.params,
-      () => {
-        this.getSubtopics(this.$route.params.id)
-      },
-      // fetch the data when the view is created and the data is
-      // already being observed
-      { immediate: true }
-    )
-  },
-
-    beforeMount() {
-        // this.setDisableOptions();
-        // store.dispatch("getAllTopicsAndShortSubTopics");
-        // this.opened = [true, true, true, true, true];
-    },
-
-    beforeUpdate() {
-        // this.setDisableOptions();
-        // this.opened = [true, true, true, true, true];
+        this.$watch(
+            () => this.$route.params,
+            () => {
+                this.fileNames = [];
+                this.getSubtopics(this.$route.params.id).then(() => {
+                    return this.getFiles(this.subTopicInfo.id);
+                });
+            },
+            { immediate: true }
+        )
     },
 
     methods: {
-        getSubtopics(id) {
+        async getSubtopics(id) {
             return SubTopicService.getSubtopicInfo(id).then(
                 (response) => {
                     this.subTopicInfo = response;
@@ -90,25 +66,48 @@ export default {
             ).catch(() => { console.log("err") })
         },
 
-        // openSubTopic(id) {
-        //     router.push("/main/topic/" + id);
-        // },
+        async getFiles(id) {
+            return FileService.getAllFiles(id).then((files) => {
+                this.fileNames.push(...files);
+                this.fileNames.reverse();
+            });
+        },
 
-        // openShortPlan(id) {
-        //     router.push("/main/plan/" + id);
-        // },
+        handleFileUpload(event) {
+            this.file = event.target.files[0];
+        },
 
-        // openAdditionalFiles(id) {
-        //     router.push("/main/files/" + id);
-        // },
+        submitFile() {
+            let formData = new FormData();
+            formData.append('file', this.file);
+            const data = {
+                userId: this.user.userId,
+                subTopicId: this.subTopicInfo.id
+            }
+            FileService.addFile(formData, data).then(response => {
+                const element = {
+                    id: response.id,
+                    fileName: response.fileName,
+                    username: this.user.username
+                }
+                this.fileNames.unshift(element);
+            });
+        },
 
-        // setDisableOptions() {
-        //     if (this.user.username) {
-        //         this.disableOptions = undefined;
-        //     } else {
-        //         this.disableOptions = true;
-        //     }
-        // },
+        download(fileId) {
+            FileService.download(fileId, this.subTopicInfo.id).then((response) => {
+                console.log(response);
+                const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                const fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+                const fileName = response.headers['content-disposition'].substring(21);
+                fileLink.setAttribute('download', fileName);
+                fileLink.setAttribute('target', '_blank');
+                document.body.appendChild(fileLink);
+                fileLink.click();
+                fileLink.remove();
+            });
+        }
     },
 }
 </script>
@@ -120,60 +119,18 @@ export default {
     margin-left: 30%;
 }
 
-/* .accordionMenu {
-    width: 30%;
-}
-
-.mainAccordion {
-    width: 99%;
-}
-
-.mainCollapse {
-    margin-top: 0.263rem;
-}
-
-.secondaryAccordion {
-    width: 100%;
-    margin: 0.163rem 0rem 0rem 0.425rem;
-}
-
-.secondaryCollapse {
-    margin-top: 0.163rem;
-}
-
-.subTopic {
-    padding: 0 0.2rem 0.5rem;
-    display: flex;
-    flex-direction: column;
-} */
-
-/*
-.accordionMenuOption {
-    width: 24.15rem;
-    display: flex;
-    justify-content: center;
-    width: 98%;
-    height: 3rem;
-    margin: 0.15rem 0rem 0rem 0.25rem;
-    padding: 1rem 1.25rem 0rem 1.25rem;
-    background-color: white;
-    border-radius: 0.35rem;
-    cursor: pointer;
-    border: none;
-}
-
-.accordionMenuOption:disabled,
-.accordionMenuOption[disabled] {
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
-    cursor: default;
-} */
-
 .topicBox {
     width: 100%;
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
+}
+
+.file {
+    margin-top: 1.5rem;
+}
+
+.addFileContainer {
+    margin-bottom: 1.5rem;
 }
 </style>

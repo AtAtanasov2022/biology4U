@@ -60,8 +60,8 @@ export default createStore({
     signUpUser(context, userInfo) {
       AuthService.register(userInfo).then(response => {
         console.log(response);
-        console.log(jwt_decode(response.token));
-        context.commit('setUserInfo', jwt_decode(response.token));
+        console.log(jwt_decode(response.data.token));
+        context.commit('setUserInfo', jwt_decode(response.data.token));
         router.push('/main');
       }).catch(err => {
         console.log(err.message);

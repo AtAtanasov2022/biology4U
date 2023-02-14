@@ -1,7 +1,8 @@
 <template>
     <div class="LogInView">
         <div class="inputContainer">
-            <input class="inputField firstInputField" @keyup.enter="logIn" v-model="username" placeholder="Потребителско име:">
+            <input class="inputField firstInputField" @keyup.enter="logIn" v-model="username"
+                placeholder="Потребителско име:">
             <input class="inputField" @keyup.enter="logIn" v-model="password" type="password" placeholder="Парола:">
             <button class="buttonLogIn" @click="logIn">Вход</button>
         </div>
