@@ -66,7 +66,7 @@ const downloadFile = async (req, res) => {
         const fileName = file.fileName;
         const fileURL =  `${__dirname}/uploads/${file.pathName}`;
         const stream = fs.createReadStream(fileURL);
-        const contentType = mime.getType(fileName);
+        const contentType = await mime.getType(fileName);
         
         res.setHeader('Content-Type', contentType);
         res.setHeader('Content-Disposition', `attachment; filename=${fileName}`)

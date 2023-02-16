@@ -18,6 +18,9 @@
                             <button :disabled="disableOptions" @click.stop="open(`files/${subTopic.id}`)"
                                 class="accordionMenuOption">Допълнителни файлове
                             </button>
+                            <button :disabled="disableOptions" @click.stop="open(`tests/${subTopic.id}`)"
+                                class="accordionMenuOption">Тест на {{ subTopic.subTopicName }}
+                            </button>
                         </div>
                     </va-collapse>
                 </va-accordion>

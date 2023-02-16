@@ -6,6 +6,7 @@ import MainPage from '../views/MainPageView.vue'
 import LectionComponent from '../components/LectionComponent.vue'
 import FilesComponent from '../components/FilesComponent.vue'
 import ShortPlanComponent from '../components/ShortPlanComponent.vue'
+import SubTopicTest from '../components/SubTopicTest.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/main/plan/:id',
     name: 'mainPageTopicShortPlan',
     component: ShortPlanComponent
+  },
+  {
+    path: '/main/tests/:id',
+    name: 'SubTopicTest',
+    component: SubTopicTest
   }
 ]
 
