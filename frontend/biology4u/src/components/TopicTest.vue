@@ -57,7 +57,7 @@ export default {
 
     created() {
         this.$watch(
-            () => this.$route.params.id,
+            () => this.$route.params.title,
             () => {
                 this.questions = [];
                 this.currentQuestionIndex = 0;
@@ -66,19 +66,19 @@ export default {
                 this.startTime = null;
                 this.endTime = null;
                 this.finished = false;
-                this.getQuestions(this.$route.params.id);
+                this.getQuestions(this.$route.params.title);
             },
             { immediate: true }
         )
     },
 
     beforeMount() {
-        this.getQuestions(this.$route.params.id)
+        this.getQuestions(this.$route.params.title)
     },
 
     methods: {
-        getQuestions(subTopicId) {
-            return QuestionService.getAllQuestionsById(subTopicId).then((response) => {
+        getQuestions(topicTitle) {
+            return QuestionService.getAllQuestionsByTopic(topicTitle).then((response) => {
                 console.log(response);
                 this.questions = response;
             }).catch((err) => { console.log("THROWING ERROR"); console.log(err); });
