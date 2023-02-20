@@ -16,7 +16,7 @@
                 </div>
                 <div v-else>
                     <h2>Резултати от теста</h2>
-                    <p>Имаш {{ score }} точки от максимум {{ questions.length }}.</p>
+                    <p>Имаш {{ score }} верни въпроса от {{ questions.length }}.</p>
                     <p>Време: {{ timeTaken }} секунди.</p>
                 </div>
             </div>
@@ -35,6 +35,7 @@ export default {
             score: 0,
             startTime: null,
             endTime: null,
+            maxTime: null,
             finished: false
         };
     },
@@ -63,6 +64,7 @@ export default {
                 this.currentQuestionIndex = 0;
                 this.selectedOption = null;
                 this.score = 0;
+                this.finalScore = 0;
                 this.startTime = null;
                 this.endTime = null;
                 this.finished = false;
@@ -86,6 +88,10 @@ export default {
         checkAnswer() {
             if (this.currentQuestionIndex === 0) {
                 this.startTime = new Date();
+                this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
+                console.log(this.startTime / 1000); // start seconds
+                console.log(this.maxTime); // maxEnd seconds
+                console.log((this.maxTime - this.startTime/1000)); //max seconds to work
             } // Add start button and remove this if statement 
             if (this.selectedOption === this.currentQuestion.answer) {
                 this.score++;
@@ -93,6 +99,8 @@ export default {
             if (this.currentQuestionIndex === this.questions.length - 1) {
                 this.finished = true;
                 this.endTime = new Date();
+                this.finalScore = (this.score/this.questions.length)*(1-(((this.endTime-this.startTime)/1000))/(this.maxTime - this.startTime/1000))*100;
+                console.log(Math.ceil(this.finalScore));
             } else {
                 this.currentQuestionIndex++;
             }
