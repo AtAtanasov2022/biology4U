@@ -1,7 +1,7 @@
 <template>
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
-            <va-data-table :items="scores"/>
+            <va-data-table :items="scores" />
             <div class="quiz">
                 <div v-if="!finished">
                     <h2>{{ currentQuestion.question || "NONE" }}</h2>
@@ -13,7 +13,10 @@
                             </label>
                         </li>
                     </ul>
-                    <button @click="checkAnswer">{{ buttonText }}</button>
+                    <div id="buttonsContainer">
+                        <button @click="checkAnswer">{{ buttonText }}</button>
+                        <button @click="prevQuestion">Предишен</button>
+                    </div>
                 </div>
                 <div v-else>
                     <h2>Резултати от теста</h2>
@@ -35,6 +38,8 @@ export default {
         return {
             questions: [],
             scores: [],
+            userAnswers: [],
+            selectedOptions: [],
             currentQuestionIndex: 0,
             selectedOption: null,
             score: 0,
@@ -83,7 +88,7 @@ export default {
     },
 
     beforeMount() {
-        this.getQuestions(this.$route.params.title)
+        // this.getQuestions(this.$route.params.title)
     },
 
     mounted() {
@@ -95,6 +100,10 @@ export default {
             return QuestionService.getAllQuestionsByTopic(topicTitle).then((response) => {
                 console.log(response);
                 this.questions = response;
+                for (let index = 0; index < this.questions.length; index++) {
+                    this.userAnswers.push(false);
+                    this.selectedOptions.push(null);
+                }
             }).catch((err) => { console.log(err); });
         },
         getScores(topicTitle) {
@@ -105,6 +114,7 @@ export default {
             })
         },
         checkAnswer() {
+            this.selectedOptions[this.currentQuestionIndex] = this.selectedOption;
             if (this.currentQuestionIndex === 0) {
                 this.startTime = new Date();
                 this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
@@ -113,11 +123,19 @@ export default {
                 console.log((this.maxTime - this.startTime / 1000)); //max seconds to work
             } // Add start button and remove this if statement 
             if (this.selectedOption === this.currentQuestion.answer) {
-                this.score++;
+                // this.score++;
+                this.userAnswers[this.currentQuestionIndex] = true;
+            } else {
+                this.userAnswers[this.currentQuestionIndex] = false;
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
                 this.finished = true;
                 this.endTime = new Date();
+                for (let index = 0; index < this.userAnswers.length; index++) {
+                    if(this.userAnswers[index] == true) {
+                        this.score++;
+                    }
+                }
                 this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
                 console.log(Math.ceil(this.finalScore));
                 TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
@@ -128,11 +146,21 @@ export default {
             }
             this.selectedOption = null;
         },
+        prevQuestion() {
+            if (this.currentQuestionIndex > 0) {
+                this.currentQuestionIndex--;
+                this.selectedOption = this.selectedOptions[this.currentQuestionIndex];
+            }
+        }
     },
 };
 </script>
 
 <style scoped>
+ input[type='radio'] { 
+     transform: scale(1.5);
+     margin-right: 0.5rem;
+ }
 .quiz {
     padding: 1rem;
     background-color: #D8F3DC;
@@ -151,6 +179,11 @@ li {
 
 h2 {
     margin-bottom: 1rem;
+}
+
+#buttonsContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 button {

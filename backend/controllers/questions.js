@@ -56,6 +56,10 @@ const getAllQuestionsById = async (req, res) => {
 }
 
 const getAllQuestionsByTopic = async (req, res) => {
+    if (req.params.topicName == 'undefined') {
+        return;
+    }
+    
     const topic = await Topic.findOne({
         where: {
             topicName: req.params.topicName
