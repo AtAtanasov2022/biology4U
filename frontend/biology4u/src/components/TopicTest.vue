@@ -1,7 +1,7 @@
 <template>
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
-            <va-data-table :items="sortedScores"/>
+            <va-data-table :items="scores"/>
             <div class="quiz">
                 <div v-if="!finished">
                     <h2>{{ currentQuestion.question || "NONE" }}</h2>
@@ -19,6 +19,7 @@
                     <h2>Резултати от теста</h2>
                     <p>Имаш {{ score }} верни въпроса от {{ questions.length }}.</p>
                     <p>Време: {{ timeTaken }} секунди.</p>
+                    <p>Точки: {{ Math.ceil(finalScore) }}</p>
                 </div>
             </div>
         </div>
@@ -44,9 +45,6 @@ export default {
         };
     },
     computed: {
-        sortedScores() {
-            return this.scores.slice().sort((a, b) => b.score - a.score);
-        },
         ...mapGetters({
             user: "getUserInfo",
         }),
@@ -122,8 +120,8 @@ export default {
                 this.endTime = new Date();
                 this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
                 console.log(Math.ceil(this.finalScore));
-                TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then((result) => {
-                    this.scores.unshift({ score: result.score, user: this.user.username });
+                TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
+                    this.getScores(this.$route.params.title);
                 })
             } else {
                 this.currentQuestionIndex++;

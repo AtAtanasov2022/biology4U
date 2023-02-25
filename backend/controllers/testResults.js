@@ -53,12 +53,13 @@ const getAllTestResultsByTopic = async (req, res) => {
         }
     })
     // console.log(testScores);
+    let sortedScores = testScores.slice().sort((a, b) => b.score - a.score);
 
     let finalTestScores = [];
-    for (let index = 0; index < testScores.length; index++) {
+    for (let index = 0; index < 5; index++) {
         const testScore = {
-            score: testScores[index].score,
-            user: testScores[index].User.username
+            score: sortedScores[index].score,
+            user: sortedScores[index].User.username
         }
         finalTestScores.push(testScore);
     }
