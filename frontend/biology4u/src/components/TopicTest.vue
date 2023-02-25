@@ -2,7 +2,11 @@
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
             <va-data-table :items="scores" />
-            <div class="quiz">
+            <div v-if="!started" class="startQuiz">
+                <button @click="startTest">Започни теста</button>
+            </div>
+            <div v-else class="quiz">
+
                 <div v-if="!finished">
                     <h2>{{ currentQuestion.question || "NONE" }}</h2>
                     <ul>
@@ -46,7 +50,8 @@ export default {
             startTime: null,
             endTime: null,
             maxTime: null,
-            finished: false
+            finished: false,
+            started: false
         };
     },
     computed: {
@@ -81,6 +86,7 @@ export default {
                 this.startTime = null;
                 this.endTime = null;
                 this.finished = false;
+                this.started = false;
                 this.getQuestions(this.$route.params.title);
             },
             { immediate: true }
@@ -113,15 +119,13 @@ export default {
                 console.log(err);
             })
         },
+        startTest() {
+            this.startTime = new Date();
+            this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
+            this.started = true;
+        },
         checkAnswer() {
             this.selectedOptions[this.currentQuestionIndex] = this.selectedOption;
-            if (this.currentQuestionIndex === 0) {
-                this.startTime = new Date();
-                this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
-                console.log(this.startTime / 1000); // start seconds
-                console.log(this.maxTime); // maxEnd seconds
-                console.log((this.maxTime - this.startTime / 1000)); //max seconds to work
-            } // Add start button and remove this if statement 
             if (this.selectedOption === this.currentQuestion.answer) {
                 // this.score++;
                 this.userAnswers[this.currentQuestionIndex] = true;
@@ -132,7 +136,7 @@ export default {
                 this.finished = true;
                 this.endTime = new Date();
                 for (let index = 0; index < this.userAnswers.length; index++) {
-                    if(this.userAnswers[index] == true) {
+                    if (this.userAnswers[index] == true) {
                         this.score++;
                     }
                 }
@@ -157,16 +161,28 @@ export default {
 </script>
 
 <style scoped>
- input[type='radio'] { 
-     transform: scale(1.5);
-     margin-right: 0.5rem;
- }
+input[type='radio'] {
+    transform: scale(1.5);
+    margin-right: 0.5rem;
+}
+
+.startQuiz {
+    padding: 1rem;
+    background-color: #D8F3DC;
+    border-radius: 1.5rem;
+    width: 45%;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .quiz {
     padding: 1rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
     width: 45%;
-    height: fit-content;
+    height: 14rem;
 }
 
 ul {
