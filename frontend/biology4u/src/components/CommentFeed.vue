@@ -52,7 +52,7 @@ export default {
 
         addComment() {
             if (this.userComment.trim() === "") {
-                this.userComment = "Speechless"; // Handle empty comments later
+                this.userComment = "Безмълвен съм!";
             }
             const subTopicId = this.$route.params.id;
             const commentInfo = {
