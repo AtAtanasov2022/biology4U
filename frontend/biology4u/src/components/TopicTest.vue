@@ -136,6 +136,12 @@ export default {
                 this.userAnswers[this.currentQuestionIndex] = false;
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
+                for (let index = 0; index < this.selectedOptions.length; index++) {
+                    if (this.selectedOptions[index] == null) {
+                        alert("Попълнете всички въпроси и опитайте отново!");
+                        return;
+                    }
+                }
                 this.finished = true;
                 this.table = true;
                 this.endTime = new Date();
@@ -151,7 +157,7 @@ export default {
             } else {
                 this.currentQuestionIndex++;
             }
-            this.selectedOption = null;
+            this.selectedOption = this.selectedOptions[this.currentQuestionIndex];
         },
         prevQuestion() {
             if (this.currentQuestionIndex > 0) {
