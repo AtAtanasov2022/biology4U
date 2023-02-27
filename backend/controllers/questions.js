@@ -52,14 +52,18 @@ const getAllQuestionsById = async (req, res) => {
         finalQuestions.push(element)
     }
 
-    res.status(200).send(finalQuestions);
+    const shuffled = finalQuestions.sort(() => 0.5 - Math.random());
+
+    let selected = shuffled.slice(0, 5);
+
+    res.status(200).send(selected);
 }
 
 const getAllQuestionsByTopic = async (req, res) => {
     if (req.params.topicName == 'undefined') {
         return;
     }
-    
+
     const topic = await Topic.findOne({
         where: {
             topicName: req.params.topicName
@@ -105,8 +109,11 @@ const getAllQuestionsByTopic = async (req, res) => {
         topicsQuestions = topicsQuestions.concat(finalQuestions)
     }
 
+    const shuffled = topicsQuestions.sort(() => 0.5 - Math.random());
 
-    res.status(200).send(topicsQuestions);
+    let selected = shuffled.slice(0, 10);
+
+    res.status(200).send(selected);
 }
 
 module.exports = {

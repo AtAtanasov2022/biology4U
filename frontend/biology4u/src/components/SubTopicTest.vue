@@ -1,7 +1,10 @@
 <template>
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
-            <div class="quiz">
+            <div v-if="!started" class="startQuiz">
+                <button @click="startTest">Започни теста</button>
+            </div>
+            <div v-else class="quiz">
                 <div v-if="!finished">
                     <h2>{{ currentQuestion.question || "NONE" }}</h2>
                     <ul>
@@ -12,7 +15,10 @@
                             </label>
                         </li>
                     </ul>
-                    <button @click="checkAnswer">{{ buttonText }}</button>
+                    <div id="buttonsContainer">
+                        <button @click="prevQuestion">Предишен</button>
+                        <button @click="checkAnswer">{{ buttonText }}</button>
+                    </div>
                 </div>
                 <div v-else>
                     <h2>Резултати от теста</h2>
@@ -32,10 +38,13 @@ export default {
             questions: [],
             currentQuestionIndex: 0,
             selectedOption: null,
+            selectedOptions: [],
+            userAnswers: [],
             score: 0,
             startTime: null,
             endTime: null,
-            finished: false
+            finished: false,
+            started: false
         };
     },
     computed: {
@@ -62,10 +71,13 @@ export default {
                 this.questions = [];
                 this.currentQuestionIndex = 0;
                 this.selectedOption = null;
+                this.selectedOptions = [];
                 this.score = 0;
                 this.startTime = null;
                 this.endTime = null;
                 this.finished = false;
+                this.started = false;
+                this.userAnswers = [];
                 this.getQuestions(this.$route.params.id);
             },
             { immediate: true }
@@ -81,35 +93,71 @@ export default {
             return QuestionService.getAllQuestionsById(subTopicId).then((response) => {
                 console.log(response);
                 this.questions = response;
+                for (let index = 0; index < this.questions.length; index++) {
+                    this.userAnswers.push(false);
+                    this.selectedOptions.push(null);
+                }
             }).catch((err) => { console.log("THROWING ERROR"); console.log(err); });
         },
+        startTest() {
+            this.startTime = new Date();
+            this.started = true;
+        },
         checkAnswer() {
-            if (this.currentQuestionIndex === 0) {
-                this.startTime = new Date();
-            } // Add start button and remove this if statement 
+            this.selectedOptions[this.currentQuestionIndex] = this.selectedOption;
             if (this.selectedOption === this.currentQuestion.answer) {
-                this.score++;
+                this.userAnswers[this.currentQuestionIndex] = true;
+            } else {
+                this.userAnswers[this.currentQuestionIndex] = false;
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
                 this.finished = true;
                 this.endTime = new Date();
+                for (let index = 0; index < this.userAnswers.length; index++) {
+                    if (this.userAnswers[index] == true) {
+                        this.score++;
+                    }
+                }
             } else {
                 this.currentQuestionIndex++;
             }
             this.selectedOption = null;
         },
+        prevQuestion() {
+            if (this.currentQuestionIndex > 0) {
+                this.currentQuestionIndex--;
+                this.selectedOption = this.selectedOptions[this.currentQuestionIndex];
+            }
+        }
     },
 };
 </script>
 
 <style scoped>
+input[type='radio'] {
+    transform: scale(1.5);
+    margin-right: 0.5rem;
+}
+
+.startQuiz {
+    padding: 1rem;
+    background-color: #D8F3DC;
+    border-radius: 1.5rem;
+    width: 45%;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .quiz {
     padding: 1rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
     width: 45%;
-    height: fit-content;
+    height: 14rem;
 }
+
 
 ul {
     list-style: none;
@@ -121,6 +169,11 @@ li {
 
 h2 {
     margin-bottom: 1rem;
+}
+
+#buttonsContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 button {

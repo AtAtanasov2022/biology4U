@@ -18,8 +18,8 @@
                         </li>
                     </ul>
                     <div id="buttonsContainer">
-                        <button @click="checkAnswer">{{ buttonText }}</button>
                         <button @click="prevQuestion">Предишен</button>
+                        <button @click="checkAnswer">{{ buttonText }}</button>
                     </div>
                 </div>
                 <div v-else>
@@ -141,7 +141,6 @@ export default {
                     }
                 }
                 this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
-                console.log(Math.ceil(this.finalScore));
                 TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
                     this.getScores(this.$route.params.title);
                 })
