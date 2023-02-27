@@ -117,6 +117,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin-left: 30%;
+    font-size: large;
 }
 
 .topicBox {

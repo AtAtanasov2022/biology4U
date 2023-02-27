@@ -143,19 +143,20 @@ input[type='radio'] {
     padding: 1rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
-    width: 45%;
-    height: 14rem;
+    width: 75%;
+    height: 20rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .quiz {
-    padding: 1rem;
+    padding: 2rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
-    width: 45%;
-    height: 14rem;
+    width: 75%;
+    height: fit-content;
+    font-size: large;
 }
 
 
@@ -174,6 +175,7 @@ h2 {
 #buttonsContainer {
     display: flex;
     justify-content: space-between;
+    margin-top: 3.2rem;
 }
 
 button {
@@ -190,6 +192,7 @@ button {
     display: flex;
     flex-direction: row;
     margin-left: 30%;
+    font-size: large;
 }
 
 .topicBox {

@@ -1,7 +1,7 @@
 <template>
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
-            <va-data-table :items="scores" />
+            <va-data-table v-if="table" :items="scores" />
             <div v-if="!started" class="startQuiz">
                 <button @click="startTest">Започни теста</button>
             </div>
@@ -51,7 +51,8 @@ export default {
             endTime: null,
             maxTime: null,
             finished: false,
-            started: false
+            started: false,
+            table: true
         };
     },
     computed: {
@@ -87,6 +88,7 @@ export default {
                 this.endTime = null;
                 this.finished = false;
                 this.started = false;
+                this.table = true;
                 this.getQuestions(this.$route.params.title);
             },
             { immediate: true }
@@ -123,6 +125,7 @@ export default {
             this.startTime = new Date();
             this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
             this.started = true;
+            this.table = false;
         },
         checkAnswer() {
             this.selectedOptions[this.currentQuestionIndex] = this.selectedOption;
@@ -134,6 +137,7 @@ export default {
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
                 this.finished = true;
+                this.table = true;
                 this.endTime = new Date();
                 for (let index = 0; index < this.userAnswers.length; index++) {
                     if (this.userAnswers[index] == true) {
@@ -177,11 +181,12 @@ input[type='radio'] {
 }
 
 .quiz {
-    padding: 1rem;
+    padding: 2rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
-    width: 45%;
-    height: 14rem;
+    width: 75%;
+    height: fit-content;
+    font-size: large;
 }
 
 ul {
@@ -199,6 +204,7 @@ h2 {
 #buttonsContainer {
     display: flex;
     justify-content: space-between;
+    margin-top: 3.2rem;
 }
 
 button {
@@ -215,6 +221,7 @@ button {
     display: flex;
     flex-direction: row;
     margin-left: 30%;
+    font-size: large;
 }
 
 .topicBox {
