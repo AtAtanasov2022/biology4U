@@ -85,7 +85,7 @@ export default {
     },
 
     beforeMount() {
-        this.getQuestions(this.$route.params.id)
+        // this.getQuestions(this.$route.params.id)
     },
 
     methods: {
