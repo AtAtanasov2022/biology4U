@@ -38,9 +38,13 @@ const logInUserInfo = async (req, res, next) => {
         },
       });
 
+      if (!user) {
+        return res.status(401).send('Unauthorized');
+      }
+
       const resultComp = bcrypt.compareSync(req.body.userPassword, user.dataValues.userPassword)
       
-      if (!user || !resultComp) {
+      if (!resultComp) {
         return res.status(401).send('Unauthorized');
       }
       const token = await generateAccessToken({ userId: user.dataValues.id, username: user.dataValues.username, userType: user.dataValues.userType });

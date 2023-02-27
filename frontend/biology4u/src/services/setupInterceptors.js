@@ -4,13 +4,13 @@ import TokenService from "./token.service";
 const setup = (store) => {
     axiosInstance.interceptors.request.use(
         (config) => {
-            if (config.url !== '/logIn' && config.url !== 'signUp') {
+            if (config.url !== '/users/logIn' && config.url !== '/users/signUp') {
                 const token = TokenService.getLocalAccessToken();
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
-                return config;
             }
+            return config;
         },
         (error) => {
             return Promise.reject(error);
@@ -24,7 +24,7 @@ const setup = (store) => {
         async (err) => {
             const originalConfig = err.config;
 
-            if (originalConfig.url !== "/logIn" && originalConfig.url !== "/signUp" && err.response) {
+            if (originalConfig.url !== "/users/logIn" && originalConfig.url !== "/users/signUp" && err.response) {
                 // Access Token was expired
                 if (err.response.status === 401 && !originalConfig._retry) {
                     originalConfig._retry = true;
