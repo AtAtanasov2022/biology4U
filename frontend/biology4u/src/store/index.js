@@ -73,6 +73,7 @@ export default createStore({
         context.commit('setUserInfo', jwt_decode(response.token));
         router.push('/main');
       }).catch(err => {
+        alert("Грешно потребителско име или парола!");
         console.log(err.message);
       })
     },
