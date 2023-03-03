@@ -78,6 +78,10 @@ export default {
         },
 
         submitFile() {
+            if (this.file == null) {
+                alert("Моля изберете файл!");
+                return;
+            }
             let formData = new FormData();
             formData.append('file', this.file);
             const data = {
