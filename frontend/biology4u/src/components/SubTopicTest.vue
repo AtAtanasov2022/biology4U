@@ -93,10 +93,10 @@ export default {
             return QuestionService.getAllQuestionsById(subTopicId).then((response) => {
                 console.log(response);
                 this.questions = response;
-                for (let index = 0; index < this.questions.length; index++) {
+                this.questions.forEach(() => {
                     this.userAnswers.push(false);
                     this.selectedOptions.push(null);
-                }
+                });
             }).catch((err) => { console.log("THROWING ERROR"); console.log(err); });
         },
         startTest() {
@@ -111,12 +111,18 @@ export default {
                 this.userAnswers[this.currentQuestionIndex] = false;
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
-                for (let index = 0; index < this.selectedOptions.length; index++) {
-                    if (this.selectedOptions[index] == null) {
+                this.selectedOptions.forEach(element => {
+                    if (element == null) {
                         alert("Попълнете всички въпроси и опитайте отново!");
                         return;
                     }
-                }
+                });
+                // for (let index = 0; index < this.selectedOptions.length; index++) {
+                //     if (this.selectedOptions[index] == null) {
+                //         alert("Попълнете всички въпроси и опитайте отново!");
+                //         return;
+                //     }
+                // }
                 this.finished = true;
                 this.endTime = new Date();
                 for (let index = 0; index < this.userAnswers.length; index++) {

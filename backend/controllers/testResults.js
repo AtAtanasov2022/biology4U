@@ -48,18 +48,19 @@ const getAllTestResultsByTopic = async (req, res) => {
         where: {
             TopicId: topic.id
         },
+        order: [
+            ['score', 'DESC']
+        ],
         include: {
             model: User
         }
     })
-    // console.log(testScores);
-    let sortedScores = testScores.slice().sort((a, b) => b.score - a.score);
-
+    
     let finalTestScores = [];
     for (let index = 0; index < 5; index++) {
         const testScore = {
-            score: sortedScores[index].score,
-            user: sortedScores[index].User.username
+            score: testScores[index].score,
+            user: testScores[index].User.username
         }
         finalTestScores.push(testScore);
     }
