@@ -54,16 +54,12 @@ const getAllTestResultsByTopic = async (req, res) => {
         }
     })
     
-    let finalTestScores = [];
-    if (testScores.length > 0) {
-        for (let index = 0; index < 5 && index < testScores.length; index++) {
-            const testScore = {
-                score: testScores[index].score,
-                user: testScores[index].User.username
-            }
-            finalTestScores.push(testScore);
+    const finalTestScores = testScores.slice(0, 5).map((element) => {
+        return {
+            score: element.score,
+            user: element.User.username
         }
-    }
+    });
     
     res.send(finalTestScores);
 }

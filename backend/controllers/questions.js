@@ -29,28 +29,8 @@ const getAllQuestionsById = async (req, res) => {
             model: QuestionAnswer
         }
     });
-    const finalQuestions = [];
-
-    for (let index = 0; index < questions.length; index++) {
-        let options = [];
-        let answer = "";
-
-        for (let index2 = 0; index2 < questions[index].QuestionAnswers.length; index2++) {
-            if (questions[index].QuestionAnswers[index2].isCorrect) {
-                answer = questions[index].QuestionAnswers[index2].answerContent;
-            }
-            options.push(questions[index].QuestionAnswers[index2].answerContent);
-        }
-
-        const element = {
-            id: questions[index].id,
-            question: questions[index].questionName,
-            options: options,
-            answer: answer
-        };
-
-        finalQuestions.push(element)
-    }
+    
+    const finalQuestions = transformQuestions(questions);
 
     const shuffled = finalQuestions.sort(() => 0.5 - Math.random());
 
@@ -84,28 +64,7 @@ const getAllQuestionsByTopic = async (req, res) => {
                 model: QuestionAnswer
             }
         });
-        const finalQuestions = [];
-
-        for (let index = 0; index < questions.length; index++) {
-            let options = [];
-            let answer = "";
-
-            for (let index2 = 0; index2 < questions[index].QuestionAnswers.length; index2++) {
-                if (questions[index].QuestionAnswers[index2].isCorrect) {
-                    answer = questions[index].QuestionAnswers[index2].answerContent;
-                }
-                options.push(questions[index].QuestionAnswers[index2].answerContent);
-            }
-
-            const element = {
-                id: questions[index].id,
-                question: questions[index].questionName,
-                options: options,
-                answer: answer
-            };
-
-            finalQuestions.push(element)
-        }
+        const finalQuestions = transformQuestions(questions);
         topicsQuestions = topicsQuestions.concat(finalQuestions)
     }
 
@@ -115,6 +74,27 @@ const getAllQuestionsByTopic = async (req, res) => {
 
     res.status(200).send(selected);
 }
+
+const transformQuestions = (questions) => {
+    return questions.map((question) => {
+        let options = [];
+        let answer = "";
+
+        question.QuestionAnswers.forEach(element => {
+            if (element.isCorrect) {
+                answer = element.answerContent;
+            }
+            options.push(element.answerContent);
+        });
+
+        return {
+            id: question.id,
+            question: question.questionName,
+            options: options,
+            answer: answer
+        };
+    });
+} 
 
 module.exports = {
     createQuestion,
