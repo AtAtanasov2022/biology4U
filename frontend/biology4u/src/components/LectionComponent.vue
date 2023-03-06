@@ -3,9 +3,6 @@
         <div class="topicBox">
             <h1>{{ subTopicInfo.subTopicName }}</h1>
             <p>
-                This is the text from the subTopic with id = {{ subTopicInfo.id }}
-            </p>
-            <p>
                 {{ subTopicInfo.content }}
             </p>
 
@@ -71,5 +68,6 @@ export default {
     min-height: 45rem;
     padding: 4rem;
     background-color: white;
+    font-size: large;
 }
 </style>

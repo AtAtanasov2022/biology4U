@@ -35,6 +35,7 @@ const getAllTestResults = async (req, res) => {
 }
 
 const getAllTestResultsByTopic = async (req, res) => {
+    console.log(req.params.topicName);
     const topic = await Topic.findOne({
         where: {
             topicName: req.params.topicName
@@ -54,13 +55,16 @@ const getAllTestResultsByTopic = async (req, res) => {
     })
     
     let finalTestScores = [];
-    for (let index = 0; index < 5; index++) {
-        const testScore = {
-            score: testScores[index].score,
-            user: testScores[index].User.username
+    if (testScores.length > 0) {
+        for (let index = 0; index < 5 && index < testScores.length; index++) {
+            const testScore = {
+                score: testScores[index].score,
+                user: testScores[index].User.username
+            }
+            finalTestScores.push(testScore);
         }
-        finalTestScores.push(testScore);
     }
+    
     res.send(finalTestScores);
 }
 
