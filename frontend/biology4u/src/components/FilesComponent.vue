@@ -100,7 +100,6 @@ export default {
 
         download(fileId) {
             FileService.download(fileId, this.subTopicInfo.id).then((response) => {
-                console.log(response);
                 const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                 const fileLink = document.createElement('a');
                 fileLink.href = fileURL;

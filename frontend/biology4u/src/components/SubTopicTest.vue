@@ -97,7 +97,7 @@ export default {
                     this.userAnswers.push(false);
                     this.selectedOptions.push(null);
                 });
-            }).catch((err) => { console.log("THROWING ERROR"); console.log(err); });
+            }).catch((err) => { console.log(err); });
         },
         startTest() {
             this.startTime = new Date();

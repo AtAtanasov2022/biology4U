@@ -59,11 +59,10 @@ export default createStore({
   actions: {
     signUpUser(context, userInfo) {
       AuthService.register(userInfo).then(response => {
-        console.log(response);
-        console.log(jwt_decode(response.data.token));
         context.commit('setUserInfo', jwt_decode(response.data.token));
         router.push('/main');
       }).catch(err => {
+        alert("Имейлът вече се използва!");
         console.log(err.message);
       })
     },

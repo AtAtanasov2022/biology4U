@@ -106,7 +106,6 @@ export default {
     methods: {
         getQuestions(topicTitle) {
             return QuestionService.getAllQuestionsByTopic(topicTitle).then((response) => {
-                console.log(response);
                 this.questions = response;
                 for (let index = 0; index < this.questions.length; index++) {
                     this.userAnswers.push(false);

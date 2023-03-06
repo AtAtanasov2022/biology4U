@@ -22,7 +22,6 @@ const createUser = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    throw new Error("Cannot create user");
   }
 };
 

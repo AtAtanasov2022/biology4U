@@ -4,14 +4,11 @@ const User = require('../models/User');
 
 const createTestResult = async (req, res) => {
     const {topicName, userId, score} = req.body;
-    console.log(topicName);
-    console.log(userId);
     const topic = await Topic.findOne({
         where: {
             topicName: topicName
         }
     })
-    console.log(topic);
 
     const testResult = await TestResult.create({
         score: score,
@@ -64,7 +61,6 @@ const getAllTestResultsByTopic = async (req, res) => {
         }
         finalTestScores.push(testScore);
     }
-    console.log(finalTestScores);
     res.send(finalTestScores);
 }
 
