@@ -135,24 +135,36 @@ export default {
                 this.userAnswers[this.currentQuestionIndex] = false;
             }
             if (this.currentQuestionIndex === this.questions.length - 1) {
-                for (let index = 0; index < this.selectedOptions.length; index++) {
-                    if (this.selectedOptions[index] == null) {
-                        alert("Попълнете всички въпроси и опитайте отново!");
-                        return;
+                let isValid = this.selectedOptions.some(element => element == null);
+
+                if (!isValid) {
+                    this.finished = true;
+                    this.table = true;
+                    this.endTime = new Date();
+                    for (let index = 0; index < this.userAnswers.length; index++) {
+                        if (this.userAnswers[index] == true) {
+                            this.score++;
+                        }
                     }
+                    this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
+                    TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
+                        this.getScores(this.$route.params.title);
+                    })
+                } else {
+                    alert("Попълнете всички въпроси и опитайте отново!");
                 }
-                this.finished = true;
-                this.table = true;
-                this.endTime = new Date();
-                for (let index = 0; index < this.userAnswers.length; index++) {
-                    if (this.userAnswers[index] == true) {
-                        this.score++;
-                    }
-                }
-                this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
-                TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
-                    this.getScores(this.$route.params.title);
-                })
+                // this.finished = true;
+                // this.table = true;
+                // this.endTime = new Date();
+                // for (let index = 0; index < this.userAnswers.length; index++) {
+                //     if (this.userAnswers[index] == true) {
+                //         this.score++;
+                //     }
+                // }
+                // this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
+                // TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
+                //     this.getScores(this.$route.params.title);
+                // })
             } else {
                 this.currentQuestionIndex++;
             }
