@@ -12,7 +12,6 @@ const getSubTopicInfo = async (req, res, next) => {
     res.status(200).send(result);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 

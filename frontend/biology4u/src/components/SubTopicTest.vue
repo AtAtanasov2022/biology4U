@@ -84,14 +84,9 @@ export default {
         )
     },
 
-    beforeMount() {
-        // this.getQuestions(this.$route.params.id)
-    },
-
     methods: {
         getQuestions(subTopicId) {
             return QuestionService.getAllQuestionsById(subTopicId).then((response) => {
-                console.log(response);
                 this.questions = response;
                 this.questions.forEach(() => {
                     this.userAnswers.push(false);

@@ -34,10 +34,7 @@ const setup = (store) => {
                             refreshToken: TokenService.getLocalRefreshToken(),
                         });
 
-                        // const { accessToken } = rs.data;
-
                         store.dispatch('refreshToken', rs.data);
-                        // TokenService.updateLocalAccessToken(accessToken);
 
                         return axiosInstance(originalConfig);
                     } catch (_error) {

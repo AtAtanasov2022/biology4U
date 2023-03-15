@@ -71,13 +71,10 @@ const downloadFile = async (req, res) => {
         res.setHeader('Content-Type', contentType);
         res.setHeader('Content-Disposition', `attachment; filename=${fileName}`)
         stream.pipe(res);
-        // res.status(200).send({fileName: file.fileName, fileId: file.id});
       } catch (e) {
         console.error(e)
         res.status(500).end();
       }
-
-    // res.download(path.join(__dirname, file.pathName), file.fileName);
 }
 
 module.exports = {

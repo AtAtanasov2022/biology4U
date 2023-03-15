@@ -38,7 +38,6 @@ export default {
         },
         setDefaultValues(questionsRequest) {
             return questionsRequest.then((response) => {
-                console.log(response);
                 this.questions = response;
                 this.questions.forEach(() => {
                     this.userAnswers.push(false);

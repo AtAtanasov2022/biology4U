@@ -4,13 +4,11 @@ import router from '@/router';
 import AuthService from '@/services/auth.service';
 import TopicService from '@/services/topic.service';
 import TokenService from '@/services/token.service';
-// import SubTopicService from '@/services/subTopic.service';
 
 export default createStore({
   state: {
     userInfo: {},
     menuItems: [],
-    // subTopicInfo: {}
     sidebarState:{
       openedTopicId:-1,
       openedSubtopicId:-1
@@ -23,9 +21,6 @@ export default createStore({
     getMenuItems(state) {
       return state.menuItems;
     }, 
-    // getSubTopicInfo(state) {
-    //   return state.subTopicInfo;
-    // }
     sidebarState(state){
       return state.sidebarState;
     }
@@ -48,10 +43,6 @@ export default createStore({
       state.menuItems = topicsAndSubTopicsInfo;
     }, 
     
-    // setSubTopicInfo(state, subTopicInfo) {
-    //   state.subTopicInfo = subTopicInfo;
-    // }
-
     openedTopic(state,sidebarState){
       state.sidebarState = sidebarState;
     }
@@ -96,15 +87,6 @@ export default createStore({
       context.commit('setUserInfo', jwt_decode(newTokens.token))
       TokenService.setUser(newTokens);
     },
-
-    // getSubtopic(context, subTopicId) {
-    //   SubTopicService.getSubtopicInfo(subTopicId).then(response => {
-    //     context.commit("setSubTopicInfo", response);
-    //   })
-    // }
-    // refreshToken (context) {
-
-    // }
   },
   modules: {
   }

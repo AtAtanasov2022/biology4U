@@ -2,15 +2,10 @@
     <div class="mainPage">
         <div class="topicBox">
             <h1 class="topicBoxHeader1">
-                What is Lorem Ipsum?
+                Здравейте!
             </h1>
             <p class="topicBoxParagraph">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                Добре дошли в Biology4U, вашата крайна дестинация за учене и изследване на очарователния свят на биологията! Ние сме развълнувани да ви приемем на борда и нямаме търпение да се впуснем заедно в това вълнуващо пътешествие на открития. Независимо дали сте студент, изследовател или просто човек с голям интерес към биологията, ние имаме по нещо за всеки.</p>
         </div>
     </div>
 </template>

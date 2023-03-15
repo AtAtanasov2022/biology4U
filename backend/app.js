@@ -26,13 +26,11 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "http://localhost:8080", //???
-    // origin: "http://192.168.87.2:8080/",
+    origin: "http://localhost:8080",
     exposedHeaders: ['Content-Disposition']
   })
 );
 
-// app.use(associations);
 app.use(express.json());
 
 app.use(
@@ -47,13 +45,10 @@ app.use(bodyParser.json());
 app.use("/api/v1/users", usersRoutes);
 app.use("/api/v1/topics", topicsRoutes);
 app.use("/api/v1/testResults", testResultsRoutes);
-// app.use("/api/v1/topics", topicsRoutes).use(authenticate);
-// app.use("/api/v1/testResults", testResultsRoutes).use(authenticate);
 app.use("/api/v1/subTopics", subTopicsRoutes).use(authenticate);
 app.use("/api/v1/questions", questionsRoutes).use(authenticate);
 app.use("/api/v1/questionAnswers", questionAnswersRoutes).use(authenticate);
 app.use("/api/v1/comments", commentsRoutes).use(authenticate);
-// app.use("/api/v1/comments", commentsRoutes);
 app.use("/api/v1/additionalFiles", additionalFilesRoutes).use(authenticate);
 app.use("/api/v1/refreshTokens", refreshTokenRoutes).use(authenticate);
 
