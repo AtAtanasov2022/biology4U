@@ -6,10 +6,12 @@ const {
     getTestResultInfo,
     updateTestResultInfo,
     deleteTestResult,
-    getAllTestResults
+    getAllTestResults,
+    getAllTestResultsByTopic
 } = require('../controllers/testResults');
 
 router.route('/').get(getAllTestResults).post(createTestResult);
 router.route('/:id').get(getTestResultInfo).delete(deleteTestResult).put(updateTestResultInfo);
+router.route('/topic/:topicName').get(getAllTestResultsByTopic)
 
 module.exports = router;

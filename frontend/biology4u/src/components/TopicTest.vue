@@ -1,10 +1,12 @@
 <template>
     <div class="mainPage" v-if="currentQuestion">
         <div class="topicBox">
+            <va-data-table v-if="table" :items="scores" />
             <div v-if="!started" class="startQuiz">
                 <button @click="startTest">Започни теста</button>
             </div>
             <div v-else class="quiz">
+
                 <div v-if="!finished">
                     <h2>{{ currentQuestion.question || "NONE" }}</h2>
                     <ul>
@@ -22,8 +24,9 @@
                 </div>
                 <div v-else>
                     <h2>Резултати от теста</h2>
-                    <p>Имаш {{ score }} точки от максимум {{ questions.length }}.</p>
+                    <p>Имаш {{ score }} верни въпроса от {{ questions.length }}.</p>
                     <p>Време: {{ timeTaken }} секунди.</p>
+                    <p>Точки: {{ Math.ceil(finalScore) }}</p>
                 </div>
             </div>
         </div>
@@ -31,23 +34,31 @@
 </template>
 
 <script>
-import QuestionService from "../services/question.service"
+import TestService from "@/services/testResult.service";
+import QuestionService from "../services/question.service";
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
             questions: [],
+            scores: [],
+            userAnswers: [],
+            selectedOptions: [],
             currentQuestionIndex: 0,
             selectedOption: null,
-            selectedOptions: [],
-            userAnswers: [],
             score: 0,
             startTime: null,
             endTime: null,
+            maxTime: null,
             finished: false,
-            started: false
+            started: false,
+            table: true
         };
     },
     computed: {
+        ...mapGetters({
+            user: "getUserInfo",
+        }),
         currentQuestion() {
             return this.questions[this.currentQuestionIndex];
         },
@@ -66,37 +77,50 @@ export default {
 
     created() {
         this.$watch(
-            () => this.$route.params.id,
+            () => this.$route.params.title,
             () => {
                 this.questions = [];
                 this.currentQuestionIndex = 0;
                 this.selectedOption = null;
-                this.selectedOptions = [];
                 this.score = 0;
+                this.finalScore = 0;
                 this.startTime = null;
                 this.endTime = null;
                 this.finished = false;
                 this.started = false;
-                this.userAnswers = [];
-                this.getQuestions(this.$route.params.id);
+                this.table = true;
+                this.getQuestions(this.$route.params.title);
             },
             { immediate: true }
         )
     },
 
+    mounted() {
+        this.getScores(this.$route.params.title)
+    },
+
     methods: {
-        getQuestions(subTopicId) {
-            return QuestionService.getAllQuestionsById(subTopicId).then((response) => {
+        getQuestions(topicTitle) {
+            return QuestionService.getAllQuestionsByTopic(topicTitle).then((response) => {
                 this.questions = response;
-                this.questions.forEach(() => {
+                for (let index = 0; index < this.questions.length; index++) {
                     this.userAnswers.push(false);
                     this.selectedOptions.push(null);
-                });
+                }
             }).catch((err) => { console.log(err); });
+        },
+        getScores(topicTitle) {
+            return TestService.getAllTestResultsByTopic(topicTitle).then((response) => {
+                this.scores = response;
+            }).catch((err) => {
+                console.log(err);
+            })
         },
         startTest() {
             this.startTime = new Date();
+            this.maxTime = (this.startTime / 1000) + (this.questions.length * 60);
             this.started = true;
+            this.table = false;
         },
         checkAnswer() {
             this.selectedOptions[this.currentQuestionIndex] = this.selectedOption;
@@ -110,12 +134,17 @@ export default {
 
                 if (!isValid) {
                     this.finished = true;
+                    this.table = true;
                     this.endTime = new Date();
                     for (let index = 0; index < this.userAnswers.length; index++) {
                         if (this.userAnswers[index] == true) {
                             this.score++;
                         }
                     }
+                    this.finalScore = (this.score / this.questions.length) * (1 - (((this.endTime - this.startTime) / 1000)) / (this.maxTime - this.startTime / 1000)) * 100;
+                    TestService.addTestResult(this.$route.params.title, this.user.userId, Math.ceil(this.finalScore)).then(() => {
+                        this.getScores(this.$route.params.title);
+                    })
                 } else {
                     alert("Попълнете всички въпроси и опитайте отново!");
                 }
@@ -144,8 +173,8 @@ input[type='radio'] {
     padding: 1rem;
     background-color: #D8F3DC;
     border-radius: 1.5rem;
-    width: 75%;
-    height: 20rem;
+    width: 45%;
+    height: 14rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,7 +188,6 @@ input[type='radio'] {
     height: fit-content;
     font-size: large;
 }
-
 
 ul {
     list-style: none;
@@ -202,6 +230,6 @@ button {
     padding: 4rem;
     background-color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 </style>

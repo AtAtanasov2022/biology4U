@@ -1,13 +1,13 @@
 <template>
     <div class="signUpView">
         <div class="inputContainer">
-            <input class="inputField firstInputField" v-model="username" placeholder="Потребителско име:">
-            <input class="inputField" v-model="email" placeholder="Имейл:">
-            <input class="inputField" v-model="password" type="password" placeholder="Парола:">
-            <input class="inputField" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
-            <input class="inputField" v-model="firstname" placeholder="Име:">
-            <input class="inputField" v-model="lastname" placeholder="Фамилия:">
-            <label class="userTypeLabel" for="user-types">Тип на потребителя:</label>
+            <input class="inputField firstInputField" @keyup.enter="signUp" v-model="username" placeholder="Потребителско име:">
+            <input class="inputField" @keyup.enter="signUp" v-model="email" placeholder="Имейл:">
+            <input class="inputField" @keyup.enter="signUp" v-model="password" type="password" placeholder="Парола:">
+            <input class="inputField" @keyup.enter="signUp" v-model="repeatedPassword" type="password" placeholder="Повторете паролата:">
+            <input class="inputField" @keyup.enter="signUp" v-model="firstname" placeholder="Име:">
+            <input class="inputField" @keyup.enter="signUp" v-model="lastname" placeholder="Фамилия:">
+            <label class="userTypeLabel" @keyup.enter="signUp" for="user-types">Тип на потребителя:</label>
             <select v-model="userType" name="user-types" class="userTypeSelect" placeholder="Тип на потребителя">
                 <option value="student">Ученик</option>
                 <option value="teacher">Учител</option>
@@ -16,7 +16,6 @@
         </div>
     </div>
 </template>
-//@keyup.enter="signUp"
 
 <script>
 import store from '@/store';

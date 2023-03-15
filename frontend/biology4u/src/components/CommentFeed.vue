@@ -3,7 +3,7 @@
         <h1>Коментари</h1>
         <div class="addCommentBox">
             <va-input class="mb-6" id="commentInput" v-model="userComment" type="textarea"
-                label="Write your comment here..." autosize />
+                label="Напишете вашият коментар тук" autosize />
             <va-button @click="addComment" size="medium" class="mr-6 mb-2 ml-3" round>Add comment</va-button>
         </div>
         <div class="comment" v-for="comment in comments" :key="comment.id">
@@ -52,7 +52,7 @@ export default {
 
         addComment() {
             if (this.userComment.trim() === "") {
-                this.userComment = "Speechless"; // Handle empty comments later
+                this.userComment = "Безмълвен съм!";
             }
             const subTopicId = this.$route.params.id;
             const commentInfo = {
@@ -89,6 +89,10 @@ export default {
 
 .addCommentBox {
     margin: 1rem 0 0 0;
+}
+
+.addCommentBox va-input {
+    padding: 2rem;
 }
 
 .comment {

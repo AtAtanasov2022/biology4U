@@ -18,9 +18,15 @@
                             <button :disabled="disableOptions" @click.stop="open(`files/${subTopic.id}`)"
                                 class="accordionMenuOption">Допълнителни файлове
                             </button>
+                            <button :disabled="disableOptions" @click.stop="open(`tests/${subTopic.id}`)"
+                                class="accordionMenuOption">Тест на {{ subTopic.subTopicName }}
+                            </button>
                         </div>
                     </va-collapse>
                 </va-accordion>
+                <button :disabled="disableOptions" @click.stop="open(`tests/topic/${group.title}`)"
+                    class="topicTestButton">Тест на {{ group.title }}
+                </button>
             </va-collapse>
         </va-accordion>
     </div>
@@ -155,5 +161,15 @@ export default {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
+}
+
+.topicTestButton {
+    height: 3rem;
+    padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+    background-color: white;
+    width: 98%;
+    border: none;
+    border-radius: 0.35rem;
+    margin: 0.15rem 0rem 0rem 0.35rem;
 }
 </style>

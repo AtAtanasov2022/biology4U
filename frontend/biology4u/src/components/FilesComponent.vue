@@ -12,10 +12,10 @@
                 <button v-on:click="submitFile()">Добавяне</button>
 
             </div>
-            <h2> Допълнителни файлове за {{ subTopicInfo.subTopicName }}</h2>
+            <h1> Допълнителни файлове за {{ subTopicInfo.subTopicName }}</h1>
             <div class="file" v-for="(file, index) in fileNames" :key="index">
-                <h3>{{ file.username }}</h3>
-                <a style="cursor: pointer" @click="download(file.id)">{{ file.fileName }}</a>
+                <h2>{{ file.username }}</h2>
+                <a @click="download(file.id)">{{ file.fileName }}</a>
             </div>
         </div>
     </div>
@@ -78,6 +78,10 @@ export default {
         },
 
         submitFile() {
+            if (this.file == null) {
+                alert("Моля изберете файл!");
+                return;
+            }
             let formData = new FormData();
             formData.append('file', this.file);
             const data = {
@@ -96,7 +100,6 @@ export default {
 
         download(fileId) {
             FileService.download(fileId, this.subTopicInfo.id).then((response) => {
-                console.log(response);
                 const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                 const fileLink = document.createElement('a');
                 fileLink.href = fileURL;
@@ -117,6 +120,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin-left: 30%;
+    font-size: large;
 }
 
 .topicBox {
@@ -130,7 +134,29 @@ export default {
     margin-top: 1.5rem;
 }
 
+.file a {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #40916c;
+}
+
 .addFileContainer {
     margin-bottom: 1.5rem;
 }
+
+.addFileContainer button {
+    background-color: #40916c;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    color: #d8f3dc;
+    margin-top: 0.2rem;
+}
+
+.topicBox {
+    background-color: #D8F3DC;
+    border-radius: 20px;
+    margin-top: 0.5rem;
+}
+
 </style>

@@ -7,6 +7,7 @@ const requestWrapper = (req) => {
       })
       .catch((err) => {
         console.log(err);
+        throw err;
         //TODO:GLOBAL ERROR HANDLING
       });
   };
